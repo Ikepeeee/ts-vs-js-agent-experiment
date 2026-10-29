@@ -1,0 +1,23 @@
+{
+  "name": "v1-04-objects-01: hash-object of an empty file",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "empty",
+      "content": ""
+    },
+    {
+      "run": [
+        "hash-object",
+        "-w",
+        "empty"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

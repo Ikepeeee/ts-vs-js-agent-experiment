@@ -1,0 +1,25 @@
+{
+  "name": "v1-05-add-01: add a single file",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "a.txt",
+      "content": "a\n"
+    },
+    {
+      "write": "b.txt",
+      "content": "b\n"
+    },
+    {
+      "run": [
+        "add",
+        "a.txt"
+      ]
+    }
+  ]
+}

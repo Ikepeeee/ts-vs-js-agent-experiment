@@ -1,0 +1,87 @@
+{
+  "name": "v2-02-config-06: commit uses user.name and user.email from the configuration",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "git": [
+        "config",
+        "user.name",
+        "Config User"
+      ]
+    },
+    {
+      "git": [
+        "config",
+        "user.email",
+        "config@example.com"
+      ]
+    },
+    {
+      "write": "c.txt",
+      "content": "c\n"
+    },
+    {
+      "git": [
+        "add",
+        "c.txt"
+      ]
+    },
+    {
+      "run": [
+        "commit",
+        "-m",
+        "Identity from config"
+      ],
+      "env": {
+        "GIT_AUTHOR_NAME": null,
+        "GIT_AUTHOR_EMAIL": null,
+        "GIT_COMMITTER_NAME": null,
+        "GIT_COMMITTER_EMAIL": null
+      }
+    },
+    {
+      "run": [
+        "log",
+        "-n",
+        "1",
+        "--format=%an <%ae>"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

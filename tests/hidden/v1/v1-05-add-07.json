@@ -1,0 +1,50 @@
+{
+  "name": "v1-05-add-07: a directory replaced by a file",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "thing/a.txt",
+      "content": "a\n"
+    },
+    {
+      "write": "thing/b.txt",
+      "content": "b\n"
+    },
+    {
+      "write": "keep.txt",
+      "content": "k\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "initial"
+      ]
+    },
+    {
+      "delete": "thing"
+    },
+    {
+      "write": "thing",
+      "content": "now a file\n"
+    },
+    {
+      "run": [
+        "add",
+        "-A"
+      ]
+    }
+  ]
+}

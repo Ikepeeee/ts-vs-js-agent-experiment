@@ -1,0 +1,68 @@
+{
+  "name": "v1-05-ignore-02: a wildcard matches in subdirectories",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": ".gitignore",
+      "content": "*.tmp\n"
+    },
+    {
+      "write": "a.tmp",
+      "content": "1\n"
+    },
+    {
+      "write": "src/b.tmp",
+      "content": "2\n"
+    },
+    {
+      "write": "src/lib/c.tmp",
+      "content": "3\n"
+    },
+    {
+      "write": "src/keep.js",
+      "content": "k\n"
+    },
+    {
+      "run": [
+        "status",
+        "--porcelain"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

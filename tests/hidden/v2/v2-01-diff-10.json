@@ -1,0 +1,65 @@
+{
+  "name": "v2-01-diff-10: new file and deleted file headers",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": "brand-new.txt",
+      "content": "fresh\n"
+    },
+    {
+      "git": [
+        "rm",
+        "-q",
+        "src/app.js"
+      ]
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "run": [
+        "diff",
+        "--cached"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

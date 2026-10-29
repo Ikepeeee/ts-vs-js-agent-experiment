@@ -1,0 +1,154 @@
+{
+  "name": "v3-02-rebase-09: commits already upstream are skipped",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Base"
+      ]
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "-c",
+        "topic"
+      ]
+    },
+    {
+      "write": "shared.txt",
+      "content": "same change\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "T1: shared change"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "write": "own.txt",
+      "content": "own\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "T2: own change"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "main"
+      ]
+    },
+    {
+      "write": "shared.txt",
+      "content": "same change\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000180 +0000",
+        "GIT_COMMITTER_DATE": "1700000180 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "M1: the same shared change"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000180 +0000",
+        "GIT_COMMITTER_DATE": "1700000180 +0000"
+      }
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "topic"
+      ]
+    },
+    {
+      "run": [
+        "rebase",
+        "main"
+      ]
+    },
+    {
+      "run": [
+        "log",
+        "--oneline"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

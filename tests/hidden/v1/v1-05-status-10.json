@@ -1,0 +1,59 @@
+{
+  "name": "v1-05-status-10: a staged deletion with the file recreated",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "git": [
+        "rm",
+        "-q",
+        "README.md"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "back again\n"
+    },
+    {
+      "run": [
+        "status",
+        "--porcelain"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

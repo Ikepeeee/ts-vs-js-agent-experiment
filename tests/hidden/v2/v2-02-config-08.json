@@ -1,0 +1,77 @@
+{
+  "name": "v2-02-config-08: case-insensitive names and overwriting a value",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "run": [
+        "config",
+        "Core.Editor",
+        "nano"
+      ]
+    },
+    {
+      "run": [
+        "config",
+        "core.editor"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "config",
+        "core.editor",
+        "emacs"
+      ]
+    },
+    {
+      "run": [
+        "config",
+        "CORE.EDITOR"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "config",
+        "--unset",
+        "no.such"
+      ],
+      "expectExit": 5
+    }
+  ]
+}

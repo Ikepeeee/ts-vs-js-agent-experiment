@@ -1,0 +1,40 @@
+{
+  "name": "v1-06-commit-06: a root commit with nested directories",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "a/b/c/d.txt",
+      "content": "deep\n"
+    },
+    {
+      "write": "a/b/e.txt",
+      "content": "e\n"
+    },
+    {
+      "write": "a/f.txt",
+      "content": "f\n"
+    },
+    {
+      "write": "z.txt",
+      "content": "z\n"
+    },
+    {
+      "git": [
+        "add",
+        "."
+      ]
+    },
+    {
+      "run": [
+        "commit",
+        "-m",
+        "Nested"
+      ]
+    }
+  ]
+}

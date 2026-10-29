@@ -1,0 +1,1552 @@
+[
+  {
+    "name": "v1-02-dispatch-01: unknown command fails",
+    "file": "hidden/v1/v1-02-dispatch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-02-dispatch-02: status outside a repository fails",
+    "file": "hidden/v1/v1-02-dispatch-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-02-dispatch-03: repository is found from a nested subdirectory",
+    "file": "hidden/v1/v1-02-dispatch-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-02-dispatch-04: hash-object works outside a repository",
+    "file": "hidden/v1/v1-02-dispatch-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-01: init -q prints nothing",
+    "file": "hidden/v1/v1-03-init-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-02: init creates nested missing directories",
+    "file": "hidden/v1/v1-03-init-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-03: init --bare",
+    "file": "hidden/v1/v1-03-init-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-04: init -b sets the initial branch",
+    "file": "hidden/v1/v1-03-init-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-05: init --initial-branch= form",
+    "file": "hidden/v1/v1-03-init-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-06: reinitializing an existing repository",
+    "file": "hidden/v1/v1-03-init-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-07: real git can add and commit in a tgit-created repository",
+    "file": "hidden/v1/v1-03-init-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-08: reinitializing with -b on a repository that has commits",
+    "file": "hidden/v1/v1-03-init-08.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-01: hash-object of an empty file",
+    "file": "hidden/v1/v1-04-objects-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-02: hash-object of binary content",
+    "file": "hidden/v1/v1-04-objects-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-03: hash-object of a large file",
+    "file": "hidden/v1/v1-04-objects-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-04: hash-object -w with several files",
+    "file": "hidden/v1/v1-04-objects-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-05: hash-object --stdin -w",
+    "file": "hidden/v1/v1-04-objects-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-06: hash-object -t commit rejects invalid content",
+    "file": "hidden/v1/v1-04-objects-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-07: hash-object -t tree rejects invalid content",
+    "file": "hidden/v1/v1-04-objects-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-08: hash-object -t commit writes a valid commit",
+    "file": "hidden/v1/v1-04-objects-08.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-09: cat-file -p of a commit",
+    "file": "hidden/v1/v1-04-objects-09.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-10: cat-file -p of a tree with modes",
+    "file": "hidden/v1/v1-04-objects-10.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-11: cat-file -s of a blob and a commit",
+    "file": "hidden/v1/v1-04-objects-11.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-12: cat-file -e for existing and missing objects",
+    "file": "hidden/v1/v1-04-objects-12.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-13: cat-file <type> <object>",
+    "file": "hidden/v1/v1-04-objects-13.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-14: cat-file on an annotated tag object",
+    "file": "hidden/v1/v1-04-objects-14.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-15: trees written by tgit use git's entry order",
+    "file": "hidden/v1/v1-04-objects-15.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-16: trees written by tgit use git's modes",
+    "file": "hidden/v1/v1-04-objects-16.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-17: cat-file with an abbreviated object ID",
+    "file": "hidden/v1/v1-04-objects-17.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-18: cat-file with an invalid object name fails",
+    "file": "hidden/v1/v1-04-objects-18.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-01: add a directory",
+    "file": "hidden/v1/v1-05-add-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-02: add -A stages new, modified, and deleted files",
+    "file": "hidden/v1/v1-05-add-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-03: add -u stages only tracked files",
+    "file": "hidden/v1/v1-05-add-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-04: adding an ignored path fails",
+    "file": "hidden/v1/v1-05-add-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-05: adding a missing path fails",
+    "file": "hidden/v1/v1-05-add-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-06: a file replaced by a directory",
+    "file": "hidden/v1/v1-05-add-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-07: a directory replaced by a file",
+    "file": "hidden/v1/v1-05-add-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-08: paths with spaces, non-ASCII characters, and a leading dash",
+    "file": "hidden/v1/v1-05-add-08.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-09: add . from a subdirectory adds only that subdirectory",
+    "file": "hidden/v1/v1-05-add-09.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-10: add an executable file and a symlink",
+    "file": "hidden/v1/v1-05-add-10.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ignore-01: comments and blank lines",
+    "file": "hidden/v1/v1-05-ignore-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ignore-02: a wildcard matches in subdirectories",
+    "file": "hidden/v1/v1-05-ignore-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ignore-03: a directory pattern",
+    "file": "hidden/v1/v1-05-ignore-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ignore-04: an anchored pattern matches only at the root",
+    "file": "hidden/v1/v1-05-ignore-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ignore-05: a directory pattern does not match a file",
+    "file": "hidden/v1/v1-05-ignore-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ls-files-01: ls-files -s shows modes and stages",
+    "file": "hidden/v1/v1-05-ls-files-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ls-files-02: ls-files -o lists untracked files",
+    "file": "hidden/v1/v1-05-ls-files-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ls-files-03: ls-files -o --exclude-standard",
+    "file": "hidden/v1/v1-05-ls-files-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ls-files-04: ls-files -c from a subdirectory",
+    "file": "hidden/v1/v1-05-ls-files-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ls-files-05: ls-files quotes special paths",
+    "file": "hidden/v1/v1-05-ls-files-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-rm-01: rm --cached keeps the working tree file",
+    "file": "hidden/v1/v1-05-rm-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-rm-02: rm -r a directory",
+    "file": "hidden/v1/v1-05-rm-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-rm-03: rm of a file with local changes fails",
+    "file": "hidden/v1/v1-05-rm-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-rm-04: rm -f of a file with local changes",
+    "file": "hidden/v1/v1-05-rm-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-rm-05: rm of an untracked path fails",
+    "file": "hidden/v1/v1-05-rm-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-rm-06: rm of a directory without -r fails",
+    "file": "hidden/v1/v1-05-rm-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-01: untracked directories are shown as dir/",
+    "file": "hidden/v1/v1-05-status-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-02: staged addition, modification, and deletion",
+    "file": "hidden/v1/v1-05-status-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-03: unstaged modification and deletion",
+    "file": "hidden/v1/v1-05-status-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-04: a file staged and then modified again",
+    "file": "hidden/v1/v1-05-status-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-05: ignored files are not shown",
+    "file": "hidden/v1/v1-05-status-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-06: a repository with no commits yet",
+    "file": "hidden/v1/v1-05-status-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-07: status -s",
+    "file": "hidden/v1/v1-05-status-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-08: status --porcelain from a subdirectory",
+    "file": "hidden/v1/v1-05-status-08.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-09: status quotes special paths",
+    "file": "hidden/v1/v1-05-status-09.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-10: a staged deletion with the file recreated",
+    "file": "hidden/v1/v1-05-status-10.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-11: a mode change only",
+    "file": "hidden/v1/v1-05-status-11.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-12: a clean working tree",
+    "file": "hidden/v1/v1-05-status-12.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-01: create a branch at a given commit",
+    "file": "hidden/v1/v1-06-branch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-02: -d of an unmerged branch fails",
+    "file": "hidden/v1/v1-06-branch-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-03: -D of an unmerged branch",
+    "file": "hidden/v1/v1-06-branch-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-04: -m renames the current branch",
+    "file": "hidden/v1/v1-06-branch-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-05: creating an existing branch fails",
+    "file": "hidden/v1/v1-06-branch-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-06: listing with a detached HEAD",
+    "file": "hidden/v1/v1-06-branch-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-07: creating a branch on an unborn branch fails",
+    "file": "hidden/v1/v1-06-branch-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-01: repeated -m become paragraphs",
+    "file": "hidden/v1/v1-06-commit-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-02: commit -a stages deletions but not untracked files",
+    "file": "hidden/v1/v1-06-commit-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-03: commit --allow-empty",
+    "file": "hidden/v1/v1-06-commit-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-04: commit --amend",
+    "file": "hidden/v1/v1-06-commit-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-05: nothing to commit fails",
+    "file": "hidden/v1/v1-06-commit-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-06: a root commit with nested directories",
+    "file": "hidden/v1/v1-06-commit-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-07: amending the root commit",
+    "file": "hidden/v1/v1-06-commit-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-08: commit from a subdirectory",
+    "file": "hidden/v1/v1-06-commit-08.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-09: a commit that removes every file",
+    "file": "hidden/v1/v1-06-commit-09.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-01: --format with every supported placeholder",
+    "file": "hidden/v1/v1-06-log-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-02: -n limits the number of commits",
+    "file": "hidden/v1/v1-06-log-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-03: path limiting",
+    "file": "hidden/v1/v1-06-log-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-04: log on an unborn branch",
+    "file": "hidden/v1/v1-06-log-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-05: a multi-paragraph message with %b",
+    "file": "hidden/v1/v1-06-log-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-06: dates and names from different authors",
+    "file": "hidden/v1/v1-06-log-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-07: path limiting from a subdirectory",
+    "file": "hidden/v1/v1-06-log-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-08: -n with --format",
+    "file": "hidden/v1/v1-06-log-08.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-reset-01: reset --soft",
+    "file": "hidden/v1/v1-06-reset-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-reset-02: reset defaults to --mixed",
+    "file": "hidden/v1/v1-06-reset-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-reset-03: reset --hard removes a staged new file",
+    "file": "hidden/v1/v1-06-reset-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-reset-04: reset -- path unstages a file",
+    "file": "hidden/v1/v1-06-reset-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-reset-05: reset <commit> -- path",
+    "file": "hidden/v1/v1-06-reset-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-reset-06: reset --hard keeps untracked files",
+    "file": "hidden/v1/v1-06-reset-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-01: ref names",
+    "file": "hidden/v1/v1-06-rev-parse-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-02: abbreviated object IDs",
+    "file": "hidden/v1/v1-06-rev-parse-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-03: ~n, ^, and combinations",
+    "file": "hidden/v1/v1-06-rev-parse-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-04: --short",
+    "file": "hidden/v1/v1-06-rev-parse-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-05: --abbrev-ref on a branch and on a detached HEAD",
+    "file": "hidden/v1/v1-06-rev-parse-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-06: invalid revisions",
+    "file": "hidden/v1/v1-06-rev-parse-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-07: an unborn HEAD",
+    "file": "hidden/v1/v1-06-rev-parse-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-show-01: show --no-patch of an earlier commit",
+    "file": "hidden/v1/v1-06-show-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-show-02: show -s with a multi-paragraph message and non-ASCII author",
+    "file": "hidden/v1/v1-06-show-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-01: switch -c",
+    "file": "hidden/v1/v1-06-switch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-02: switch --detach",
+    "file": "hidden/v1/v1-06-switch-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-03: checkout of a commit detaches HEAD",
+    "file": "hidden/v1/v1-06-switch-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-04: checkout -- path restores files",
+    "file": "hidden/v1/v1-06-switch-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-05: non-conflicting local changes are carried over",
+    "file": "hidden/v1/v1-06-switch-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-06: conflicting local changes make switching fail",
+    "file": "hidden/v1/v1-06-switch-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-07: switching adds and removes files and directories",
+    "file": "hidden/v1/v1-06-switch-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-08: switching changes modes and symlinks",
+    "file": "hidden/v1/v1-06-switch-08.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-09: switching to a missing branch fails",
+    "file": "hidden/v1/v1-06-switch-09.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-tag-01: create a tag at a given commit",
+    "file": "hidden/v1/v1-06-tag-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-tag-02: tag -d",
+    "file": "hidden/v1/v1-06-tag-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-tag-03: creating an existing tag fails",
+    "file": "hidden/v1/v1-06-tag-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-tag-04: tags are listed in byte order",
+    "file": "hidden/v1/v1-06-tag-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-01: working tree vs. index ignores untracked files",
+    "file": "hidden/v2/v2-01-diff-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-02: diff --cached with staged and unstaged changes",
+    "file": "hidden/v2/v2-01-diff-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-03: diff --cached with no commits yet",
+    "file": "hidden/v2/v2-01-diff-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-04: diff between two commits",
+    "file": "hidden/v2/v2-01-diff-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-05: diff with path limiting",
+    "file": "hidden/v2/v2-01-diff-05.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-06: diff --stat between commits",
+    "file": "hidden/v2/v2-01-diff-06.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-07: --stat with long paths and a narrow COLUMNS",
+    "file": "hidden/v2/v2-01-diff-07.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-08: diff --name-only",
+    "file": "hidden/v2/v2-01-diff-08.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-09: diff --name-status with added, modified, and deleted files",
+    "file": "hidden/v2/v2-01-diff-09.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-10: new file and deleted file headers",
+    "file": "hidden/v2/v2-01-diff-10.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-11: old mode and new mode headers",
+    "file": "hidden/v2/v2-01-diff-11.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-12: no newline at end of file",
+    "file": "hidden/v2/v2-01-diff-12.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-13: binary files",
+    "file": "hidden/v2/v2-01-diff-13.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-14: empty files",
+    "file": "hidden/v2/v2-01-diff-14.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-15: CRLF line endings",
+    "file": "hidden/v2/v2-01-diff-15.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-16: changes far apart produce separate hunks",
+    "file": "hidden/v2/v2-01-diff-16.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-17: changes close together share one hunk",
+    "file": "hidden/v2/v2-01-diff-17.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-18: inserting a function between functions",
+    "file": "hidden/v2/v2-01-diff-18.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-19: repeated lines make the match ambiguous",
+    "file": "hidden/v2/v2-01-diff-19.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-20: rewriting a whole file",
+    "file": "hidden/v2/v2-01-diff-20.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-21: diff from a subdirectory",
+    "file": "hidden/v2/v2-01-diff-21.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-22: function names in hunk headers",
+    "file": "hidden/v2/v2-01-diff-22.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-show-log-p-01: log -p",
+    "file": "hidden/v2/v2-01-show-log-p-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-show-log-p-02: show of the root commit",
+    "file": "hidden/v2/v2-01-show-log-p-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-show-log-p-03: show of a merge commit",
+    "file": "hidden/v2/v2-01-show-log-p-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-show-log-p-04: log -p with -n and path limiting",
+    "file": "hidden/v2/v2-01-show-log-p-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-02-config-01: getting a missing key fails",
+    "file": "hidden/v2/v2-02-config-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-02-config-02: --unset",
+    "file": "hidden/v2/v2-02-config-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-02-config-03: --list",
+    "file": "hidden/v2/v2-02-config-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-02-config-04: values with spaces, quotes, and #",
+    "file": "hidden/v2/v2-02-config-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-02-config-05: subsections",
+    "file": "hidden/v2/v2-02-config-05.json",
+    "ok": true
+  },
+  {
+    "name": "v2-02-config-06: commit uses user.name and user.email from the configuration",
+    "file": "hidden/v2/v2-02-config-06.json",
+    "ok": true
+  },
+  {
+    "name": "v2-02-config-07: environment variables take precedence over the configuration",
+    "file": "hidden/v2/v2-02-config-07.json",
+    "ok": true
+  },
+  {
+    "name": "v2-02-config-08: case-insensitive names and overwriting a value",
+    "file": "hidden/v2/v2-02-config-08.json",
+    "ok": true
+  },
+  {
+    "name": "v2-03-ignore-01: negation re-includes a file",
+    "file": "hidden/v2/v2-03-ignore-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-03-ignore-02: a leading ** pattern",
+    "file": "hidden/v2/v2-03-ignore-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-03-ignore-03: a/**/b patterns",
+    "file": "hidden/v2/v2-03-ignore-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-03-ignore-04: a .gitignore in a subdirectory overrides the root one",
+    "file": "hidden/v2/v2-03-ignore-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-03-ignore-05: .git/info/exclude",
+    "file": "hidden/v2/v2-03-ignore-05.json",
+    "ok": true
+  },
+  {
+    "name": "v2-03-ignore-06: trailing spaces",
+    "file": "hidden/v2/v2-03-ignore-06.json",
+    "ok": true
+  },
+  {
+    "name": "v2-03-ignore-07: escaped # and !",
+    "file": "hidden/v2/v2-03-ignore-07.json",
+    "ok": true
+  },
+  {
+    "name": "v2-03-ignore-08: a file inside an ignored directory cannot be re-included",
+    "file": "hidden/v2/v2-03-ignore-08.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-01: fast-forward",
+    "file": "hidden/v2/v2-04-merge-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-02: --no-ff creates a merge commit",
+    "file": "hidden/v2/v2-04-merge-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-03: --ff-only when fast-forward is possible",
+    "file": "hidden/v2/v2-04-merge-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-04: --ff-only fails when fast-forward is not possible",
+    "file": "hidden/v2/v2-04-merge-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-05: three-way merge of different files",
+    "file": "hidden/v2/v2-04-merge-05.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-06: three-way merge of different regions of one file",
+    "file": "hidden/v2/v2-04-merge-06.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-07: merge -m",
+    "file": "hidden/v2/v2-04-merge-07.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-08: already up to date",
+    "file": "hidden/v2/v2-04-merge-08.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-09: conflict on the same lines",
+    "file": "hidden/v2/v2-04-merge-09.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-10: add/add conflict",
+    "file": "hidden/v2/v2-04-merge-10.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-11: modify/delete conflict",
+    "file": "hidden/v2/v2-04-merge-11.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-12: delete/modify conflict",
+    "file": "hidden/v2/v2-04-merge-12.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-13: binary conflict",
+    "file": "hidden/v2/v2-04-merge-13.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-14: resolving a conflict and committing",
+    "file": "hidden/v2/v2-04-merge-14.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-15: merge --abort after a conflict",
+    "file": "hidden/v2/v2-04-merge-15.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-16: local changes that would be overwritten",
+    "file": "hidden/v2/v2-04-merge-16.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-17: an untracked file that would be overwritten",
+    "file": "hidden/v2/v2-04-merge-17.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-18: merging a commit ID instead of a branch",
+    "file": "hidden/v2/v2-04-merge-18.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-19: a conflict in one file and a clean change in another",
+    "file": "hidden/v2/v2-04-merge-19.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-20: merging into a branch other than main",
+    "file": "hidden/v2/v2-04-merge-20.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-base-01: merge-base of diverged branches",
+    "file": "hidden/v2/v2-04-merge-base-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-base-02: one commit is an ancestor of the other",
+    "file": "hidden/v2/v2-04-merge-base-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-base-03: --all with criss-cross history",
+    "file": "hidden/v2/v2-04-merge-base-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-base-04: criss-cross history without --all",
+    "file": "hidden/v2/v2-04-merge-base-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-base-05: unrelated histories",
+    "file": "hidden/v2/v2-04-merge-base-05.json",
+    "ok": true
+  },
+  {
+    "name": "v2-05-annotated-tag-01: tag -a and show",
+    "file": "hidden/v2/v2-05-annotated-tag-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-05-annotated-tag-02: tag -a at a given commit",
+    "file": "hidden/v2/v2-05-annotated-tag-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-05-annotated-tag-03: the tagger comes from the committer variables",
+    "file": "hidden/v2/v2-05-annotated-tag-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-05-annotated-tag-04: a multi-line tag message",
+    "file": "hidden/v2/v2-05-annotated-tag-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-01: stash with no subcommand",
+    "file": "hidden/v2/v2-06-stash-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-02: stash apply keeps the entry",
+    "file": "hidden/v2/v2-06-stash-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-03: stash drop",
+    "file": "hidden/v2/v2-06-stash-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-04: several stash entries",
+    "file": "hidden/v2/v2-06-stash-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-05: staged and unstaged changes",
+    "file": "hidden/v2/v2-06-stash-05.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-06: pop with conflicting local changes fails",
+    "file": "hidden/v2/v2-06-stash-06.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-07: stash with no local changes",
+    "file": "hidden/v2/v2-06-stash-07.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-08: stash a deleted file",
+    "file": "hidden/v2/v2-06-stash-08.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-09: pop that conflicts with a later commit keeps the entry",
+    "file": "hidden/v2/v2-06-stash-09.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-01: a clean pick produces the same commit",
+    "file": "hidden/v3/v3-01-cherry-pick-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-02: pick a commit that adds a file",
+    "file": "hidden/v3/v3-01-cherry-pick-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-03: a conflict leaves the in-progress state",
+    "file": "hidden/v3/v3-01-cherry-pick-03.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-04: resolve and --continue",
+    "file": "hidden/v3/v3-01-cherry-pick-04.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-05: --abort restores the previous state",
+    "file": "hidden/v3/v3-01-cherry-pick-05.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-06: picking changes that are already present",
+    "file": "hidden/v3/v3-01-cherry-pick-06.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-07: pick a commit that deletes a file",
+    "file": "hidden/v3/v3-01-cherry-pick-07.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-08: a pick that applies at shifted line numbers",
+    "file": "hidden/v3/v3-01-cherry-pick-08.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-09: unrelated local changes are kept",
+    "file": "hidden/v3/v3-01-cherry-pick-09.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-10: local changes to the same file block the pick",
+    "file": "hidden/v3/v3-01-cherry-pick-10.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-revert-01: revert an older commit",
+    "file": "hidden/v3/v3-01-revert-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-revert-02: revert a commit that added a file",
+    "file": "hidden/v3/v3-01-revert-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-revert-03: revert a commit with a multi-paragraph message",
+    "file": "hidden/v3/v3-01-revert-03.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-revert-04: revert a revert",
+    "file": "hidden/v3/v3-01-revert-04.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-revert-05: unrelated local changes are kept",
+    "file": "hidden/v3/v3-01-revert-05.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-01: rebase <upstream> without conflicts",
+    "file": "hidden/v3/v3-02-rebase-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-02: rebase when already up to date",
+    "file": "hidden/v3/v3-02-rebase-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-03: rebase --onto",
+    "file": "hidden/v3/v3-02-rebase-03.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-04: a conflict stops the rebase",
+    "file": "hidden/v3/v3-02-rebase-04.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-05: resolve, add, and --continue",
+    "file": "hidden/v3/v3-02-rebase-05.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-06: --abort restores the branch and HEAD",
+    "file": "hidden/v3/v3-02-rebase-06.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-07: the second of several commits conflicts",
+    "file": "hidden/v3/v3-02-rebase-07.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-08: a branch with no commits of its own fast-forwards",
+    "file": "hidden/v3/v3-02-rebase-08.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-09: commits already upstream are skipped",
+    "file": "hidden/v3/v3-02-rebase-09.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-10: merge commits in the range are dropped",
+    "file": "hidden/v3/v3-02-rebase-10.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-11: --onto with a range that leaves out commits",
+    "file": "hidden/v3/v3-02-rebase-11.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-12: rebase with unstaged changes fails",
+    "file": "hidden/v3/v3-02-rebase-12.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-01: the first commit and an amend",
+    "file": "hidden/v3/v3-03-reflog-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-02: checkout and switch",
+    "file": "hidden/v3/v3-03-reflog-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-03: reset",
+    "file": "hidden/v3/v3-03-reflog-03.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-04: fast-forward and non-fast-forward merges",
+    "file": "hidden/v3/v3-03-reflog-04.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-05: branch creation and renaming",
+    "file": "hidden/v3/v3-03-reflog-05.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-06: cherry-pick and revert",
+    "file": "hidden/v3/v3-03-reflog-06.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-07: rebase",
+    "file": "hidden/v3/v3-03-reflog-07.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-08: reflog show <ref> after several operations",
+    "file": "hidden/v3/v3-03-reflog-08.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-09: the first commit in a new repository",
+    "file": "hidden/v3/v3-03-reflog-09.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-10: commits on a detached HEAD",
+    "file": "hidden/v3/v3-03-reflog-10.json",
+    "ok": true
+  },
+  {
+    "name": "v3-04-packed-refs-01: branch listing and log from packed refs",
+    "file": "hidden/v3/v3-04-packed-refs-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-04-packed-refs-02: a loose ref takes precedence over a packed one",
+    "file": "hidden/v3/v3-04-packed-refs-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-04-packed-refs-03: pack-refs --all",
+    "file": "hidden/v3/v3-04-packed-refs-03.json",
+    "ok": true
+  },
+  {
+    "name": "v3-04-packed-refs-04: deleting a branch that exists only in packed-refs",
+    "file": "hidden/v3/v3-04-packed-refs-04.json",
+    "ok": true
+  },
+  {
+    "name": "v3-04-packed-refs-05: deleting a tag that exists only in packed-refs",
+    "file": "hidden/v3/v3-04-packed-refs-05.json",
+    "ok": true
+  },
+  {
+    "name": "v3-04-packed-refs-06: pack-refs with annotated tags writes peeled lines",
+    "file": "hidden/v3/v3-04-packed-refs-06.json",
+    "ok": true
+  },
+  {
+    "name": "v3-04-packed-refs-07: renaming a branch that exists only in packed-refs",
+    "file": "hidden/v3/v3-04-packed-refs-07.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-01: cat-file -p of packed blobs",
+    "file": "hidden/v3/v3-05-packfile-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-02: full log after gc",
+    "file": "hidden/v3/v3-05-packfile-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-03: REF_DELTA objects",
+    "file": "hidden/v3/v3-05-packfile-03.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-04: deep delta chains",
+    "file": "hidden/v3/v3-05-packfile-04.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-05: packed and loose objects together",
+    "file": "hidden/v3/v3-05-packfile-05.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-06: status and ls-files after gc",
+    "file": "hidden/v3/v3-05-packfile-06.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-07: diff between packed commits",
+    "file": "hidden/v3/v3-05-packfile-07.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-08: switch and checkout in a packed repository",
+    "file": "hidden/v3/v3-05-packfile-08.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-09: commit on top of a packed repository",
+    "file": "hidden/v3/v3-05-packfile-09.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-10: merge in a packed repository",
+    "file": "hidden/v3/v3-05-packfile-10.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-11: abbreviated IDs of packed objects",
+    "file": "hidden/v3/v3-05-packfile-11.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-12: sizes of deltified objects",
+    "file": "hidden/v3/v3-05-packfile-12.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-13: cherry-pick in a packed repository",
+    "file": "hidden/v3/v3-05-packfile-13.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-14: a large binary file in a pack",
+    "file": "hidden/v3/v3-05-packfile-14.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-15: several packs",
+    "file": "hidden/v3/v3-05-packfile-15.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-16: packed annotated tags",
+    "file": "hidden/v3/v3-05-packfile-16.json",
+    "ok": true
+  },
+  {
+    "name": "v1-02-dispatch-01: a command outside a repository fails",
+    "file": ".validate/v1/v1-02-dispatch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-01: init with no arguments",
+    "file": ".validate/v1/v1-03-init-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-02: init with a directory argument",
+    "file": ".validate/v1/v1-03-init-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-01: hash-object prints the blob ID",
+    "file": ".validate/v1/v1-04-objects-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-02: hash-object -w then cat-file -p",
+    "file": ".validate/v1/v1-04-objects-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-03: cat-file -t of HEAD",
+    "file": ".validate/v1/v1-04-objects-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-01: add a single file",
+    "file": ".validate/v1/v1-05-add-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-02: add .",
+    "file": ".validate/v1/v1-05-add-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ignore-01: .gitignore with a wildcard",
+    "file": ".validate/v1/v1-05-ignore-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ls-files-01: ls-files lists tracked files",
+    "file": ".validate/v1/v1-05-ls-files-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-rm-01: rm a committed file",
+    "file": ".validate/v1/v1-05-rm-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-01: status --porcelain with untracked and staged files",
+    "file": ".validate/v1/v1-05-status-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-02: status normal output exit code",
+    "file": ".validate/v1/v1-05-status-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-01: create and list branches",
+    "file": ".validate/v1/v1-06-branch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-02: branch -d of a merged branch",
+    "file": ".validate/v1/v1-06-branch-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-01: commit -m",
+    "file": ".validate/v1/v1-06-commit-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-02: commit -a",
+    "file": ".validate/v1/v1-06-commit-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-01: log --oneline",
+    "file": ".validate/v1/v1-06-log-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-02: log default output",
+    "file": ".validate/v1/v1-06-log-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-reset-01: reset --hard HEAD~1",
+    "file": ".validate/v1/v1-06-reset-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-01: rev-parse HEAD",
+    "file": ".validate/v1/v1-06-rev-parse-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-show-01: show -s HEAD",
+    "file": ".validate/v1/v1-06-show-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-01: switch to another branch",
+    "file": ".validate/v1/v1-06-switch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-02: checkout -b",
+    "file": ".validate/v1/v1-06-switch-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-tag-01: create and list tags",
+    "file": ".validate/v1/v1-06-tag-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-01: diff of a modified file",
+    "file": ".validate/v2/v2-01-diff-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-02: diff --cached",
+    "file": ".validate/v2/v2-01-diff-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-03: diff --stat",
+    "file": ".validate/v2/v2-01-diff-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-04: diff --name-status between commits",
+    "file": ".validate/v2/v2-01-diff-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-show-log-p-01: show of a commit with its patch",
+    "file": ".validate/v2/v2-01-show-log-p-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-02-config-01: set and get a value",
+    "file": ".validate/v2/v2-02-config-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-03-ignore-01: a negated pattern",
+    "file": ".validate/v2/v2-03-ignore-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-01: fast-forward merge",
+    "file": ".validate/v2/v2-04-merge-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-02: three-way merge without conflicts",
+    "file": ".validate/v2/v2-04-merge-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-03: a conflicting merge",
+    "file": ".validate/v2/v2-04-merge-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-04: merge --abort",
+    "file": ".validate/v2/v2-04-merge-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-base-01: merge-base of two branches",
+    "file": ".validate/v2/v2-04-merge-base-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-05-annotated-tag-01: tag -a and cat-file -p",
+    "file": ".validate/v2/v2-05-annotated-tag-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-01: stash push and stash list",
+    "file": ".validate/v2/v2-06-stash-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-02: stash pop",
+    "file": ".validate/v2/v2-06-stash-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-01: cherry-pick a commit",
+    "file": ".validate/v3/v3-01-cherry-pick-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-02: cherry-pick conflict and --abort",
+    "file": ".validate/v3/v3-01-cherry-pick-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-revert-01: revert --no-edit HEAD",
+    "file": ".validate/v3/v3-01-revert-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-01: rebase onto an upstream branch",
+    "file": ".validate/v3/v3-02-rebase-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-02: rebase --abort after a conflict",
+    "file": ".validate/v3/v3-02-rebase-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-01: reflog after commits",
+    "file": ".validate/v3/v3-03-reflog-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-02: reflog show of a branch",
+    "file": ".validate/v3/v3-03-reflog-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-04-packed-refs-01: resolve a ref stored in packed-refs",
+    "file": ".validate/v3/v3-04-packed-refs-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-01: cat-file after git gc",
+    "file": ".validate/v3/v3-05-packfile-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-02: log after git gc",
+    "file": ".validate/v3/v3-05-packfile-02.json",
+    "ok": true
+  }
+]

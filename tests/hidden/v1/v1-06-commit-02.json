@@ -1,0 +1,60 @@
+{
+  "name": "v1-06-commit-02: commit -a stages deletions but not untracked files",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "delete": "docs/guide.txt"
+    },
+    {
+      "write": "src/app.js",
+      "content": "changed\n"
+    },
+    {
+      "write": "untracked.txt",
+      "content": "u\n"
+    },
+    {
+      "run": [
+        "commit",
+        "-a",
+        "-m",
+        "Delete and modify"
+      ]
+    }
+  ]
+}

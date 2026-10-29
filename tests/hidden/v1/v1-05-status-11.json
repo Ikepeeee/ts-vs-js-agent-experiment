@@ -1,0 +1,40 @@
+{
+  "name": "v1-05-status-11: a mode change only",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "script.sh",
+      "content": "#!/bin/sh\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "c"
+      ]
+    },
+    {
+      "chmod": "script.sh",
+      "mode": "755"
+    },
+    {
+      "run": [
+        "status",
+        "--porcelain"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

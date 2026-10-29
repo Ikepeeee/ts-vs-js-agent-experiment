@@ -1,14 +1,3 @@
 .env
 .lask/
 playground/
-
-# Hidden tests and what reveals them: kept off the public repository until every trial
-# has finished (experiment-design.md chapter 11). They exist only on the experiment machine.
-tests/hidden/
-tests/.validate/
-tests/src/
-tests/random/
-tests/realrepo/
-tests/validation-logs/
-freeze/
-results/

@@ -1,0 +1,62 @@
+{
+  "name": "v2-02-config-03: --list",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "git": [
+        "config",
+        "user.name",
+        "Someone"
+      ]
+    },
+    {
+      "git": [
+        "config",
+        "color.ui",
+        "false"
+      ]
+    },
+    {
+      "run": [
+        "config",
+        "--list"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "name": "v1-06-switch-07: switching adds and removes files and directories",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "-c",
+        "other"
+      ]
+    },
+    {
+      "git": [
+        "rm",
+        "-r",
+        "-q",
+        "src"
+      ]
+    },
+    {
+      "write": "extra/deep/file.txt",
+      "content": "e\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Restructure"
+      ]
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "main"
+      ]
+    },
+    {
+      "run": [
+        "switch",
+        "other"
+      ]
+    },
+    {
+      "run": [
+        "checkout",
+        "main"
+      ]
+    }
+  ]
+}

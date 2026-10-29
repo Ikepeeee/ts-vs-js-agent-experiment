@@ -1,0 +1,12 @@
+{
+  "name": "v1-03-init-01: init -q prints nothing",
+  "steps": [
+    {
+      "run": [
+        "init",
+        "-q"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

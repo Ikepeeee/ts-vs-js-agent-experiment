@@ -1,0 +1,178 @@
+{
+  "name": "v3-02-rebase-12: rebase with unstaged changes fails",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Base"
+      ]
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "-c",
+        "topic"
+      ]
+    },
+    {
+      "write": "topic.txt",
+      "content": "topic 1\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "T1: add topic.txt"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('topic');\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "T2: change app"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "main"
+      ]
+    },
+    {
+      "write": "main.txt",
+      "content": "main 1\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000180 +0000",
+        "GIT_COMMITTER_DATE": "1700000180 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "M1: add main.txt"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000180 +0000",
+        "GIT_COMMITTER_DATE": "1700000180 +0000"
+      }
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\nMain edit.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000240 +0000",
+        "GIT_COMMITTER_DATE": "1700000240 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "M2: edit guide"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000240 +0000",
+        "GIT_COMMITTER_DATE": "1700000240 +0000"
+      }
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "topic"
+      ]
+    },
+    {
+      "write": "topic.txt",
+      "content": "dirty\n"
+    },
+    {
+      "run": [
+        "rebase",
+        "main"
+      ],
+      "expectExit": 1
+    }
+  ]
+}

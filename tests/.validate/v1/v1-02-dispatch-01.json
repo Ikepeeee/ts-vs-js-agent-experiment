@@ -1,0 +1,12 @@
+{
+  "name": "v1-02-dispatch-01: a command outside a repository fails",
+  "steps": [
+    {
+      "run": [
+        "log"
+      ],
+      "matchOutput": true,
+      "expectExit": 128
+    }
+  ]
+}

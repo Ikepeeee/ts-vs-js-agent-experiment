@@ -1,0 +1,36 @@
+{
+  "name": "v1-05-status-09: status quotes special paths",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "with space.txt",
+      "content": "x\n"
+    },
+    {
+      "write": "日本語.txt",
+      "content": "x\n"
+    },
+    {
+      "write": "-dash.txt",
+      "content": "x\n"
+    },
+    {
+      "git": [
+        "add",
+        "日本語.txt"
+      ]
+    },
+    {
+      "run": [
+        "status",
+        "--porcelain"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

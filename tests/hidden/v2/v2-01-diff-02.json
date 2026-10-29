@@ -1,0 +1,78 @@
+{
+  "name": "v2-01-diff-02: diff --cached with staged and unstaged changes",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "staged\n"
+    },
+    {
+      "git": [
+        "add",
+        "README.md"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "unstaged\n"
+    },
+    {
+      "write": "new.txt",
+      "content": "n\n"
+    },
+    {
+      "git": [
+        "add",
+        "new.txt"
+      ]
+    },
+    {
+      "run": [
+        "diff",
+        "--cached"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "diff"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "name": "v2-01-diff-13: binary files",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "r\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "initial"
+      ]
+    },
+    {
+      "write": "image.bin",
+      "contentBase64": "AAECAwD//g=="
+    },
+    {
+      "git": [
+        "add",
+        "image.bin"
+      ]
+    },
+    {
+      "run": [
+        "diff",
+        "--cached"
+      ],
+      "matchOutput": true
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "bin"
+      ]
+    },
+    {
+      "write": "image.bin",
+      "contentBase64": "AAkJCQD/"
+    },
+    {
+      "run": [
+        "diff"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "diff",
+        "--stat"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

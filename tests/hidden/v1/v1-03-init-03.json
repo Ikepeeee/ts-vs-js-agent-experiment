@@ -1,0 +1,13 @@
+{
+  "name": "v1-03-init-03: init --bare",
+  "steps": [
+    {
+      "run": [
+        "init",
+        "--bare",
+        "repo.git"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

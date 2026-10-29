@@ -1,0 +1,39 @@
+{
+  "name": "v2-01-diff-15: CRLF line endings",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "win.txt",
+      "content": "one\r\ntwo\r\nthree\r\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "initial"
+      ]
+    },
+    {
+      "write": "win.txt",
+      "content": "one\r\nTWO\r\nthree\r\n"
+    },
+    {
+      "run": [
+        "diff"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "v2-01-diff-14: empty files",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "full.txt",
+      "content": "content\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "initial"
+      ]
+    },
+    {
+      "write": "empty.txt",
+      "content": ""
+    },
+    {
+      "write": "full.txt",
+      "content": ""
+    },
+    {
+      "git": [
+        "add",
+        "empty.txt"
+      ]
+    },
+    {
+      "run": [
+        "diff",
+        "--cached"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "diff"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

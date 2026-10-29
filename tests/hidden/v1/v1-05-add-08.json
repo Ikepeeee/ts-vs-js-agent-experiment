@@ -1,0 +1,32 @@
+{
+  "name": "v1-05-add-08: paths with spaces, non-ASCII characters, and a leading dash",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "with space.txt",
+      "content": "with space.txt\n"
+    },
+    {
+      "write": "日本語.txt",
+      "content": "日本語.txt\n"
+    },
+    {
+      "write": "-dash.txt",
+      "content": "-dash.txt\n"
+    },
+    {
+      "run": [
+        "add",
+        "--",
+        "with space.txt",
+        "日本語.txt",
+        "-dash.txt"
+      ]
+    }
+  ]
+}

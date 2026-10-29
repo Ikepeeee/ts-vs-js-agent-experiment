@@ -1,0 +1,26 @@
+{
+  "name": "v1-05-add-04: adding an ignored path fails",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": ".gitignore",
+      "content": "*.log\n"
+    },
+    {
+      "write": "debug.log",
+      "content": "log\n"
+    },
+    {
+      "run": [
+        "add",
+        "debug.log"
+      ],
+      "expectExit": 1
+    }
+  ]
+}

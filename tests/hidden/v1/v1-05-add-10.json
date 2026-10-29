@@ -1,0 +1,35 @@
+{
+  "name": "v1-05-add-10: add an executable file and a symlink",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "run.sh",
+      "content": "#!/bin/sh\n"
+    },
+    {
+      "chmod": "run.sh",
+      "mode": "755"
+    },
+    {
+      "write": "target.txt",
+      "content": "t\n"
+    },
+    {
+      "symlink": "pointer",
+      "target": "target.txt"
+    },
+    {
+      "run": [
+        "add",
+        "run.sh",
+        "pointer",
+        "target.txt"
+      ]
+    }
+  ]
+}

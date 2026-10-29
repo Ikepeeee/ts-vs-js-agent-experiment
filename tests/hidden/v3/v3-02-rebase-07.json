@@ -1,0 +1,207 @@
+{
+  "name": "v3-02-rebase-07: the second of several commits conflicts",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Base"
+      ]
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "-c",
+        "topic"
+      ]
+    },
+    {
+      "write": "a.txt",
+      "content": "a\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "T1: add a"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "write": "README.md",
+      "content": "topic readme\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "T2: README"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "write": "b.txt",
+      "content": "b\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000180 +0000",
+        "GIT_COMMITTER_DATE": "1700000180 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "T3: add b"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000180 +0000",
+        "GIT_COMMITTER_DATE": "1700000180 +0000"
+      }
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "main"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "main readme\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000240 +0000",
+        "GIT_COMMITTER_DATE": "1700000240 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "M1: README"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000240 +0000",
+        "GIT_COMMITTER_DATE": "1700000240 +0000"
+      }
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "topic"
+      ]
+    },
+    {
+      "run": [
+        "rebase",
+        "main"
+      ],
+      "expectExit": 1
+    },
+    {
+      "run": [
+        "ls-files",
+        "-s"
+      ],
+      "matchOutput": true
+    },
+    {
+      "write": "README.md",
+      "content": "merged readme\n"
+    },
+    {
+      "run": [
+        "add",
+        "README.md"
+      ]
+    },
+    {
+      "run": [
+        "rebase",
+        "--continue"
+      ],
+      "env": {
+        "GIT_EDITOR": "true"
+      }
+    },
+    {
+      "run": [
+        "log",
+        "--oneline"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

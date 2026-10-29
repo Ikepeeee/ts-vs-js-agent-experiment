@@ -1,0 +1,51 @@
+{
+  "name": "v2-01-diff-11: old mode and new mode headers",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "run.sh",
+      "content": "#!/bin/sh\necho hi\n"
+    },
+    {
+      "write": "tool.sh",
+      "content": "#!/bin/sh\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "initial"
+      ]
+    },
+    {
+      "chmod": "run.sh",
+      "mode": "755"
+    },
+    {
+      "chmod": "tool.sh",
+      "mode": "755"
+    },
+    {
+      "write": "tool.sh",
+      "content": "#!/bin/sh\necho changed\n"
+    },
+    {
+      "run": [
+        "diff"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

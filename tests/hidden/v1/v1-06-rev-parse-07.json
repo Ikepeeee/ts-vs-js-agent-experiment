@@ -1,0 +1,19 @@
+{
+  "name": "v1-06-rev-parse-07: an unborn HEAD",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "run": [
+        "rev-parse",
+        "HEAD"
+      ],
+      "matchOutput": true,
+      "expectExit": 128
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "name": "v2-04-merge-base-05: unrelated histories",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "git": [
+        "checkout",
+        "-q",
+        "--orphan",
+        "other"
+      ]
+    },
+    {
+      "git": [
+        "rm",
+        "-r",
+        "-q",
+        "-f",
+        "."
+      ]
+    },
+    {
+      "write": "o.txt",
+      "content": "o\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Orphan root"
+      ]
+    },
+    {
+      "run": [
+        "merge-base",
+        "main",
+        "other"
+      ],
+      "matchOutput": true,
+      "expectExit": 1
+    }
+  ]
+}

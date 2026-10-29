@@ -1,0 +1,55 @@
+{
+  "name": "v2-01-diff-12: no newline at end of file",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "a.txt",
+      "content": "one\ntwo"
+    },
+    {
+      "write": "b.txt",
+      "content": "one\ntwo\n"
+    },
+    {
+      "write": "c.txt",
+      "content": "x\ny"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "initial"
+      ]
+    },
+    {
+      "write": "a.txt",
+      "content": "one\ntwo\n"
+    },
+    {
+      "write": "b.txt",
+      "content": "one\ntwo"
+    },
+    {
+      "write": "c.txt",
+      "content": "x\nz"
+    },
+    {
+      "run": [
+        "diff"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

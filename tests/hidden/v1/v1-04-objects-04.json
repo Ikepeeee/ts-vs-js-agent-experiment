@@ -1,0 +1,33 @@
+{
+  "name": "v1-04-objects-04: hash-object -w with several files",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "one.txt",
+      "content": "1\n"
+    },
+    {
+      "write": "two.txt",
+      "content": "2\n"
+    },
+    {
+      "write": "three.txt",
+      "content": "3\n"
+    },
+    {
+      "run": [
+        "hash-object",
+        "-w",
+        "one.txt",
+        "two.txt",
+        "three.txt"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

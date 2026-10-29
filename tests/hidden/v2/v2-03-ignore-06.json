@@ -1,0 +1,65 @@
+{
+  "name": "v2-03-ignore-06: trailing spaces",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": ".gitignore",
+      "content": "spaced.txt   \nkeep\\ \n"
+    },
+    {
+      "write": "spaced.txt",
+      "content": "1\n"
+    },
+    {
+      "write": "keep ",
+      "content": "2\n"
+    },
+    {
+      "write": "keep",
+      "content": "3\n"
+    },
+    {
+      "run": [
+        "ls-files",
+        "-o",
+        "--exclude-standard"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

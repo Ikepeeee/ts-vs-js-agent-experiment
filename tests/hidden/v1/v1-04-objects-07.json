@@ -1,0 +1,26 @@
+{
+  "name": "v1-04-objects-07: hash-object -t tree rejects invalid content",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "bad",
+      "content": "not a tree"
+    },
+    {
+      "run": [
+        "hash-object",
+        "-t",
+        "tree",
+        "-w",
+        "bad"
+      ],
+      "matchOutput": true,
+      "expectExit": 128
+    }
+  ]
+}

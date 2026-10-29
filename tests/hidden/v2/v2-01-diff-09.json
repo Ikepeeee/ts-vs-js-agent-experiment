@@ -1,0 +1,70 @@
+{
+  "name": "v2-01-diff-09: diff --name-status with added, modified, and deleted files",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": "added.txt",
+      "content": "a\n"
+    },
+    {
+      "write": "README.md",
+      "content": "m\n"
+    },
+    {
+      "git": [
+        "rm",
+        "-q",
+        "docs/guide.txt"
+      ]
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "run": [
+        "diff",
+        "--cached",
+        "--name-status"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

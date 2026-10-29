@@ -1,0 +1,26 @@
+{
+  "name": "v1-04-objects-06: hash-object -t commit rejects invalid content",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "bad",
+      "content": "this is not a commit\n"
+    },
+    {
+      "run": [
+        "hash-object",
+        "-t",
+        "commit",
+        "-w",
+        "bad"
+      ],
+      "matchOutput": true,
+      "expectExit": 128
+    }
+  ]
+}

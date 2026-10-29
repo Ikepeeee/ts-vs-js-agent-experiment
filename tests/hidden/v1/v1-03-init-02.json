@@ -1,0 +1,12 @@
+{
+  "name": "v1-03-init-02: init creates nested missing directories",
+  "steps": [
+    {
+      "run": [
+        "init",
+        "a/b/c"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

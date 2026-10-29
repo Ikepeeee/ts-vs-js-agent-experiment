@@ -1,0 +1,66 @@
+{
+  "name": "v1-04-objects-12: cat-file -e for existing and missing objects",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "run": [
+        "cat-file",
+        "-e",
+        "HEAD"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "cat-file",
+        "-e",
+        "6e5bb8244484b1590447f00cdac9fe9977c14b4a"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "cat-file",
+        "-e",
+        "0123456789abcdef0123456789abcdef01234567"
+      ],
+      "matchOutput": true,
+      "expectExit": 1
+    }
+  ]
+}

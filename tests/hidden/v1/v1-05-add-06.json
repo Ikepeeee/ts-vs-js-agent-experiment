@@ -1,0 +1,46 @@
+{
+  "name": "v1-05-add-06: a file replaced by a directory",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "thing",
+      "content": "file\n"
+    },
+    {
+      "write": "keep.txt",
+      "content": "k\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "initial"
+      ]
+    },
+    {
+      "delete": "thing"
+    },
+    {
+      "write": "thing/inside.txt",
+      "content": "now a dir\n"
+    },
+    {
+      "run": [
+        "add",
+        "-A"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "name": "v2-03-ignore-03: a/**/b patterns",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": ".gitignore",
+      "content": "logs/**/debug.txt\nout/**\n"
+    },
+    {
+      "write": "logs/debug.txt",
+      "content": "1\n"
+    },
+    {
+      "write": "logs/x/y/debug.txt",
+      "content": "2\n"
+    },
+    {
+      "write": "logs/info.txt",
+      "content": "3\n"
+    },
+    {
+      "write": "out/a/b.txt",
+      "content": "4\n"
+    },
+    {
+      "write": "other/out/c.txt",
+      "content": "5\n"
+    },
+    {
+      "run": [
+        "ls-files",
+        "-o",
+        "--exclude-standard"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "status",
+        "--porcelain"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

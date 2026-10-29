@@ -1,0 +1,13 @@
+{
+  "name": "v1-03-init-05: init --initial-branch= form",
+  "steps": [
+    {
+      "run": [
+        "init",
+        "--initial-branch=dev",
+        "work"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

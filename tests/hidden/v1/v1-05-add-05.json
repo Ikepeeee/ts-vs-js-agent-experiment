@@ -1,0 +1,22 @@
+{
+  "name": "v1-05-add-05: adding a missing path fails",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "a.txt",
+      "content": "a\n"
+    },
+    {
+      "run": [
+        "add",
+        "nope.txt"
+      ],
+      "expectExit": 128
+    }
+  ]
+}

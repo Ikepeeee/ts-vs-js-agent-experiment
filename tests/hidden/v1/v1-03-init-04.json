@@ -1,0 +1,13 @@
+{
+  "name": "v1-03-init-04: init -b sets the initial branch",
+  "steps": [
+    {
+      "run": [
+        "init",
+        "-b",
+        "trunk"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

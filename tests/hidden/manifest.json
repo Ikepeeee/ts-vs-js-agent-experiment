@@ -1,0 +1,1822 @@
+[
+  {
+    "id": "v1-02-dispatch-01",
+    "version": "v1",
+    "section": "02-dispatch",
+    "level": "basic",
+    "title": "unknown command fails"
+  },
+  {
+    "id": "v1-02-dispatch-02",
+    "version": "v1",
+    "section": "02-dispatch",
+    "level": "basic",
+    "title": "status outside a repository fails"
+  },
+  {
+    "id": "v1-02-dispatch-03",
+    "version": "v1",
+    "section": "02-dispatch",
+    "level": "basic",
+    "title": "repository is found from a nested subdirectory"
+  },
+  {
+    "id": "v1-02-dispatch-04",
+    "version": "v1",
+    "section": "02-dispatch",
+    "level": "edge",
+    "title": "hash-object works outside a repository"
+  },
+  {
+    "id": "v1-03-init-01",
+    "version": "v1",
+    "section": "03-init",
+    "level": "basic",
+    "title": "init -q prints nothing"
+  },
+  {
+    "id": "v1-03-init-02",
+    "version": "v1",
+    "section": "03-init",
+    "level": "basic",
+    "title": "init creates nested missing directories"
+  },
+  {
+    "id": "v1-03-init-03",
+    "version": "v1",
+    "section": "03-init",
+    "level": "basic",
+    "title": "init --bare"
+  },
+  {
+    "id": "v1-03-init-04",
+    "version": "v1",
+    "section": "03-init",
+    "level": "basic",
+    "title": "init -b sets the initial branch"
+  },
+  {
+    "id": "v1-03-init-05",
+    "version": "v1",
+    "section": "03-init",
+    "level": "edge",
+    "title": "init --initial-branch= form"
+  },
+  {
+    "id": "v1-03-init-06",
+    "version": "v1",
+    "section": "03-init",
+    "level": "basic",
+    "title": "reinitializing an existing repository"
+  },
+  {
+    "id": "v1-03-init-07",
+    "version": "v1",
+    "section": "03-init",
+    "level": "basic",
+    "title": "real git can add and commit in a tgit-created repository"
+  },
+  {
+    "id": "v1-03-init-08",
+    "version": "v1",
+    "section": "03-init",
+    "level": "edge",
+    "title": "reinitializing with -b on a repository that has commits"
+  },
+  {
+    "id": "v1-04-objects-01",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "edge",
+    "title": "hash-object of an empty file"
+  },
+  {
+    "id": "v1-04-objects-02",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "edge",
+    "title": "hash-object of binary content"
+  },
+  {
+    "id": "v1-04-objects-03",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "edge",
+    "title": "hash-object of a large file"
+  },
+  {
+    "id": "v1-04-objects-04",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "basic",
+    "title": "hash-object -w with several files"
+  },
+  {
+    "id": "v1-04-objects-05",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "basic",
+    "title": "hash-object --stdin -w"
+  },
+  {
+    "id": "v1-04-objects-06",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "edge",
+    "title": "hash-object -t commit rejects invalid content"
+  },
+  {
+    "id": "v1-04-objects-07",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "edge",
+    "title": "hash-object -t tree rejects invalid content"
+  },
+  {
+    "id": "v1-04-objects-08",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "edge",
+    "title": "hash-object -t commit writes a valid commit"
+  },
+  {
+    "id": "v1-04-objects-09",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "basic",
+    "title": "cat-file -p of a commit"
+  },
+  {
+    "id": "v1-04-objects-10",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "basic",
+    "title": "cat-file -p of a tree with modes"
+  },
+  {
+    "id": "v1-04-objects-11",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "basic",
+    "title": "cat-file -s of a blob and a commit"
+  },
+  {
+    "id": "v1-04-objects-12",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "basic",
+    "title": "cat-file -e for existing and missing objects"
+  },
+  {
+    "id": "v1-04-objects-13",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "basic",
+    "title": "cat-file <type> <object>"
+  },
+  {
+    "id": "v1-04-objects-14",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "edge",
+    "title": "cat-file on an annotated tag object"
+  },
+  {
+    "id": "v1-04-objects-15",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "edge",
+    "title": "trees written by tgit use git's entry order"
+  },
+  {
+    "id": "v1-04-objects-16",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "edge",
+    "title": "trees written by tgit use git's modes"
+  },
+  {
+    "id": "v1-04-objects-17",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "basic",
+    "title": "cat-file with an abbreviated object ID"
+  },
+  {
+    "id": "v1-04-objects-18",
+    "version": "v1",
+    "section": "04-objects",
+    "level": "edge",
+    "title": "cat-file with an invalid object name fails"
+  },
+  {
+    "id": "v1-05-add-01",
+    "version": "v1",
+    "section": "05-add",
+    "level": "basic",
+    "title": "add a directory"
+  },
+  {
+    "id": "v1-05-add-02",
+    "version": "v1",
+    "section": "05-add",
+    "level": "basic",
+    "title": "add -A stages new, modified, and deleted files"
+  },
+  {
+    "id": "v1-05-add-03",
+    "version": "v1",
+    "section": "05-add",
+    "level": "basic",
+    "title": "add -u stages only tracked files"
+  },
+  {
+    "id": "v1-05-add-04",
+    "version": "v1",
+    "section": "05-add",
+    "level": "edge",
+    "title": "adding an ignored path fails"
+  },
+  {
+    "id": "v1-05-add-05",
+    "version": "v1",
+    "section": "05-add",
+    "level": "basic",
+    "title": "adding a missing path fails"
+  },
+  {
+    "id": "v1-05-add-06",
+    "version": "v1",
+    "section": "05-add",
+    "level": "edge",
+    "title": "a file replaced by a directory"
+  },
+  {
+    "id": "v1-05-add-07",
+    "version": "v1",
+    "section": "05-add",
+    "level": "edge",
+    "title": "a directory replaced by a file"
+  },
+  {
+    "id": "v1-05-add-08",
+    "version": "v1",
+    "section": "05-add",
+    "level": "edge",
+    "title": "paths with spaces, non-ASCII characters, and a leading dash"
+  },
+  {
+    "id": "v1-05-add-09",
+    "version": "v1",
+    "section": "05-add",
+    "level": "basic",
+    "title": "add . from a subdirectory adds only that subdirectory"
+  },
+  {
+    "id": "v1-05-add-10",
+    "version": "v1",
+    "section": "05-add",
+    "level": "basic",
+    "title": "add an executable file and a symlink"
+  },
+  {
+    "id": "v1-05-rm-01",
+    "version": "v1",
+    "section": "05-rm",
+    "level": "basic",
+    "title": "rm --cached keeps the working tree file"
+  },
+  {
+    "id": "v1-05-rm-02",
+    "version": "v1",
+    "section": "05-rm",
+    "level": "basic",
+    "title": "rm -r a directory"
+  },
+  {
+    "id": "v1-05-rm-03",
+    "version": "v1",
+    "section": "05-rm",
+    "level": "edge",
+    "title": "rm of a file with local changes fails"
+  },
+  {
+    "id": "v1-05-rm-04",
+    "version": "v1",
+    "section": "05-rm",
+    "level": "basic",
+    "title": "rm -f of a file with local changes"
+  },
+  {
+    "id": "v1-05-rm-05",
+    "version": "v1",
+    "section": "05-rm",
+    "level": "basic",
+    "title": "rm of an untracked path fails"
+  },
+  {
+    "id": "v1-05-rm-06",
+    "version": "v1",
+    "section": "05-rm",
+    "level": "edge",
+    "title": "rm of a directory without -r fails"
+  },
+  {
+    "id": "v1-05-ls-files-01",
+    "version": "v1",
+    "section": "05-ls-files",
+    "level": "basic",
+    "title": "ls-files -s shows modes and stages"
+  },
+  {
+    "id": "v1-05-ls-files-02",
+    "version": "v1",
+    "section": "05-ls-files",
+    "level": "basic",
+    "title": "ls-files -o lists untracked files"
+  },
+  {
+    "id": "v1-05-ls-files-03",
+    "version": "v1",
+    "section": "05-ls-files",
+    "level": "basic",
+    "title": "ls-files -o --exclude-standard"
+  },
+  {
+    "id": "v1-05-ls-files-04",
+    "version": "v1",
+    "section": "05-ls-files",
+    "level": "edge",
+    "title": "ls-files -c from a subdirectory"
+  },
+  {
+    "id": "v1-05-ls-files-05",
+    "version": "v1",
+    "section": "05-ls-files",
+    "level": "edge",
+    "title": "ls-files quotes special paths"
+  },
+  {
+    "id": "v1-05-status-01",
+    "version": "v1",
+    "section": "05-status",
+    "level": "basic",
+    "title": "untracked directories are shown as dir/"
+  },
+  {
+    "id": "v1-05-status-02",
+    "version": "v1",
+    "section": "05-status",
+    "level": "basic",
+    "title": "staged addition, modification, and deletion"
+  },
+  {
+    "id": "v1-05-status-03",
+    "version": "v1",
+    "section": "05-status",
+    "level": "basic",
+    "title": "unstaged modification and deletion"
+  },
+  {
+    "id": "v1-05-status-04",
+    "version": "v1",
+    "section": "05-status",
+    "level": "edge",
+    "title": "a file staged and then modified again"
+  },
+  {
+    "id": "v1-05-status-05",
+    "version": "v1",
+    "section": "05-status",
+    "level": "basic",
+    "title": "ignored files are not shown"
+  },
+  {
+    "id": "v1-05-status-06",
+    "version": "v1",
+    "section": "05-status",
+    "level": "basic",
+    "title": "a repository with no commits yet"
+  },
+  {
+    "id": "v1-05-status-07",
+    "version": "v1",
+    "section": "05-status",
+    "level": "basic",
+    "title": "status -s"
+  },
+  {
+    "id": "v1-05-status-08",
+    "version": "v1",
+    "section": "05-status",
+    "level": "edge",
+    "title": "status --porcelain from a subdirectory"
+  },
+  {
+    "id": "v1-05-status-09",
+    "version": "v1",
+    "section": "05-status",
+    "level": "edge",
+    "title": "status quotes special paths"
+  },
+  {
+    "id": "v1-05-status-10",
+    "version": "v1",
+    "section": "05-status",
+    "level": "edge",
+    "title": "a staged deletion with the file recreated"
+  },
+  {
+    "id": "v1-05-status-11",
+    "version": "v1",
+    "section": "05-status",
+    "level": "edge",
+    "title": "a mode change only"
+  },
+  {
+    "id": "v1-05-status-12",
+    "version": "v1",
+    "section": "05-status",
+    "level": "basic",
+    "title": "a clean working tree"
+  },
+  {
+    "id": "v1-05-ignore-01",
+    "version": "v1",
+    "section": "05-ignore",
+    "level": "basic",
+    "title": "comments and blank lines"
+  },
+  {
+    "id": "v1-05-ignore-02",
+    "version": "v1",
+    "section": "05-ignore",
+    "level": "basic",
+    "title": "a wildcard matches in subdirectories"
+  },
+  {
+    "id": "v1-05-ignore-03",
+    "version": "v1",
+    "section": "05-ignore",
+    "level": "basic",
+    "title": "a directory pattern"
+  },
+  {
+    "id": "v1-05-ignore-04",
+    "version": "v1",
+    "section": "05-ignore",
+    "level": "edge",
+    "title": "an anchored pattern matches only at the root"
+  },
+  {
+    "id": "v1-05-ignore-05",
+    "version": "v1",
+    "section": "05-ignore",
+    "level": "edge",
+    "title": "a directory pattern does not match a file"
+  },
+  {
+    "id": "v1-06-commit-01",
+    "version": "v1",
+    "section": "06-commit",
+    "level": "basic",
+    "title": "repeated -m become paragraphs"
+  },
+  {
+    "id": "v1-06-commit-02",
+    "version": "v1",
+    "section": "06-commit",
+    "level": "basic",
+    "title": "commit -a stages deletions but not untracked files"
+  },
+  {
+    "id": "v1-06-commit-03",
+    "version": "v1",
+    "section": "06-commit",
+    "level": "basic",
+    "title": "commit --allow-empty"
+  },
+  {
+    "id": "v1-06-commit-04",
+    "version": "v1",
+    "section": "06-commit",
+    "level": "basic",
+    "title": "commit --amend"
+  },
+  {
+    "id": "v1-06-commit-05",
+    "version": "v1",
+    "section": "06-commit",
+    "level": "basic",
+    "title": "nothing to commit fails"
+  },
+  {
+    "id": "v1-06-commit-06",
+    "version": "v1",
+    "section": "06-commit",
+    "level": "edge",
+    "title": "a root commit with nested directories"
+  },
+  {
+    "id": "v1-06-commit-07",
+    "version": "v1",
+    "section": "06-commit",
+    "level": "edge",
+    "title": "amending the root commit"
+  },
+  {
+    "id": "v1-06-commit-08",
+    "version": "v1",
+    "section": "06-commit",
+    "level": "edge",
+    "title": "commit from a subdirectory"
+  },
+  {
+    "id": "v1-06-commit-09",
+    "version": "v1",
+    "section": "06-commit",
+    "level": "edge",
+    "title": "a commit that removes every file"
+  },
+  {
+    "id": "v1-06-rev-parse-01",
+    "version": "v1",
+    "section": "06-rev-parse",
+    "level": "basic",
+    "title": "ref names"
+  },
+  {
+    "id": "v1-06-rev-parse-02",
+    "version": "v1",
+    "section": "06-rev-parse",
+    "level": "basic",
+    "title": "abbreviated object IDs"
+  },
+  {
+    "id": "v1-06-rev-parse-03",
+    "version": "v1",
+    "section": "06-rev-parse",
+    "level": "basic",
+    "title": "~n, ^, and combinations"
+  },
+  {
+    "id": "v1-06-rev-parse-04",
+    "version": "v1",
+    "section": "06-rev-parse",
+    "level": "basic",
+    "title": "--short"
+  },
+  {
+    "id": "v1-06-rev-parse-05",
+    "version": "v1",
+    "section": "06-rev-parse",
+    "level": "edge",
+    "title": "--abbrev-ref on a branch and on a detached HEAD"
+  },
+  {
+    "id": "v1-06-rev-parse-06",
+    "version": "v1",
+    "section": "06-rev-parse",
+    "level": "edge",
+    "title": "invalid revisions"
+  },
+  {
+    "id": "v1-06-rev-parse-07",
+    "version": "v1",
+    "section": "06-rev-parse",
+    "level": "edge",
+    "title": "an unborn HEAD"
+  },
+  {
+    "id": "v1-06-log-01",
+    "version": "v1",
+    "section": "06-log",
+    "level": "basic",
+    "title": "--format with every supported placeholder"
+  },
+  {
+    "id": "v1-06-log-02",
+    "version": "v1",
+    "section": "06-log",
+    "level": "basic",
+    "title": "-n limits the number of commits"
+  },
+  {
+    "id": "v1-06-log-03",
+    "version": "v1",
+    "section": "06-log",
+    "level": "basic",
+    "title": "path limiting"
+  },
+  {
+    "id": "v1-06-log-04",
+    "version": "v1",
+    "section": "06-log",
+    "level": "edge",
+    "title": "log on an unborn branch"
+  },
+  {
+    "id": "v1-06-log-05",
+    "version": "v1",
+    "section": "06-log",
+    "level": "edge",
+    "title": "a multi-paragraph message with %b"
+  },
+  {
+    "id": "v1-06-log-06",
+    "version": "v1",
+    "section": "06-log",
+    "level": "edge",
+    "title": "dates and names from different authors"
+  },
+  {
+    "id": "v1-06-log-07",
+    "version": "v1",
+    "section": "06-log",
+    "level": "edge",
+    "title": "path limiting from a subdirectory"
+  },
+  {
+    "id": "v1-06-log-08",
+    "version": "v1",
+    "section": "06-log",
+    "level": "basic",
+    "title": "-n with --format"
+  },
+  {
+    "id": "v1-06-show-01",
+    "version": "v1",
+    "section": "06-show",
+    "level": "basic",
+    "title": "show --no-patch of an earlier commit"
+  },
+  {
+    "id": "v1-06-show-02",
+    "version": "v1",
+    "section": "06-show",
+    "level": "edge",
+    "title": "show -s with a multi-paragraph message and non-ASCII author"
+  },
+  {
+    "id": "v1-06-branch-01",
+    "version": "v1",
+    "section": "06-branch",
+    "level": "basic",
+    "title": "create a branch at a given commit"
+  },
+  {
+    "id": "v1-06-branch-02",
+    "version": "v1",
+    "section": "06-branch",
+    "level": "edge",
+    "title": "-d of an unmerged branch fails"
+  },
+  {
+    "id": "v1-06-branch-03",
+    "version": "v1",
+    "section": "06-branch",
+    "level": "basic",
+    "title": "-D of an unmerged branch"
+  },
+  {
+    "id": "v1-06-branch-04",
+    "version": "v1",
+    "section": "06-branch",
+    "level": "basic",
+    "title": "-m renames the current branch"
+  },
+  {
+    "id": "v1-06-branch-05",
+    "version": "v1",
+    "section": "06-branch",
+    "level": "basic",
+    "title": "creating an existing branch fails"
+  },
+  {
+    "id": "v1-06-branch-06",
+    "version": "v1",
+    "section": "06-branch",
+    "level": "edge",
+    "title": "listing with a detached HEAD"
+  },
+  {
+    "id": "v1-06-branch-07",
+    "version": "v1",
+    "section": "06-branch",
+    "level": "edge",
+    "title": "creating a branch on an unborn branch fails"
+  },
+  {
+    "id": "v1-06-switch-01",
+    "version": "v1",
+    "section": "06-switch",
+    "level": "basic",
+    "title": "switch -c"
+  },
+  {
+    "id": "v1-06-switch-02",
+    "version": "v1",
+    "section": "06-switch",
+    "level": "basic",
+    "title": "switch --detach"
+  },
+  {
+    "id": "v1-06-switch-03",
+    "version": "v1",
+    "section": "06-switch",
+    "level": "basic",
+    "title": "checkout of a commit detaches HEAD"
+  },
+  {
+    "id": "v1-06-switch-04",
+    "version": "v1",
+    "section": "06-switch",
+    "level": "basic",
+    "title": "checkout -- path restores files"
+  },
+  {
+    "id": "v1-06-switch-05",
+    "version": "v1",
+    "section": "06-switch",
+    "level": "edge",
+    "title": "non-conflicting local changes are carried over"
+  },
+  {
+    "id": "v1-06-switch-06",
+    "version": "v1",
+    "section": "06-switch",
+    "level": "edge",
+    "title": "conflicting local changes make switching fail"
+  },
+  {
+    "id": "v1-06-switch-07",
+    "version": "v1",
+    "section": "06-switch",
+    "level": "basic",
+    "title": "switching adds and removes files and directories"
+  },
+  {
+    "id": "v1-06-switch-08",
+    "version": "v1",
+    "section": "06-switch",
+    "level": "edge",
+    "title": "switching changes modes and symlinks"
+  },
+  {
+    "id": "v1-06-switch-09",
+    "version": "v1",
+    "section": "06-switch",
+    "level": "basic",
+    "title": "switching to a missing branch fails"
+  },
+  {
+    "id": "v1-06-reset-01",
+    "version": "v1",
+    "section": "06-reset",
+    "level": "basic",
+    "title": "reset --soft"
+  },
+  {
+    "id": "v1-06-reset-02",
+    "version": "v1",
+    "section": "06-reset",
+    "level": "basic",
+    "title": "reset defaults to --mixed"
+  },
+  {
+    "id": "v1-06-reset-03",
+    "version": "v1",
+    "section": "06-reset",
+    "level": "edge",
+    "title": "reset --hard removes a staged new file"
+  },
+  {
+    "id": "v1-06-reset-04",
+    "version": "v1",
+    "section": "06-reset",
+    "level": "basic",
+    "title": "reset -- path unstages a file"
+  },
+  {
+    "id": "v1-06-reset-05",
+    "version": "v1",
+    "section": "06-reset",
+    "level": "edge",
+    "title": "reset <commit> -- path"
+  },
+  {
+    "id": "v1-06-reset-06",
+    "version": "v1",
+    "section": "06-reset",
+    "level": "edge",
+    "title": "reset --hard keeps untracked files"
+  },
+  {
+    "id": "v1-06-tag-01",
+    "version": "v1",
+    "section": "06-tag",
+    "level": "basic",
+    "title": "create a tag at a given commit"
+  },
+  {
+    "id": "v1-06-tag-02",
+    "version": "v1",
+    "section": "06-tag",
+    "level": "basic",
+    "title": "tag -d"
+  },
+  {
+    "id": "v1-06-tag-03",
+    "version": "v1",
+    "section": "06-tag",
+    "level": "basic",
+    "title": "creating an existing tag fails"
+  },
+  {
+    "id": "v1-06-tag-04",
+    "version": "v1",
+    "section": "06-tag",
+    "level": "edge",
+    "title": "tags are listed in byte order"
+  },
+  {
+    "id": "v2-01-diff-01",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "basic",
+    "title": "working tree vs. index ignores untracked files"
+  },
+  {
+    "id": "v2-01-diff-02",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "basic",
+    "title": "diff --cached with staged and unstaged changes"
+  },
+  {
+    "id": "v2-01-diff-03",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "basic",
+    "title": "diff --cached with no commits yet"
+  },
+  {
+    "id": "v2-01-diff-04",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "basic",
+    "title": "diff between two commits"
+  },
+  {
+    "id": "v2-01-diff-05",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "basic",
+    "title": "diff with path limiting"
+  },
+  {
+    "id": "v2-01-diff-06",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "basic",
+    "title": "diff --stat between commits"
+  },
+  {
+    "id": "v2-01-diff-07",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "edge",
+    "title": "--stat with long paths and a narrow COLUMNS"
+  },
+  {
+    "id": "v2-01-diff-08",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "basic",
+    "title": "diff --name-only"
+  },
+  {
+    "id": "v2-01-diff-09",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "basic",
+    "title": "diff --name-status with added, modified, and deleted files"
+  },
+  {
+    "id": "v2-01-diff-10",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "basic",
+    "title": "new file and deleted file headers"
+  },
+  {
+    "id": "v2-01-diff-11",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "edge",
+    "title": "old mode and new mode headers"
+  },
+  {
+    "id": "v2-01-diff-12",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "edge",
+    "title": "no newline at end of file"
+  },
+  {
+    "id": "v2-01-diff-13",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "edge",
+    "title": "binary files"
+  },
+  {
+    "id": "v2-01-diff-14",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "edge",
+    "title": "empty files"
+  },
+  {
+    "id": "v2-01-diff-15",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "edge",
+    "title": "CRLF line endings"
+  },
+  {
+    "id": "v2-01-diff-16",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "basic",
+    "title": "changes far apart produce separate hunks"
+  },
+  {
+    "id": "v2-01-diff-17",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "edge",
+    "title": "changes close together share one hunk"
+  },
+  {
+    "id": "v2-01-diff-18",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "edge",
+    "title": "inserting a function between functions"
+  },
+  {
+    "id": "v2-01-diff-19",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "edge",
+    "title": "repeated lines make the match ambiguous"
+  },
+  {
+    "id": "v2-01-diff-20",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "basic",
+    "title": "rewriting a whole file"
+  },
+  {
+    "id": "v2-01-diff-21",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "edge",
+    "title": "diff from a subdirectory"
+  },
+  {
+    "id": "v2-01-diff-22",
+    "version": "v2",
+    "section": "01-diff",
+    "level": "edge",
+    "title": "function names in hunk headers"
+  },
+  {
+    "id": "v2-01-show-log-p-01",
+    "version": "v2",
+    "section": "01-show-log-p",
+    "level": "basic",
+    "title": "log -p"
+  },
+  {
+    "id": "v2-01-show-log-p-02",
+    "version": "v2",
+    "section": "01-show-log-p",
+    "level": "edge",
+    "title": "show of the root commit"
+  },
+  {
+    "id": "v2-01-show-log-p-03",
+    "version": "v2",
+    "section": "01-show-log-p",
+    "level": "edge",
+    "title": "show of a merge commit"
+  },
+  {
+    "id": "v2-01-show-log-p-04",
+    "version": "v2",
+    "section": "01-show-log-p",
+    "level": "basic",
+    "title": "log -p with -n and path limiting"
+  },
+  {
+    "id": "v2-02-config-01",
+    "version": "v2",
+    "section": "02-config",
+    "level": "basic",
+    "title": "getting a missing key fails"
+  },
+  {
+    "id": "v2-02-config-02",
+    "version": "v2",
+    "section": "02-config",
+    "level": "basic",
+    "title": "--unset"
+  },
+  {
+    "id": "v2-02-config-03",
+    "version": "v2",
+    "section": "02-config",
+    "level": "basic",
+    "title": "--list"
+  },
+  {
+    "id": "v2-02-config-04",
+    "version": "v2",
+    "section": "02-config",
+    "level": "edge",
+    "title": "values with spaces, quotes, and #"
+  },
+  {
+    "id": "v2-02-config-05",
+    "version": "v2",
+    "section": "02-config",
+    "level": "basic",
+    "title": "subsections"
+  },
+  {
+    "id": "v2-02-config-06",
+    "version": "v2",
+    "section": "02-config",
+    "level": "basic",
+    "title": "commit uses user.name and user.email from the configuration"
+  },
+  {
+    "id": "v2-02-config-07",
+    "version": "v2",
+    "section": "02-config",
+    "level": "edge",
+    "title": "environment variables take precedence over the configuration"
+  },
+  {
+    "id": "v2-02-config-08",
+    "version": "v2",
+    "section": "02-config",
+    "level": "edge",
+    "title": "case-insensitive names and overwriting a value"
+  },
+  {
+    "id": "v2-03-ignore-01",
+    "version": "v2",
+    "section": "03-ignore",
+    "level": "basic",
+    "title": "negation re-includes a file"
+  },
+  {
+    "id": "v2-03-ignore-02",
+    "version": "v2",
+    "section": "03-ignore",
+    "level": "basic",
+    "title": "a leading ** pattern"
+  },
+  {
+    "id": "v2-03-ignore-03",
+    "version": "v2",
+    "section": "03-ignore",
+    "level": "edge",
+    "title": "a/**/b patterns"
+  },
+  {
+    "id": "v2-03-ignore-04",
+    "version": "v2",
+    "section": "03-ignore",
+    "level": "basic",
+    "title": "a .gitignore in a subdirectory overrides the root one"
+  },
+  {
+    "id": "v2-03-ignore-05",
+    "version": "v2",
+    "section": "03-ignore",
+    "level": "basic",
+    "title": ".git/info/exclude"
+  },
+  {
+    "id": "v2-03-ignore-06",
+    "version": "v2",
+    "section": "03-ignore",
+    "level": "edge",
+    "title": "trailing spaces"
+  },
+  {
+    "id": "v2-03-ignore-07",
+    "version": "v2",
+    "section": "03-ignore",
+    "level": "edge",
+    "title": "escaped # and !"
+  },
+  {
+    "id": "v2-03-ignore-08",
+    "version": "v2",
+    "section": "03-ignore",
+    "level": "edge",
+    "title": "a file inside an ignored directory cannot be re-included"
+  },
+  {
+    "id": "v2-04-merge-base-01",
+    "version": "v2",
+    "section": "04-merge-base",
+    "level": "basic",
+    "title": "merge-base of diverged branches"
+  },
+  {
+    "id": "v2-04-merge-base-02",
+    "version": "v2",
+    "section": "04-merge-base",
+    "level": "basic",
+    "title": "one commit is an ancestor of the other"
+  },
+  {
+    "id": "v2-04-merge-base-03",
+    "version": "v2",
+    "section": "04-merge-base",
+    "level": "edge",
+    "title": "--all with criss-cross history"
+  },
+  {
+    "id": "v2-04-merge-base-04",
+    "version": "v2",
+    "section": "04-merge-base",
+    "level": "edge",
+    "title": "criss-cross history without --all"
+  },
+  {
+    "id": "v2-04-merge-base-05",
+    "version": "v2",
+    "section": "04-merge-base",
+    "level": "edge",
+    "title": "unrelated histories"
+  },
+  {
+    "id": "v2-04-merge-01",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "basic",
+    "title": "fast-forward"
+  },
+  {
+    "id": "v2-04-merge-02",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "basic",
+    "title": "--no-ff creates a merge commit"
+  },
+  {
+    "id": "v2-04-merge-03",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "basic",
+    "title": "--ff-only when fast-forward is possible"
+  },
+  {
+    "id": "v2-04-merge-04",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "basic",
+    "title": "--ff-only fails when fast-forward is not possible"
+  },
+  {
+    "id": "v2-04-merge-05",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "basic",
+    "title": "three-way merge of different files"
+  },
+  {
+    "id": "v2-04-merge-06",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "edge",
+    "title": "three-way merge of different regions of one file"
+  },
+  {
+    "id": "v2-04-merge-07",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "basic",
+    "title": "merge -m"
+  },
+  {
+    "id": "v2-04-merge-08",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "basic",
+    "title": "already up to date"
+  },
+  {
+    "id": "v2-04-merge-09",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "basic",
+    "title": "conflict on the same lines"
+  },
+  {
+    "id": "v2-04-merge-10",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "edge",
+    "title": "add/add conflict"
+  },
+  {
+    "id": "v2-04-merge-11",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "edge",
+    "title": "modify/delete conflict"
+  },
+  {
+    "id": "v2-04-merge-12",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "edge",
+    "title": "delete/modify conflict"
+  },
+  {
+    "id": "v2-04-merge-13",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "edge",
+    "title": "binary conflict"
+  },
+  {
+    "id": "v2-04-merge-14",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "basic",
+    "title": "resolving a conflict and committing"
+  },
+  {
+    "id": "v2-04-merge-15",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "basic",
+    "title": "merge --abort after a conflict"
+  },
+  {
+    "id": "v2-04-merge-16",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "edge",
+    "title": "local changes that would be overwritten"
+  },
+  {
+    "id": "v2-04-merge-17",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "edge",
+    "title": "an untracked file that would be overwritten"
+  },
+  {
+    "id": "v2-04-merge-18",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "edge",
+    "title": "merging a commit ID instead of a branch"
+  },
+  {
+    "id": "v2-04-merge-19",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "edge",
+    "title": "a conflict in one file and a clean change in another"
+  },
+  {
+    "id": "v2-04-merge-20",
+    "version": "v2",
+    "section": "04-merge",
+    "level": "edge",
+    "title": "merging into a branch other than main"
+  },
+  {
+    "id": "v2-05-annotated-tag-01",
+    "version": "v2",
+    "section": "05-annotated-tag",
+    "level": "basic",
+    "title": "tag -a and show"
+  },
+  {
+    "id": "v2-05-annotated-tag-02",
+    "version": "v2",
+    "section": "05-annotated-tag",
+    "level": "basic",
+    "title": "tag -a at a given commit"
+  },
+  {
+    "id": "v2-05-annotated-tag-03",
+    "version": "v2",
+    "section": "05-annotated-tag",
+    "level": "edge",
+    "title": "the tagger comes from the committer variables"
+  },
+  {
+    "id": "v2-05-annotated-tag-04",
+    "version": "v2",
+    "section": "05-annotated-tag",
+    "level": "edge",
+    "title": "a multi-line tag message"
+  },
+  {
+    "id": "v2-06-stash-01",
+    "version": "v2",
+    "section": "06-stash",
+    "level": "basic",
+    "title": "stash with no subcommand"
+  },
+  {
+    "id": "v2-06-stash-02",
+    "version": "v2",
+    "section": "06-stash",
+    "level": "basic",
+    "title": "stash apply keeps the entry"
+  },
+  {
+    "id": "v2-06-stash-03",
+    "version": "v2",
+    "section": "06-stash",
+    "level": "basic",
+    "title": "stash drop"
+  },
+  {
+    "id": "v2-06-stash-04",
+    "version": "v2",
+    "section": "06-stash",
+    "level": "basic",
+    "title": "several stash entries"
+  },
+  {
+    "id": "v2-06-stash-05",
+    "version": "v2",
+    "section": "06-stash",
+    "level": "edge",
+    "title": "staged and unstaged changes"
+  },
+  {
+    "id": "v2-06-stash-06",
+    "version": "v2",
+    "section": "06-stash",
+    "level": "edge",
+    "title": "pop with conflicting local changes fails"
+  },
+  {
+    "id": "v2-06-stash-07",
+    "version": "v2",
+    "section": "06-stash",
+    "level": "edge",
+    "title": "stash with no local changes"
+  },
+  {
+    "id": "v2-06-stash-08",
+    "version": "v2",
+    "section": "06-stash",
+    "level": "edge",
+    "title": "stash a deleted file"
+  },
+  {
+    "id": "v2-06-stash-09",
+    "version": "v2",
+    "section": "06-stash",
+    "level": "edge",
+    "title": "pop that conflicts with a later commit keeps the entry"
+  },
+  {
+    "id": "v3-01-cherry-pick-01",
+    "version": "v3",
+    "section": "01-cherry-pick",
+    "level": "basic",
+    "title": "a clean pick produces the same commit"
+  },
+  {
+    "id": "v3-01-cherry-pick-02",
+    "version": "v3",
+    "section": "01-cherry-pick",
+    "level": "basic",
+    "title": "pick a commit that adds a file"
+  },
+  {
+    "id": "v3-01-cherry-pick-03",
+    "version": "v3",
+    "section": "01-cherry-pick",
+    "level": "basic",
+    "title": "a conflict leaves the in-progress state"
+  },
+  {
+    "id": "v3-01-cherry-pick-04",
+    "version": "v3",
+    "section": "01-cherry-pick",
+    "level": "basic",
+    "title": "resolve and --continue"
+  },
+  {
+    "id": "v3-01-cherry-pick-05",
+    "version": "v3",
+    "section": "01-cherry-pick",
+    "level": "basic",
+    "title": "--abort restores the previous state"
+  },
+  {
+    "id": "v3-01-cherry-pick-06",
+    "version": "v3",
+    "section": "01-cherry-pick",
+    "level": "edge",
+    "title": "picking changes that are already present"
+  },
+  {
+    "id": "v3-01-cherry-pick-07",
+    "version": "v3",
+    "section": "01-cherry-pick",
+    "level": "basic",
+    "title": "pick a commit that deletes a file"
+  },
+  {
+    "id": "v3-01-cherry-pick-08",
+    "version": "v3",
+    "section": "01-cherry-pick",
+    "level": "edge",
+    "title": "a pick that applies at shifted line numbers"
+  },
+  {
+    "id": "v3-01-cherry-pick-09",
+    "version": "v3",
+    "section": "01-cherry-pick",
+    "level": "edge",
+    "title": "unrelated local changes are kept"
+  },
+  {
+    "id": "v3-01-cherry-pick-10",
+    "version": "v3",
+    "section": "01-cherry-pick",
+    "level": "edge",
+    "title": "local changes to the same file block the pick"
+  },
+  {
+    "id": "v3-01-revert-01",
+    "version": "v3",
+    "section": "01-revert",
+    "level": "basic",
+    "title": "revert an older commit"
+  },
+  {
+    "id": "v3-01-revert-02",
+    "version": "v3",
+    "section": "01-revert",
+    "level": "basic",
+    "title": "revert a commit that added a file"
+  },
+  {
+    "id": "v3-01-revert-03",
+    "version": "v3",
+    "section": "01-revert",
+    "level": "edge",
+    "title": "revert a commit with a multi-paragraph message"
+  },
+  {
+    "id": "v3-01-revert-04",
+    "version": "v3",
+    "section": "01-revert",
+    "level": "edge",
+    "title": "revert a revert"
+  },
+  {
+    "id": "v3-01-revert-05",
+    "version": "v3",
+    "section": "01-revert",
+    "level": "edge",
+    "title": "unrelated local changes are kept"
+  },
+  {
+    "id": "v3-02-rebase-01",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "basic",
+    "title": "rebase <upstream> without conflicts"
+  },
+  {
+    "id": "v3-02-rebase-02",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "basic",
+    "title": "rebase when already up to date"
+  },
+  {
+    "id": "v3-02-rebase-03",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "basic",
+    "title": "rebase --onto"
+  },
+  {
+    "id": "v3-02-rebase-04",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "basic",
+    "title": "a conflict stops the rebase"
+  },
+  {
+    "id": "v3-02-rebase-05",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "basic",
+    "title": "resolve, add, and --continue"
+  },
+  {
+    "id": "v3-02-rebase-06",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "basic",
+    "title": "--abort restores the branch and HEAD"
+  },
+  {
+    "id": "v3-02-rebase-07",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "edge",
+    "title": "the second of several commits conflicts"
+  },
+  {
+    "id": "v3-02-rebase-08",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "basic",
+    "title": "a branch with no commits of its own fast-forwards"
+  },
+  {
+    "id": "v3-02-rebase-09",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "edge",
+    "title": "commits already upstream are skipped"
+  },
+  {
+    "id": "v3-02-rebase-10",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "edge",
+    "title": "merge commits in the range are dropped"
+  },
+  {
+    "id": "v3-02-rebase-11",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "edge",
+    "title": "--onto with a range that leaves out commits"
+  },
+  {
+    "id": "v3-02-rebase-12",
+    "version": "v3",
+    "section": "02-rebase",
+    "level": "edge",
+    "title": "rebase with unstaged changes fails"
+  },
+  {
+    "id": "v3-03-reflog-01",
+    "version": "v3",
+    "section": "03-reflog",
+    "level": "basic",
+    "title": "the first commit and an amend"
+  },
+  {
+    "id": "v3-03-reflog-02",
+    "version": "v3",
+    "section": "03-reflog",
+    "level": "basic",
+    "title": "checkout and switch"
+  },
+  {
+    "id": "v3-03-reflog-03",
+    "version": "v3",
+    "section": "03-reflog",
+    "level": "basic",
+    "title": "reset"
+  },
+  {
+    "id": "v3-03-reflog-04",
+    "version": "v3",
+    "section": "03-reflog",
+    "level": "basic",
+    "title": "fast-forward and non-fast-forward merges"
+  },
+  {
+    "id": "v3-03-reflog-05",
+    "version": "v3",
+    "section": "03-reflog",
+    "level": "edge",
+    "title": "branch creation and renaming"
+  },
+  {
+    "id": "v3-03-reflog-06",
+    "version": "v3",
+    "section": "03-reflog",
+    "level": "basic",
+    "title": "cherry-pick and revert"
+  },
+  {
+    "id": "v3-03-reflog-07",
+    "version": "v3",
+    "section": "03-reflog",
+    "level": "edge",
+    "title": "rebase"
+  },
+  {
+    "id": "v3-03-reflog-08",
+    "version": "v3",
+    "section": "03-reflog",
+    "level": "basic",
+    "title": "reflog show <ref> after several operations"
+  },
+  {
+    "id": "v3-03-reflog-09",
+    "version": "v3",
+    "section": "03-reflog",
+    "level": "basic",
+    "title": "the first commit in a new repository"
+  },
+  {
+    "id": "v3-03-reflog-10",
+    "version": "v3",
+    "section": "03-reflog",
+    "level": "edge",
+    "title": "commits on a detached HEAD"
+  },
+  {
+    "id": "v3-04-packed-refs-01",
+    "version": "v3",
+    "section": "04-packed-refs",
+    "level": "basic",
+    "title": "branch listing and log from packed refs"
+  },
+  {
+    "id": "v3-04-packed-refs-02",
+    "version": "v3",
+    "section": "04-packed-refs",
+    "level": "edge",
+    "title": "a loose ref takes precedence over a packed one"
+  },
+  {
+    "id": "v3-04-packed-refs-03",
+    "version": "v3",
+    "section": "04-packed-refs",
+    "level": "basic",
+    "title": "pack-refs --all"
+  },
+  {
+    "id": "v3-04-packed-refs-04",
+    "version": "v3",
+    "section": "04-packed-refs",
+    "level": "basic",
+    "title": "deleting a branch that exists only in packed-refs"
+  },
+  {
+    "id": "v3-04-packed-refs-05",
+    "version": "v3",
+    "section": "04-packed-refs",
+    "level": "basic",
+    "title": "deleting a tag that exists only in packed-refs"
+  },
+  {
+    "id": "v3-04-packed-refs-06",
+    "version": "v3",
+    "section": "04-packed-refs",
+    "level": "edge",
+    "title": "pack-refs with annotated tags writes peeled lines"
+  },
+  {
+    "id": "v3-04-packed-refs-07",
+    "version": "v3",
+    "section": "04-packed-refs",
+    "level": "edge",
+    "title": "renaming a branch that exists only in packed-refs"
+  },
+  {
+    "id": "v3-05-packfile-01",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "basic",
+    "title": "cat-file -p of packed blobs"
+  },
+  {
+    "id": "v3-05-packfile-02",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "basic",
+    "title": "full log after gc"
+  },
+  {
+    "id": "v3-05-packfile-03",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "edge",
+    "title": "REF_DELTA objects"
+  },
+  {
+    "id": "v3-05-packfile-04",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "edge",
+    "title": "deep delta chains"
+  },
+  {
+    "id": "v3-05-packfile-05",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "basic",
+    "title": "packed and loose objects together"
+  },
+  {
+    "id": "v3-05-packfile-06",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "basic",
+    "title": "status and ls-files after gc"
+  },
+  {
+    "id": "v3-05-packfile-07",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "basic",
+    "title": "diff between packed commits"
+  },
+  {
+    "id": "v3-05-packfile-08",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "basic",
+    "title": "switch and checkout in a packed repository"
+  },
+  {
+    "id": "v3-05-packfile-09",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "basic",
+    "title": "commit on top of a packed repository"
+  },
+  {
+    "id": "v3-05-packfile-10",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "edge",
+    "title": "merge in a packed repository"
+  },
+  {
+    "id": "v3-05-packfile-11",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "edge",
+    "title": "abbreviated IDs of packed objects"
+  },
+  {
+    "id": "v3-05-packfile-12",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "edge",
+    "title": "sizes of deltified objects"
+  },
+  {
+    "id": "v3-05-packfile-13",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "basic",
+    "title": "cherry-pick in a packed repository"
+  },
+  {
+    "id": "v3-05-packfile-14",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "edge",
+    "title": "a large binary file in a pack"
+  },
+  {
+    "id": "v3-05-packfile-15",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "edge",
+    "title": "several packs"
+  },
+  {
+    "id": "v3-05-packfile-16",
+    "version": "v3",
+    "section": "05-packfile",
+    "level": "edge",
+    "title": "packed annotated tags"
+  }
+]

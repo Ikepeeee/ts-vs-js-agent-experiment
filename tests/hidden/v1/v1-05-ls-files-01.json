@@ -1,0 +1,60 @@
+{
+  "name": "v1-05-ls-files-01: ls-files -s shows modes and stages",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "write": "run.sh",
+      "content": "#!/bin/sh\n"
+    },
+    {
+      "chmod": "run.sh",
+      "mode": "755"
+    },
+    {
+      "symlink": "link",
+      "target": "README.md"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "c"
+      ]
+    },
+    {
+      "run": [
+        "ls-files",
+        "-s"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

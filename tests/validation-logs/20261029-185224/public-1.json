@@ -1,0 +1,252 @@
+[
+  {
+    "name": "v1-02-dispatch-01: a command outside a repository fails",
+    "file": "public/v1/v1-02-dispatch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-01: init with no arguments",
+    "file": "public/v1/v1-03-init-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-02: init with a directory argument",
+    "file": "public/v1/v1-03-init-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-01: hash-object prints the blob ID",
+    "file": "public/v1/v1-04-objects-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-02: hash-object -w then cat-file -p",
+    "file": "public/v1/v1-04-objects-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-03: cat-file -t of HEAD",
+    "file": "public/v1/v1-04-objects-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-01: add a single file",
+    "file": "public/v1/v1-05-add-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-02: add .",
+    "file": "public/v1/v1-05-add-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ignore-01: .gitignore with a wildcard",
+    "file": "public/v1/v1-05-ignore-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ls-files-01: ls-files lists tracked files",
+    "file": "public/v1/v1-05-ls-files-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-rm-01: rm a committed file",
+    "file": "public/v1/v1-05-rm-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-01: status --porcelain with untracked and staged files",
+    "file": "public/v1/v1-05-status-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-02: status normal output exit code",
+    "file": "public/v1/v1-05-status-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-01: create and list branches",
+    "file": "public/v1/v1-06-branch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-02: branch -d of a merged branch",
+    "file": "public/v1/v1-06-branch-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-01: commit -m",
+    "file": "public/v1/v1-06-commit-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-02: commit -a",
+    "file": "public/v1/v1-06-commit-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-01: log --oneline",
+    "file": "public/v1/v1-06-log-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-02: log default output",
+    "file": "public/v1/v1-06-log-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-reset-01: reset --hard HEAD~1",
+    "file": "public/v1/v1-06-reset-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-01: rev-parse HEAD",
+    "file": "public/v1/v1-06-rev-parse-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-show-01: show -s HEAD",
+    "file": "public/v1/v1-06-show-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-01: switch to another branch",
+    "file": "public/v1/v1-06-switch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-02: checkout -b",
+    "file": "public/v1/v1-06-switch-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-tag-01: create and list tags",
+    "file": "public/v1/v1-06-tag-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-01: diff of a modified file",
+    "file": "public/v2/v2-01-diff-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-02: diff --cached",
+    "file": "public/v2/v2-01-diff-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-03: diff --stat",
+    "file": "public/v2/v2-01-diff-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-diff-04: diff --name-status between commits",
+    "file": "public/v2/v2-01-diff-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-01-show-log-p-01: show of a commit with its patch",
+    "file": "public/v2/v2-01-show-log-p-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-02-config-01: set and get a value",
+    "file": "public/v2/v2-02-config-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-03-ignore-01: a negated pattern",
+    "file": "public/v2/v2-03-ignore-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-01: fast-forward merge",
+    "file": "public/v2/v2-04-merge-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-02: three-way merge without conflicts",
+    "file": "public/v2/v2-04-merge-02.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-03: a conflicting merge",
+    "file": "public/v2/v2-04-merge-03.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-04: merge --abort",
+    "file": "public/v2/v2-04-merge-04.json",
+    "ok": true
+  },
+  {
+    "name": "v2-04-merge-base-01: merge-base of two branches",
+    "file": "public/v2/v2-04-merge-base-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-05-annotated-tag-01: tag -a and cat-file -p",
+    "file": "public/v2/v2-05-annotated-tag-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-01: stash push and stash list",
+    "file": "public/v2/v2-06-stash-01.json",
+    "ok": true
+  },
+  {
+    "name": "v2-06-stash-02: stash pop",
+    "file": "public/v2/v2-06-stash-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-01: cherry-pick a commit",
+    "file": "public/v3/v3-01-cherry-pick-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-cherry-pick-02: cherry-pick conflict and --abort",
+    "file": "public/v3/v3-01-cherry-pick-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-01-revert-01: revert --no-edit HEAD",
+    "file": "public/v3/v3-01-revert-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-01: rebase onto an upstream branch",
+    "file": "public/v3/v3-02-rebase-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-02-rebase-02: rebase --abort after a conflict",
+    "file": "public/v3/v3-02-rebase-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-01: reflog after commits",
+    "file": "public/v3/v3-03-reflog-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-03-reflog-02: reflog show of a branch",
+    "file": "public/v3/v3-03-reflog-02.json",
+    "ok": true
+  },
+  {
+    "name": "v3-04-packed-refs-01: resolve a ref stored in packed-refs",
+    "file": "public/v3/v3-04-packed-refs-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-01: cat-file after git gc",
+    "file": "public/v3/v3-05-packfile-01.json",
+    "ok": true
+  },
+  {
+    "name": "v3-05-packfile-02: log after git gc",
+    "file": "public/v3/v3-05-packfile-02.json",
+    "ok": true
+  }
+]

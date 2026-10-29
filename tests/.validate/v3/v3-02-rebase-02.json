@@ -1,0 +1,130 @@
+{
+  "name": "v3-02-rebase-02: rebase --abort after a conflict",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Base"
+      ]
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "-c",
+        "topic"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nTopic wording.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "T1: reword README"
+      ]
+    },
+    {
+      "write": "topic.txt",
+      "content": "t\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "T2: add topic.txt"
+      ]
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "main"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nMain wording.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "M1: reword README"
+      ]
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "topic"
+      ]
+    },
+    {
+      "run": [
+        "rebase",
+        "main"
+      ],
+      "expectExit": 1
+    },
+    {
+      "run": [
+        "rebase",
+        "--abort"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "v1-05-status-06: a repository with no commits yet",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "a.txt",
+      "content": "a\n"
+    },
+    {
+      "write": "b.txt",
+      "content": "b\n"
+    },
+    {
+      "git": [
+        "add",
+        "a.txt"
+      ]
+    },
+    {
+      "run": [
+        "status",
+        "--porcelain"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

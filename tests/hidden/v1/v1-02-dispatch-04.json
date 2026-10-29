@@ -1,0 +1,17 @@
+{
+  "name": "v1-02-dispatch-04: hash-object works outside a repository",
+  "steps": [
+    {
+      "write": "f.txt",
+      "content": "outside\n"
+    },
+    {
+      "run": [
+        "hash-object",
+        "f.txt"
+      ],
+      "matchOutput": true,
+      "expectExit": 0
+    }
+  ]
+}
