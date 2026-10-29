@@ -1,0 +1,22 @@
+{
+  "name": "v1-04-objects-01: hash-object prints the blob ID",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "hello.txt",
+      "content": "hello world\n"
+    },
+    {
+      "run": [
+        "hash-object",
+        "hello.txt"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

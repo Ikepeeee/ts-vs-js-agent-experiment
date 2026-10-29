@@ -1,0 +1,60 @@
+{
+  "name": "v1-05-ignore-01: .gitignore with a wildcard",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": ".gitignore",
+      "content": "*.log\n"
+    },
+    {
+      "write": "a.log",
+      "content": "a\n"
+    },
+    {
+      "write": "b.txt",
+      "content": "b\n"
+    },
+    {
+      "run": [
+        "status",
+        "--porcelain"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

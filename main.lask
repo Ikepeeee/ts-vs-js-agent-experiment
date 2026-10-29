@@ -1,0 +1,707 @@
+// TypeScript and JavaScript experiment: every step of experiment-design.md chapter 13 as a lask task.
+//
+// The trials need one environment variable, the Claude token (lask run login):
+//
+//   export CLAUDE_CODE_OAUTH_TOKEN=...                 # or keep the line in .env and: source .env
+//
+//   lask sync                                          # build and pull the images lask runs
+//   lask run build-images                              # build the trial image, record its ID
+//   lask run validate                                  # confirm the tests against the real git
+//   lask run freeze                                    # take the hashes to pre-register
+//   lask run login                                     # create the Claude token
+//   lask run exp-v1 S01 --lang ts --model claude-opus-5-5
+//   lask run exp-v2 S01                                # continue with v0.2.0, same conditions
+//   lask run exp-v3 S01                                # and v0.3.0
+//   lask run evaluate S01
+//
+// An experiment named S01 in the TypeScript condition with Opus works in
+// playground/S01_ts_claude-opus-5-5/, the agent's home, and writes its records
+// to results/S01_ts_claude-opus-5-5/.
+//
+// Every task checks that it runs on lask 0.13.0.
+
+import * as tools from "tools"
+
+// The Docker CLI, in a container that drives the host's daemon. The agent's
+// containers are started with it rather than as lask environments: lask
+// mounts this whole directory into its containers, hidden tests included,
+// and an agent must see only its own playground.
+dockerd = tools.docker.setup()
+docker_cli = runnable(#docker:29.5.3-cli, env = dockerd.env, volumes = dockerd.volumes)
+
+// The evaluation image (experiment-design.md 13.4), with the network off. It
+// sees this directory at /work, its working directory.
+evaluation = #./images/eval/Dockerfile{network: "none"}
+
+// Files of this directory are read and written through a container too.
+files = tools.unix.env()
+
+command { "docker", "date", "sleep" } on docker_cli
+command { "node" } on evaluation
+
+required_lask = "lask 0.13.0"
+versions: Array<String> = ["v1", "v2", "v3"]
+langs: Array<String> = ["ts", "js"]
+models: Array<String> = ["claude-sonnet-5-5", "claude-opus-5-5"]
+fixed_resume = "Continue with your best judgment, following AGENTS.md and the specification."
+
+// Settings every trial's Claude Code runs with (experiment-design.md 13.2), besides the token.
+claude_settings: Map<String> = {
+  "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "1",
+  "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
+  "DISABLE_AUTOUPDATER": "1",
+  "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+}
+
+// The trial image's ID, recorded by build-images. Running it by ID pins it by content.
+images_file = "images.json"
+
+// How long to wait after the plan's usage limit, and after other API errors.
+usage_wait_seconds = 1800
+api_error_wait_seconds = 300
+// A version that keeps hitting these is treated as an infrastructure failure.
+max_usage_waits = 48
+max_api_error_waits = 12
+// Infrastructure failures restart the version from its start snapshot at most this often.
+max_restarts = 2
+// Exit code used for infrastructure failures raised by this module.
+infra_code = 75
+
+// ------------------------------------------------------------------ Images
+
+// Build the trial image and record its ID in images.json.
+//
+// The ID is pre-registered with the other hashes (lask run freeze), so after
+// freezing, the image is not rebuilt. The evaluation image is a lask recipe,
+// built by `lask sync` and pinned in lask.lock.json.
+//
+// @param force  Rebuild although images.json exists.
+build_images(--force: Bool = false): Void = do {
+  require_lask()
+  if (file_exists(images_file, files) && !force) {
+    fail(error(2, "#{images_file} exists; the image may already be frozen. Use --force to rebuild it."))
+  }
+  trial = $ docker build -q -t tgit-trial images/trial
+  server = $ docker version --format '{{.Server.Version}} {{.Server.Os}}/{{.Server.Arch}}'
+  write_file(images_file, encode({ trial: trim(trial), docker: trim(server) }, "pretty-json"), files)
+  log("trial image #{trim(trial)}")
+}
+
+// ------------------------------------------------------------------ Tests and freezing
+
+// Confirm the tests against the real git (13.1 step 2).
+//
+// Runs every hand-written scenario twice, the self-test with a broken tgit, the
+// real repository, and 2,000 random sequences per version, with the real git on
+// both sides, in the evaluation image. Takes about half an hour.
+validate(): Void = do {
+  require_lask()
+  stamp = $ date +%Y%m%d-%H%M%S
+  out = "tests/validation-logs/#{trim(stamp)}"
+  $[evaluation] sh eval/validate-tests.sh #{out}
+  log("validation log: #{out}/validate.log")
+}
+
+// Take the hashes to pre-register (13.1 step 3).
+freeze(): Void = do {
+  require_lask()
+  $[evaluation] sh eval/freeze.sh freeze
+  log("hashes: freeze/freeze.sha256")
+}
+
+// ------------------------------------------------------------------ Credentials
+
+// Create a long-lived token for the trials with `claude setup-token`.
+//
+// Runs Claude Code on this machine, interactively. Set the token it prints as
+// CLAUDE_CODE_OAUTH_TOKEN in the shell that runs the trials.
+login(): Void = do {
+  require_lask()
+  $[#local] claude setup-token
+  log("now set it in the shell: export CLAUDE_CODE_OAUTH_TOKEN=<token>")
+}
+
+// ------------------------------------------------------------------ Experiments
+
+// Start an experiment with v0.1.0 (13.3).
+//
+// Creates playground/<test_name>_<lang>_<model>/ with what v0.1.0 needs, the
+// agent's home, and has the agent implement docs/spec-v1.md there. Records go
+// to results/<test_name>_<lang>_<model>/. Run it again after the runner
+// stopped, and v0.1.0 starts over from its start snapshot.
+//
+// @param test_name  Name of the experiment, such as P1 or S01: letters, digits, . and -.
+// @param lang       ts or js: which AGENTS.md the repository gets.
+// @param model      The model ID, passed to --model as it is.
+// @param max_turns  Turn limit for the version (experiment-design.md chapter 5).
+// @param max_hours  Active-time limit for the version, excluding waits for the usage limit.
+// @complete lang ts js
+// @complete model claude-sonnet-5-5 claude-opus-5-5
+// @example lask run exp-v1 S01 --lang ts --model claude-opus-5-5
+exp_v1(
+  test_name: String,
+  --lang: String = "",
+  --model: String = "",
+  --max_turns: Number = 3000,
+  --max_hours: Number = 24
+): Void = do {
+  require_lask()
+  check_claude_env()
+  if (!regex_test(test_name, "^[A-Za-z0-9][A-Za-z0-9.-]*$")) {
+    fail(error(2, "the test name may hold only letters, digits, . and -, starting with a letter or digit"))
+  }
+  if (!contains_array(langs, lang)) { fail(error(2, "--lang must be ts or js")) }
+  if (!contains_array(models, model)) { fail(error(2, "--model must be one of #{join(models, ", ")}")) }
+  dir = "#{test_name}_#{lang}_#{model}"
+  used = filter(experiment_dirs(test_name), \(d: String) -> d != dir)
+  if (!is_empty(used)) { fail(error(2, "#{test_name} is already used by results/#{first(used)}")) }
+  if (!file_exists("results/#{dir}/meta.json", files)) {
+    if (file_exists("playground/#{dir}", files)) {
+      fail(error(2, "playground/#{dir} exists without results/#{dir}/meta.json; remove it to start again"))
+    }
+    setup_experiment(test_name, dir, lang, model)
+  }
+  run_version(dir, "v1", lang, model, max_turns, max_hours * 3600)
+}
+
+// Continue an experiment with v0.2.0, in the same conditions (13.3).
+//
+// Adds the v0.2.0 specification and public tests to the experiment's
+// playground and has the agent implement docs/spec-v2.md there.
+//
+// @param test_name  The name given to exp-v1.
+// @param max_turns  Turn limit for the version.
+// @param max_hours  Active-time limit for the version.
+// @example lask run exp-v2 S01
+exp_v2(test_name: String, --max_turns: Number = 3000, --max_hours: Number = 24): Void =
+  continue_experiment(test_name, "v2", max_turns, max_hours)
+
+// Continue an experiment with v0.3.0, in the same conditions (13.3).
+//
+// @param test_name  The name given to exp-v1.
+// @param max_turns  Turn limit for the version.
+// @param max_hours  Active-time limit for the version.
+// @example lask run exp-v3 S01
+exp_v3(test_name: String, --max_turns: Number = 3000, --max_hours: Number = 24): Void =
+  continue_experiment(test_name, "v3", max_turns, max_hours)
+
+// Remove an experiment's container, for example after it stopped on a failure.
+//
+// @param test_name  The name given to exp-v1.
+stop(test_name: String): Void = do {
+  require_lask()
+  for (d: experiment_dirs(test_name)) {
+    $* docker rm -f #{container_name(d)}
+    log("removed #{container_name(d)} if it existed")
+  }
+}
+
+// ------------------------------------------------------------------ Evaluation
+
+// Evaluate an experiment (13.4), in the evaluation image with the network off.
+//
+// @param test_name  The name given to exp-v1.
+// @param version    One version, or all to evaluate every version that has a repo.tar.
+// @complete version all v1 v2 v3
+// @example lask run evaluate S01 --version v2
+evaluate(test_name: String, --version: String = "all"): Void = do {
+  require_lask()
+  dir = experiment_dir(test_name)
+  rdir = "results/#{dir}"
+  lang = str(read_json("#{rdir}/meta.json"), "lang")
+  todo = version == "all"
+    ? filter(versions, \(v: String) -> file_exists("#{rdir}/#{v}/repo.tar", files))
+    : [version]
+  for (v: todo) {
+    if (!file_exists("#{rdir}/#{v}/repo.tar", files)) { fail(error(2, "#{rdir}/#{v}/repo.tar not found")) }
+    $ node eval/evaluate.mjs --dir #{"#{rdir}/#{v}"} --lang #{lang} --version #{v}
+    log("#{rdir}/#{v}/eval/summary.json")
+  }
+  log("evaluated #{dir}: #{join(todo, ", ")}")
+}
+
+// ------------------------------------------------------------------ Helpers: settings
+
+internal require_lask(): Void = do {
+  v = $[#local] lask version
+  if (trim(v) != required_lask) { fail(error(2, "this experiment runs on #{required_lask}, not #{trim(v)}")) }
+}
+
+// The token must be in the environment before a trial starts.
+internal check_claude_env(): Void = do {
+  token!! = find_env("CLAUDE_CODE_OAUTH_TOKEN")
+  if (token == null || token == "") {
+    fail(error(2, "CLAUDE_CODE_OAUTH_TOKEN is not set; create one with lask run login and export it"))
+  }
+}
+
+// The Docker CLI with the variables the agent's container gets. They reach the
+// container by name, so the token appears on no command line.
+internal trial_launcher(): Runnable = do {
+  token!! = get_env("CLAUDE_CODE_OAUTH_TOKEN")
+  vars = merge(claude_settings, { "CLAUDE_CODE_OAUTH_TOKEN": token, "HOME": "/home/node" })
+  runnable(#docker:29.5.3-cli, env = merge(dockerd.env, vars), volumes = dockerd.volumes)
+}
+
+internal image_id(kind: String): String = do {
+  if (!file_exists(images_file, files)) { fail(error(2, "#{images_file} not found; run lask run build-images")) }
+  id = str(read_json(images_file), kind)
+  if (docker("image inspect #{shell_quote(id)}").code != 0) {
+    fail(error(2, "image #{id} is not on this Docker; run lask run build-images --force (and freeze again)"))
+  }
+  id
+}
+
+// The absolute host path of this directory, where the shell ran lask: the
+// daemon resolves the agent's home from it.
+internal host_root(): String = get_env("PWD")
+
+internal now(): Number = do {
+  t = $ date +%s
+  to_number(t)
+}
+
+internal read_json(path: String): Map<Any> = cast(from_json(read_file(path, files)))
+
+// ------------------------------------------------------------------ Helpers: an experiment
+
+// The directories named <test_name>_<lang>_<model> that have records.
+internal experiment_dirs(test_name: String): Array<String> = do {
+  all = flat_map(langs, \(l: String) -> map(models, \(m: String) -> "#{test_name}_#{l}_#{m}"))
+  filter(all, \(d: String) -> file_exists("results/#{d}/meta.json", files))
+}
+
+internal experiment_dir(test_name: String): String = do {
+  found = experiment_dirs(test_name)
+  if (is_empty(found)) { fail(error(2, "no experiment named #{test_name}; start one with lask run exp-v1")) }
+  first(found)
+}
+
+internal continue_experiment(test_name: String, v: String, max_turns: Number, max_hours: Number): Void = do {
+  require_lask()
+  check_claude_env()
+  dir = experiment_dir(test_name)
+  meta = read_json("results/#{dir}/meta.json")
+  prev = versions[index_of_array(versions, v) - 1]
+  if (!file_exists("results/#{dir}/#{prev}/run.json", files)) {
+    fail(error(2, "#{dir} has not finished #{prev}; run lask run exp-#{prev} #{test_name}"))
+  }
+  run_version(dir, v, str(meta, "lang"), str(meta, "model"), max_turns, max_hours * 3600)
+}
+
+// A new experiment: its empty home, and meta.json.
+internal setup_experiment(test_name: String, dir: String, lang: String, model: String): Void = do {
+  // The home starts empty; the container writes the repository into it (prepare_version).
+  home = "playground/#{dir}"
+  make_dir(home, files)
+  agents = read_file("#{lang}/AGENTS.md", files)
+  lask_version = $[#local] lask version
+  make_dir("results/#{dir}", files)
+  write_file("results/#{dir}/meta.json", encode({
+    test_name: test_name,
+    lang: lang,
+    model: model,
+    started: now(),
+    lask_version: trim(lask_version),
+    images: read_json(images_file),
+    claude_settings: claude_settings,
+    agents_md_sha256: sha256(agents)
+  }, "pretty-json"), files)
+  log("set up #{home}")
+}
+
+// ------------------------------------------------------------------ Helpers: the agent's container
+
+internal container_name(dir: String): String = "tgit-#{dir}"
+
+internal docker(args: String): CommandResult = run(docker_cli, "docker #{args}")
+
+internal docker_ok(args: String): String = do {
+  r = docker(args)
+  if (r.code != 0) { fail(error(infra_code, "docker #{args}: #{r.stderr}")) }
+  r.stdout
+}
+
+// A command line for the Docker CLI's container, usually a docker exec with a
+// redirection or a pipe to a file of this directory.
+internal pipe_ok(cmd: String): Void = do {
+  r = run(docker_cli, cmd)
+  if (r.code != 0) { fail(error(infra_code, "#{cmd}: #{r.stderr}")) }
+}
+
+// One container per version run (13.2). Only the experiment's playground is
+// mounted, as the home. A container left over from an interrupted run is replaced.
+internal start_container(dir: String): String = do {
+  c = container_name(dir)
+  docker("rm -f #{c}")
+  names = join(map(concat_array(keys(claude_settings), ["CLAUDE_CODE_OAUTH_TOKEN", "HOME"]), \(n: String) -> "-e #{n}"), " ")
+  home = "#{host_root()}/playground/#{dir}"
+  r = run(trial_launcher(), "docker run -d --init --name #{c} --label tgit-experiment=#{shell_quote(dir)} #{names} -v #{shell_quote("#{home}:/home/node")} -w /home/node #{image_id("trial")} sleep infinity")
+  if (r.code != 0) { fail(error(infra_code, "the agent's container did not start: #{r.stderr}")) }
+  log("started #{c}")
+  c
+}
+
+// A shell command in the agent's container, in the repository.
+internal in_repo(c: String, cmd: String): CommandResult =
+  docker("exec -w /home/node/tgit #{c} sh -c #{shell_quote(cmd)}")
+
+internal in_repo_ok(c: String, cmd: String): String = in_repo_ok_at(c, "/home/node/tgit", cmd)
+
+internal in_repo_ok_at(c: String, dir: String, cmd: String): String = do {
+  r = docker("exec -w #{dir} #{c} sh -c #{shell_quote(cmd)}")
+  if (r.code != 0) { fail(error(infra_code, "#{cmd}: #{r.stderr}")) }
+  r.stdout
+}
+
+// Add the version's specification and public tests, and commit them as the runner.
+// v0.1.0 also creates the repository with the condition's AGENTS.md (13.2).
+internal prepare_version(v: String, lang: String, c: String): Void = do {
+  if (v == "v1") {
+    in_repo_ok_at(c, "/home/node", "mkdir -p tgit/docs tgit/test/difftest/scenarios/given")
+    pipe_ok("docker exec -i -w /home/node/tgit #{c} sh -c 'cat > AGENTS.md' < #{lang}/AGENTS.md")
+  }
+  pipe_ok("docker exec -i -w /home/node/tgit #{c} sh -c 'cat > docs/spec-#{v}.md' < spec/spec-#{v}.md")
+  pipe_ok("tar -C tests/public/#{v} -cf - . | docker exec -i -w /home/node/tgit/test/difftest/scenarios/given #{c} tar -xf -")
+  msg = v == "v1" ? "Initial files" : "Add spec #{v}"
+  init = v == "v1" ? "git init -q -b main && " : ""
+  in_repo_ok(c, "#{init}git add -A && git -c user.name='tgit runner' -c user.email=runner@example.com commit -q -m #{shell_quote(msg)}")
+  log("prepared #{v}")
+}
+
+// Snapshots are made and restored by tar inside the agent's container, streamed
+// to and from this directory. Inside, the home is emptied rather than removed,
+// so the mount stays.
+internal save_snapshot(c: String, snapshot: String): Void = do {
+  pipe_ok("docker exec #{c} sh -c #{shell_quote(tar_create("."))} > #{shell_quote(snapshot)}")
+  log("saved #{snapshot}")
+}
+
+internal restore(c: String, snapshot: String): Void = do {
+  pipe_ok("docker exec -i #{c} sh -c 'find /home/node -mindepth 1 -delete && tar -C /home/node -xf -' < #{shell_quote(snapshot)}")
+  log("restored the home from #{snapshot}")
+}
+
+// tar of part of the home, to stdout. GNU tar exits 1 when a file's metadata changed
+// while it was read, which the shared folder causes right after the host or the
+// agent writes; only 2 and above are errors.
+internal tar_create(what: String): String =
+  "tar -C /home/node --warning=no-file-changed -cf - #{shell_quote(what)}; s=$?; [ $s -le 1 ]"
+
+internal head(c: String): String = trim(in_repo_ok(c, "git rev-parse HEAD"))
+
+// ------------------------------------------------------------------ Driving one version
+
+// One claude invocation.
+type Run = Record<
+  n: Number,
+  mode: String,
+  ending: String,
+  subtype: String,
+  is_error: Bool,
+  turns: Number,
+  seconds: Number,
+  session_id: String,
+  usage: Any,
+  total_cost_usd: Number
+>
+
+// Where a version stands while it is being driven.
+type State = Record<
+  runs: Array<Run>,
+  turns: Number,
+  active_seconds: Number,
+  usage_waits: Number,
+  usage_wait_seconds: Number,
+  api_error_waits: Number,
+  session: String,
+  mode: String,
+  ending: String
+>
+
+type Ctx = Record<
+  dir: String,
+  version: String,
+  model: String,
+  vdir: String,
+  logs: String,
+  container: String,
+  max_turns: Number,
+  max_seconds: Number
+>
+
+// Build one version in a fresh container (13.3). A version whose start snapshot
+// exists but that has no run.json was interrupted, and starts over from the
+// snapshot (13.6).
+internal run_version(dir: String, v: String, lang: String, model: String, max_turns: Number, max_seconds: Number): Void = do {
+  vdir = "results/#{dir}/#{v}"
+  snapshot = "#{vdir}/start.tar"
+  if (file_exists("#{vdir}/run.json", files)) { fail(error(2, "#{dir} has already finished #{v}")) }
+  attempts = size(glob("#{vdir}/logs-*", files))
+  c = start_container(dir)
+  try {
+    if (file_exists(snapshot, files)) {
+      if (attempts > 0) {
+        write_file("#{vdir}/restart-#{attempts - 1}.txt", "the runner stopped before #{v} finished", files)
+      }
+      restore(c, snapshot)
+    } else {
+      if (v == "v1" && attempts == 0 && file_exists("playground/#{dir}/tgit/.git", files)) {
+        fail(error(2, "playground/#{dir} was set up but #{v} never started; remove playground/#{dir} and results/#{dir} to start again"))
+      }
+      if (v != "v1") { check_head(dir, v, c) }
+      make_dir(vdir, files)
+      prepare_version(v, lang, c)
+      save_snapshot(c, snapshot)
+    }
+    attempt_version(dir, v, model, vdir, snapshot, c, max_turns, max_seconds, attempts, attempts)
+    docker_ok("rm -f #{c}")
+    log("#{dir} finished #{v}")
+  } catch (e) {
+    docker("rm -f #{c}")
+    fail(e)
+  }
+}
+
+// The playground must still be where the previous version ended.
+internal check_head(dir: String, v: String, c: String): Void = do {
+  prev = versions[index_of_array(versions, v) - 1]
+  expected = str(read_json("results/#{dir}/#{prev}/run.json"), "head")
+  actual = head(c)
+  if (expected != actual) {
+    fail(error(2, "playground/#{dir} is at #{actual}, not at #{expected} where #{prev} ended"))
+  }
+}
+
+internal attempt_version(
+  dir: String, v: String, model: String, vdir: String, snapshot: String,
+  c: String, max_turns: Number, max_seconds: Number, attempt: Number, first_attempt: Number
+): Void = try {
+  logs = "#{vdir}/logs-#{attempt}"
+  make_dir(logs, files)
+  ctx: Ctx = { dir: dir, version: v, model: model, vdir: vdir, logs: logs, container: c, max_turns: max_turns, max_seconds: max_seconds }
+  given_start = given_hash(c)
+  start: State = { runs: [], turns: 0, active_seconds: 0, usage_waits: 0, usage_wait_seconds: 0, api_error_waits: 0, session: "", mode: "start", ending: "" }
+  st = drive(ctx, start)
+  finish_version(ctx, st, given_start, attempt)
+} catch (e) {
+  if (e.code != infra_code || attempt - first_attempt >= max_restarts) { fail(e) }
+  log("#{dir} #{v}: infrastructure failure, restarting from the start snapshot: #{e.message}")
+  write_file("#{vdir}/restart-#{attempt}.txt", e.message, files)
+  docker("restart -t 5 #{c}")
+  restore(c, snapshot)
+  attempt_version(dir, v, model, vdir, snapshot, c, max_turns, max_seconds, attempt + 1, first_attempt)
+}
+
+// The claude command line for one run (13.3). A resume continues the version's
+// conversation; a new version always starts a new one. The output is written to
+// this directory, so the agent never sees its own logs.
+internal claude_command(ctx: Ctx, st: State, n: Number): String = do {
+  // A run that failed before a conversation existed starts over rather than resuming.
+  fresh = st.mode == "start" || st.session == ""
+  prompt = fresh ? "Implement docs/spec-#{ctx.version}.md." : fixed_resume
+  resume = fresh ? "" : "--resume #{shell_quote(st.session)} "
+  remaining = ctx.max_turns - st.turns
+  claude = "claude -p #{resume}#{shell_quote(prompt)} --model #{shell_quote(ctx.model)} --effort high --max-turns #{remaining} --dangerously-skip-permissions --disallowedTools WebFetch,WebSearch --output-format stream-json --verbose"
+  "docker exec -w /home/node/tgit #{ctx.container} #{claude} > #{shell_quote("#{ctx.logs}/run-#{n}.jsonl")} 2> #{shell_quote("#{ctx.logs}/run-#{n}.stderr")}"
+}
+
+// Run claude until the version ends one of the ways 13.3 lists.
+internal drive(ctx: Ctx, st: State): State = case {
+  st.turns >= ctx.max_turns -> with_ending(st, "turn_cap")
+  st.active_seconds >= ctx.max_seconds -> with_ending(st, "time_cap")
+  else -> do {
+    n = size(st.runs) + 1
+    cmd = claude_command(ctx, st, n)
+    t0 = now()
+    timed_out = try {
+      timeout(ctx.max_seconds - st.active_seconds, \() -> run(docker_cli, cmd))
+      false
+    } catch (e) {
+      if (e.code != 124) { fail(error(infra_code, "claude could not be run: #{e.message}")) }
+      // Stopping docker exec leaves claude running in the agent's container.
+      docker("restart -t 5 #{ctx.container}")
+      true
+    }
+    seconds = now() - t0
+    res = last_result("#{ctx.logs}/run-#{n}.jsonl")
+    base = {
+      runs: st.runs, turns: st.turns, active_seconds: st.active_seconds + seconds,
+      usage_waits: st.usage_waits, usage_wait_seconds: st.usage_wait_seconds,
+      api_error_waits: st.api_error_waits, session: st.session, mode: st.mode, ending: ""
+    }
+    if (timed_out) {
+      with_run(base, run_record(n, st.mode, "time_cap", res, seconds), "time_cap")
+    } else {
+      classify(ctx, base, n, st.mode, res, seconds)
+    }
+  }
+}
+
+internal classify(ctx: Ctx, st: State, n: Number, mode: String, res: Map<Any> | Null, seconds: Number): State = case (res) {
+  Null -> fail(error(infra_code, "run #{n} of #{ctx.dir} #{ctx.version} ended without a result"))
+  else -> do {
+    subtype = str(res, "subtype")
+    is_error = flag(res, "is_error")
+    text = to_lower(str(res, "result"))
+    session = str(res, "session_id")
+    used = num(res, "num_turns")
+    st2 = with_turns(st, st.turns + used, session)
+    case {
+      subtype == "error_max_turns" ->
+        with_run(st2, run_record(n, mode, "turn_cap", res, seconds), "turn_cap")
+      is_error && (contains(text, "usage limit") || contains(text, "limit reached") || contains(text, "resets")) -> do {
+        if (st2.usage_waits >= max_usage_waits) { fail(error(infra_code, "usage limit hit #{st2.usage_waits} times")) }
+        log("#{ctx.dir} #{ctx.version}: usage limit, waiting #{usage_wait_seconds}s")
+        $ sleep #{usage_wait_seconds}
+        next = with_run(st2, run_record(n, mode, "usage_limit", res, seconds), "")
+        drive(ctx, waited(next, "usage", usage_wait_seconds))
+      }
+      is_error -> do {
+        if (st2.api_error_waits >= max_api_error_waits) { fail(error(infra_code, "API errors #{st2.api_error_waits} times: #{text}")) }
+        log("#{ctx.dir} #{ctx.version}: API error, waiting #{api_error_wait_seconds}s: #{text}")
+        $ sleep #{api_error_wait_seconds}
+        next = with_run(st2, run_record(n, mode, "api_error", res, seconds), "")
+        drive(ctx, waited(next, "api_error", api_error_wait_seconds))
+      }
+      tag_present(ctx) -> with_run(st2, run_record(n, mode, "done", res, seconds), "done")
+      else -> do {
+        log("#{ctx.dir} #{ctx.version}: stopped without tagging #{release_tag(ctx.version)}, resuming with the fixed sentence")
+        next = with_run(st2, run_record(n, mode, "stopped", res, seconds), "")
+        drive(ctx, resumed(next, "stopped"))
+      }
+    }
+  }
+}
+
+// v1 -> v0.1.0, the tag the specification asks for when the release is done.
+internal release_tag(v: String): String = "v0.#{replace(v, "v", "")}.0"
+
+internal tag_present(ctx: Ctx): Bool = do {
+  tag = release_tag(ctx.version)
+  r = in_repo(ctx.container, "git tag -l #{shell_quote(tag)}")
+  trim(r.stdout) == tag
+}
+
+// The last `result` event of a stream-json log, or null when there is none.
+internal last_result(path: String): Map<Any> | Null = do {
+  found = if (file_exists(path, files)) {
+    filter(lines(read_file(path, files)), \(l: String) -> contains(l, "\"type\":\"result\""))
+  } else { [] }
+  if (is_empty(found)) { null } else {
+    m: Map<Any> = cast(from_json(last(found)))
+    m
+  }
+}
+
+internal str(m: Map<Any>, k: String): String = do {
+  v = get_or(m, k, null)
+  case (v) {
+    String -> v
+    else -> ""
+  }
+}
+
+internal num(m: Map<Any>, k: String): Number = do {
+  v = get_or(m, k, null)
+  case (v) {
+    Number -> v
+    else -> 0
+  }
+}
+
+internal flag(m: Map<Any>, k: String): Bool = do {
+  v = get_or(m, k, null)
+  case (v) {
+    Bool -> v
+    else -> false
+  }
+}
+
+internal run_record(n: Number, mode: String, ending: String, res: Map<Any> | Null, seconds: Number): Run = case (res) {
+  Null -> { n: n, mode: mode, ending: ending, subtype: "", is_error: true, turns: 0, seconds: seconds, session_id: "", usage: null, total_cost_usd: 0 }
+  else -> {
+    n: n, mode: mode, ending: ending,
+    subtype: str(res, "subtype"),
+    is_error: flag(res, "is_error"),
+    turns: num(res, "num_turns"),
+    seconds: seconds,
+    session_id: str(res, "session_id"),
+    usage: get_or(res, "usage", null),
+    total_cost_usd: num(res, "total_cost_usd")
+  }
+}
+
+internal with_ending(st: State, ending: String): State = {
+  runs: st.runs, turns: st.turns, active_seconds: st.active_seconds,
+  usage_waits: st.usage_waits, usage_wait_seconds: st.usage_wait_seconds,
+  api_error_waits: st.api_error_waits, session: st.session, mode: st.mode, ending: ending
+}
+
+internal with_run(st: State, r: Run, ending: String): State = {
+  runs: concat_array(st.runs, [r]), turns: st.turns, active_seconds: st.active_seconds,
+  usage_waits: st.usage_waits, usage_wait_seconds: st.usage_wait_seconds,
+  api_error_waits: st.api_error_waits, session: st.session, mode: st.mode, ending: ending
+}
+
+internal with_turns(st: State, turns: Number, session: String): State = {
+  runs: st.runs, turns: turns, active_seconds: st.active_seconds,
+  usage_waits: st.usage_waits, usage_wait_seconds: st.usage_wait_seconds,
+  api_error_waits: st.api_error_waits, session: session == "" ? st.session : session,
+  mode: st.mode, ending: st.ending
+}
+
+// After a wait, resume the same conversation. Waits do not count as active time.
+internal waited(st: State, kind: String, seconds: Number): State = {
+  runs: st.runs, turns: st.turns, active_seconds: st.active_seconds,
+  usage_waits: kind == "usage" ? st.usage_waits + 1 : st.usage_waits,
+  usage_wait_seconds: kind == "usage" ? st.usage_wait_seconds + seconds : st.usage_wait_seconds,
+  api_error_waits: kind == "api_error" ? st.api_error_waits + 1 : st.api_error_waits,
+  session: st.session, mode: kind, ending: ""
+}
+
+internal resumed(st: State, kind: String): State = {
+  runs: st.runs, turns: st.turns, active_seconds: st.active_seconds,
+  usage_waits: st.usage_waits, usage_wait_seconds: st.usage_wait_seconds,
+  api_error_waits: st.api_error_waits, session: st.session, mode: kind, ending: ""
+}
+
+internal given_hash(c: String): String =
+  trim(in_repo_ok(c, "find test/difftest/scenarios/given -type f | LC_ALL=C sort | xargs sha256sum | sha256sum"))
+
+// The number of auto-compactions in a version's logs.
+internal compactions(logs: String): Number = do {
+  logs_of = filter(list_dir(logs, files), \(f: String) -> ends_with(f, ".jsonl"))
+  reduce(logs_of, 0, \(acc: Number, f: String) ->
+    acc + size(filter(lines(read_file("#{logs}/#{f}", files)), \(l: String) -> contains(l, "compact_boundary"))))
+}
+
+// Save the repository and what happened (13.3 step 5).
+internal finish_version(ctx: Ctx, st: State, given_start: String, restarts: Number): Void = do {
+  given_end = given_hash(ctx.container)
+  pipe_ok("docker exec #{ctx.container} sh -c #{shell_quote(tar_create("tgit"))} > #{shell_quote("#{ctx.vdir}/repo.tar")}")
+  write_file("#{ctx.vdir}/run.json", encode({
+    experiment: ctx.dir,
+    version: ctx.version,
+    model: ctx.model,
+    max_turns: ctx.max_turns,
+    max_seconds: ctx.max_seconds,
+    ending: st.ending,
+    tag_present: tag_present(ctx),
+    head: head(ctx.container),
+    turns: st.turns,
+    active_seconds: st.active_seconds,
+    usage_wait_seconds: st.usage_wait_seconds,
+    resumes_stopped: size(filter(st.runs, \(r: Run) -> r.mode == "stopped")),
+    resumes_usage_limit: size(filter(st.runs, \(r: Run) -> r.mode == "usage")),
+    resumes_api_error: size(filter(st.runs, \(r: Run) -> r.mode == "api_error")),
+    compactions: compactions(ctx.logs),
+    given_unchanged: given_start == given_end,
+    given_sha256_start: given_start,
+    given_sha256_end: given_end,
+    infra_restarts: restarts,
+    logs: basename(ctx.logs),
+    runs: st.runs
+  }, "pretty-json"), files)
+  log("#{ctx.dir} #{ctx.version}: #{st.ending} after #{st.turns} turns, #{st.active_seconds}s")
+}

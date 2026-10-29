@@ -1,0 +1,31 @@
+{
+  "name": "v1-04-objects-02: hash-object -w then cat-file -p",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "a.txt",
+      "content": "alpha\n"
+    },
+    {
+      "run": [
+        "hash-object",
+        "-w",
+        "a.txt"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "cat-file",
+        "-p",
+        "4a58007052a65fbc2fc3f910f2855f45a4058e74"
+      ],
+      "matchOutput": true
+    }
+  ]
+}
