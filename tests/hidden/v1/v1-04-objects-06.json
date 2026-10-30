@@ -1,5 +1,5 @@
 {
-  "name": "v1-04-objects-06: hash-object -t commit rejects invalid content",
+  "name": "v1-04-objects-06: cat-file -s of a blob and a commit",
   "steps": [
     {
       "git": [
@@ -8,19 +8,50 @@
       ]
     },
     {
-      "write": "bad",
-      "content": "this is not a commit\n"
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
     },
     {
       "run": [
-        "hash-object",
-        "-t",
-        "commit",
-        "-w",
-        "bad"
+        "cat-file",
+        "-s",
+        "6e5bb8244484b1590447f00cdac9fe9977c14b4a"
       ],
-      "matchOutput": true,
-      "expectExit": 128
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "cat-file",
+        "-s",
+        "HEAD"
+      ],
+      "matchOutput": true
     }
   ]
 }

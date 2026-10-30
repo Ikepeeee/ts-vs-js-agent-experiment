@@ -1,5 +1,5 @@
 {
-  "name": "v1-05-status-11: a mode change only",
+  "name": "v1-05-status-11: a clean working tree",
   "steps": [
     {
       "git": [
@@ -8,8 +8,20 @@
       ]
     },
     {
-      "write": "script.sh",
-      "content": "#!/bin/sh\n"
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
     },
     {
       "git": [
@@ -22,12 +34,30 @@
         "commit",
         "-q",
         "-m",
-        "c"
+        "Initial commit"
       ]
     },
     {
-      "chmod": "script.sh",
-      "mode": "755"
+      "run": [
+        "status",
+        "--porcelain"
+      ],
+      "matchOutput": true
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "run": [
+        "status",
+        "--porcelain"
+      ],
+      "matchOutput": true
+    },
+    {
+      "write": "README.md",
+      "content": "dirty\n"
     },
     {
       "run": [

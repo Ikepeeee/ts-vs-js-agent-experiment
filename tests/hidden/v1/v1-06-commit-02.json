@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-commit-02: commit -a stages deletions but not untracked files",
+  "name": "v1-06-commit-02: repeated -m become paragraphs",
   "steps": [
     {
       "git": [
@@ -38,22 +38,24 @@
       ]
     },
     {
-      "delete": "docs/guide.txt"
+      "write": "a.txt",
+      "content": "a\n"
     },
     {
-      "write": "src/app.js",
-      "content": "changed\n"
-    },
-    {
-      "write": "untracked.txt",
-      "content": "u\n"
+      "git": [
+        "add",
+        "a.txt"
+      ]
     },
     {
       "run": [
         "commit",
-        "-a",
         "-m",
-        "Delete and modify"
+        "Subject line",
+        "-m",
+        "Body paragraph one.",
+        "-m",
+        "Body paragraph two."
       ]
     }
   ]

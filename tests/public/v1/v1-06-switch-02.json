@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-switch-02: checkout -b",
+  "name": "v1-06-switch-02: switch -c",
   "steps": [
     {
       "git": [
@@ -75,8 +75,8 @@
     },
     {
       "run": [
-        "checkout",
-        "-b",
+        "switch",
+        "-c",
         "feature"
       ]
     },

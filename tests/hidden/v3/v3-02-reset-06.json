@@ -1,0 +1,121 @@
+{
+  "name": "v3-02-reset-06: reset --hard to a commit on another branch",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\nNow with more text.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Expand README"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "write": "notes.txt",
+      "content": "note 1\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Add notes"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "branch",
+        "old",
+        "HEAD~2"
+      ]
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "-c",
+        "work"
+      ]
+    },
+    {
+      "run": [
+        "reset",
+        "--hard",
+        "old"
+      ]
+    },
+    {
+      "run": [
+        "branch"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

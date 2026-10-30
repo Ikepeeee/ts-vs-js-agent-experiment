@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-log-04: log on an unborn branch",
+  "name": "v1-06-log-04: dates and names from different authors",
   "steps": [
     {
       "git": [
@@ -8,11 +8,49 @@
       ]
     },
     {
+      "write": "a.txt",
+      "content": "1\n"
+    },
+    {
+      "git": [
+        "add",
+        "a.txt"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Non-ASCII author"
+      ],
+      "env": {
+        "GIT_AUTHOR_NAME": "Zoë Ünïcode",
+        "GIT_AUTHOR_EMAIL": "zoe@example.org",
+        "GIT_AUTHOR_DATE": "1234567890 +0900"
+      }
+    },
+    {
+      "write": "a.txt",
+      "content": "2\n"
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-a",
+        "-m",
+        "Negative offset"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1600000000 -0530"
+      }
+    },
+    {
       "run": [
         "log"
       ],
-      "matchOutput": true,
-      "expectExit": 128
+      "matchOutput": true
     }
   ]
 }

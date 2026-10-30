@@ -1,5 +1,5 @@
 {
-  "name": "v1-05-ls-files-02: ls-files -o lists untracked files",
+  "name": "v1-05-ls-files-02: ls-files from a subdirectory",
   "steps": [
     {
       "git": [
@@ -38,19 +38,19 @@
       ]
     },
     {
-      "write": "new.txt",
-      "content": "n\n"
-    },
-    {
-      "write": "newdir/a.txt",
-      "content": "a\n"
+      "run": [
+        "ls-files"
+      ],
+      "matchOutput": true,
+      "cwd": "src"
     },
     {
       "run": [
         "ls-files",
-        "-o"
+        "-s"
       ],
-      "matchOutput": true
+      "matchOutput": true,
+      "cwd": "src"
     }
   ]
 }

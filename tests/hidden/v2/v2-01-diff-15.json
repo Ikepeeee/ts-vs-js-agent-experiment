@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-15: CRLF line endings",
+  "name": "v2-01-diff-15: rewriting a whole file",
   "steps": [
     {
       "git": [
@@ -8,8 +8,8 @@
       ]
     },
     {
-      "write": "win.txt",
-      "content": "one\r\ntwo\r\nthree\r\n"
+      "write": "poem.txt",
+      "content": "old verse 1\nold verse 2\nold verse 3\nold verse 4\nold verse 5\nold verse 6\nold verse 7\nold verse 8\n"
     },
     {
       "git": [
@@ -26,8 +26,8 @@
       ]
     },
     {
-      "write": "win.txt",
-      "content": "one\r\nTWO\r\nthree\r\n"
+      "write": "poem.txt",
+      "content": "new verse 1\nnew verse 2\nnew verse 3\nnew verse 4\nnew verse 5\nnew verse 6\n"
     },
     {
       "run": [

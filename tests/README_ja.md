@@ -9,11 +9,10 @@
 | パス | 内容 |
 |---|---|
 | `src/` | 手書きシナリオの元（`v1.mjs`〜`v3.mjs`）と、JSONを作る `build.mjs` |
-| `public/vN/` | 公開テスト（v0.1.0 25件、v0.2.0 15件、v0.3.0 10件）。仕様1章の形式だけを使う |
-| `hidden/vN/` | 隠しシナリオ（120件、80件、60件）。`manifest.json` に節と「基本」「境界」の区別 |
-| `random/gen.mjs` | 無作為な差分テストの生成器（隠しテストの2） |
-| `realrepo/` | 実在リポジトリでの比較（隠しテストの3）。`requests.tar`、`commands.json`、`compare.mjs`、`prepare.sh` |
-| `runner/run.mjs` | シナリオを本物のgitとtgitで実行して比べるランナー |
+| `public/vN/` | 公開テスト（v0.1.0 16件、v0.2.0 8件、v0.3.0 8件）。仕様1章の形式だけを使う |
+| `hidden/vN/` | 隠しシナリオ（82件、35件、36件）。`manifest.json` に節と「基本」「境界」の区別 |
+| `random/gen.mjs` | 無作為な差分テストの生成器（隠しテストの2）。エージェントにも写しを渡す（隠しテストの種は渡さない） |
+| `runner/run.mjs` | シナリオを本物のgitとtgitで実行して比べるランナー。エージェントにも写しを渡す |
 | `runner/fake-tgit.mjs` | ランナーの自己テスト用の、わざと壊したtgit |
 
 ## 使い方
@@ -26,14 +25,11 @@ node tests/src/build.mjs
 node tests/runner/run.mjs --tgit '["node","<repo>/src/main.ts"]' --json out.json tests/hidden/v1 tests/hidden/v2
 
 # 無作為な差分テスト：生成してから同じランナーで回す
-node tests/random/gen.mjs --version v2 --out /tmp/random-v2
+node tests/random/gen.mjs --version v2 --seed 20261029 --out /tmp/random-v2
 node tests/runner/run.mjs --tgit '["node","<repo>/src/main.ts"]' --json random.json /tmp/random-v2
-
-# 実在リポジトリでの比較（v0.3.0）
-node tests/realrepo/compare.mjs --tgit '["node","<repo>/src/main.ts"]' --json realrepo.json
 ```
 
-試行で `given/` に置くのは、その版までの `public/` をまとめたもの（v0.2.0 なら `public/v1` と `public/v2`）。`manifest.json` は入れない。
+試行で `given/` に置くのは、その版までの `public/` をまとめたもの（v0.2.0 なら `public/v1` と `public/v2`）。`manifest.json` は入れない。v0.1.0 では、`runner/run.mjs` と `random/gen.mjs` も `test/difftest/tools/` に置く。
 
 ## テスト自体の確認
 
@@ -42,7 +38,6 @@ node tests/realrepo/compare.mjs --tgit '["node","<repo>/src/main.ts"]' --json re
 ```sh
 node tests/runner/run.mjs --tgit git --strict tests/hidden tests/.validate   # 期待する終了コードも確かめる
 node tests/runner/run.mjs --tgit git tests/public
-node tests/realrepo/compare.mjs --tgit git
 ```
 
 `--strict` は、失敗を想定していない `run` ステップで本物のgitが失敗したら、シナリオの誤りとして報告する。失敗を想定するステップには `expectExit` を書く（公開テストからは `build.mjs` が取り除く。`.validate/` はその前の写し）。
@@ -62,4 +57,4 @@ reflog（`.git/logs/`）は状態に含めない。v0.2.0 までのtgitは書か
 ## 凍結の前にすること
 
 1. 実験フォルダーの直下で `lask run validate` を実行する。評価のイメージ（Linux、試行と同じgitのバージョン）の中で、上の「テスト自体の確認」と、無作為な差分テスト全件（各版2,000件）の確認をまとめて流す。
-2. `lask run freeze` でハッシュを取り、事前登録する。対象は `public/` と `hidden/` の全ファイル、`random/gen.mjs` と種（`20261029`）と生成結果、`realrepo/requests.tar` と `commands.json`、`runner/run.mjs` ほか（実験設計 13.1）。
+2. `lask run freeze` でハッシュを取り、事前登録する。対象は `public/` と `hidden/` の全ファイル、`random/gen.mjs` と種（`20261029`）と生成結果、`runner/run.mjs` ほか（実験設計 13.1）。

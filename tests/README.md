@@ -9,11 +9,10 @@ Japanese version: `README_ja.md`. This English version is canonical; where the t
 | Path | Contents |
 |---|---|
 | `src/` | Sources of the handwritten scenarios (`v1.mjs` to `v3.mjs`), and `build.mjs`, which writes the JSON |
-| `public/vN/` | Public tests (25 for v0.1.0, 15 for v0.2.0, 10 for v0.3.0). They use only the format of section 1 of the spec |
-| `hidden/vN/` | Hidden scenarios (120, 80, 60). `manifest.json` gives each one's section and whether it is "basic" or "edge" |
-| `random/gen.mjs` | Generator of the random differential tests (hidden test 2) |
-| `realrepo/` | Comparison on a real repository (hidden test 3): `requests.tar`, `commands.json`, `compare.mjs`, `prepare.sh` |
-| `runner/run.mjs` | Runner that executes scenarios with the real git and with tgit and compares them |
+| `public/vN/` | Public tests (16 for v0.1.0, 8 for v0.2.0, 8 for v0.3.0). They use only the format of section 1 of the spec |
+| `hidden/vN/` | Hidden scenarios (82, 35, 36). `manifest.json` gives each one's section and whether it is "basic" or "edge" |
+| `random/gen.mjs` | Generator of the random differential tests (hidden test 2). The agent gets a copy, without the hidden seed |
+| `runner/run.mjs` | Runner that executes scenarios with the real git and with tgit and compares them. The agent gets a copy |
 | `runner/fake-tgit.mjs` | A deliberately broken tgit, for the runner's self-test |
 
 ## Usage
@@ -26,14 +25,11 @@ node tests/src/build.mjs
 node tests/runner/run.mjs --tgit '["node","<repo>/src/main.ts"]' --json out.json tests/hidden/v1 tests/hidden/v2
 
 # Random differential tests: generate, then run them with the same runner
-node tests/random/gen.mjs --version v2 --out /tmp/random-v2
+node tests/random/gen.mjs --version v2 --seed 20261029 --out /tmp/random-v2
 node tests/runner/run.mjs --tgit '["node","<repo>/src/main.ts"]' --json random.json /tmp/random-v2
-
-# Comparison on a real repository (v0.3.0)
-node tests/realrepo/compare.mjs --tgit '["node","<repo>/src/main.ts"]' --json realrepo.json
 ```
 
-What a trial puts in `given/` is the union of `public/` up to that version (for v0.2.0, `public/v1` and `public/v2`), without `manifest.json`.
+What a trial puts in `given/` is the union of `public/` up to that version (for v0.2.0, `public/v1` and `public/v2`), without `manifest.json`. At v0.1.0 it also puts `runner/run.mjs` and `random/gen.mjs` in `test/difftest/tools/`.
 
 ## Checking the tests themselves
 
@@ -42,7 +38,6 @@ With `--tgit git`, both sides run the real git. If the tests are correct, all of
 ```sh
 node tests/runner/run.mjs --tgit git --strict tests/hidden tests/.validate   # also checks the expected exit codes
 node tests/runner/run.mjs --tgit git tests/public
-node tests/realrepo/compare.mjs --tgit git
 ```
 
 With `--strict`, a `run` step that is not expected to fail, but fails with the real git, is reported as a mistake in the scenario. Steps that are expected to fail carry `expectExit`. `build.mjs` removes it from the public tests; `.validate/` is a copy taken before that.
@@ -62,4 +57,4 @@ Both sides run with a dedicated `HOME` (`.gitconfig` with `init.defaultBranch=ma
 ## Before freezing
 
 1. Run `lask run validate` at the root of the experiment folder. In the evaluation image (Linux, the same git version as the trials), it runs the checks above together with all random differential tests (2,000 per version).
-2. Take the hashes with `lask run freeze` and pre-register them. They cover every file in `public/` and `hidden/`; `random/gen.mjs`, its seed (`20261029`) and its output; `realrepo/requests.tar` and `commands.json`; `runner/run.mjs`; and the rest listed in section 13.1 of the experiment design.
+2. Take the hashes with `lask run freeze` and pre-register them. They cover every file in `public/` and `hidden/`; `random/gen.mjs`, its seed (`20261029`) and its output; `runner/run.mjs`; and the rest listed in section 13.1 of the experiment design.

@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-08: diff --name-only",
+  "name": "v2-01-diff-08: no newline at end of file",
   "steps": [
     {
       "git": [
@@ -8,20 +8,16 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\n"
+      "write": "a.txt",
+      "content": "one\ntwo"
     },
     {
-      "write": "src/app.js",
-      "content": "console.log('hello');\n"
+      "write": "b.txt",
+      "content": "one\ntwo\n"
     },
     {
-      "write": "src/lib/util.js",
-      "content": "export const add = (a, b) => a + b;\n"
-    },
-    {
-      "write": "docs/guide.txt",
-      "content": "Read me first.\n"
+      "write": "c.txt",
+      "content": "x\ny"
     },
     {
       "git": [
@@ -34,78 +30,24 @@
         "commit",
         "-q",
         "-m",
-        "Initial commit"
+        "initial"
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\nNow with more text.\n"
+      "write": "a.txt",
+      "content": "one\ntwo\n"
     },
     {
-      "git": [
-        "add",
-        "-A"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000060 +0000",
-        "GIT_COMMITTER_DATE": "1700000060 +0000"
-      }
+      "write": "b.txt",
+      "content": "one\ntwo"
     },
     {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Expand README"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000060 +0000",
-        "GIT_COMMITTER_DATE": "1700000060 +0000"
-      }
-    },
-    {
-      "write": "notes.txt",
-      "content": "note 1\n"
-    },
-    {
-      "git": [
-        "add",
-        "-A"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000120 +0000",
-        "GIT_COMMITTER_DATE": "1700000120 +0000"
-      }
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Add notes"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000120 +0000",
-        "GIT_COMMITTER_DATE": "1700000120 +0000"
-      }
+      "write": "c.txt",
+      "content": "x\nz"
     },
     {
       "run": [
-        "diff",
-        "--name-only",
-        "HEAD~2",
-        "HEAD"
-      ],
-      "matchOutput": true
-    },
-    {
-      "write": "src/app.js",
-      "content": "x\n"
-    },
-    {
-      "run": [
-        "diff",
-        "--name-only"
+        "diff"
       ],
       "matchOutput": true
     }

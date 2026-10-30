@@ -1,5 +1,5 @@
 {
-  "name": "v1-05-status-09: status quotes special paths",
+  "name": "v1-05-status-09: a staged deletion with the file recreated",
   "steps": [
     {
       "git": [
@@ -8,22 +8,45 @@
       ]
     },
     {
-      "write": "with space.txt",
-      "content": "x\n"
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
     },
     {
-      "write": "日本語.txt",
-      "content": "x\n"
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
     },
     {
-      "write": "-dash.txt",
-      "content": "x\n"
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
     },
     {
       "git": [
         "add",
-        "日本語.txt"
+        "-A"
       ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "git": [
+        "rm",
+        "-q",
+        "README.md"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "back again\n"
     },
     {
       "run": [

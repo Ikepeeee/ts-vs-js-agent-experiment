@@ -1,5 +1,5 @@
 {
-  "name": "v1-04-objects-05: hash-object --stdin -w",
+  "name": "v1-04-objects-05: cat-file -p of a tree with modes",
   "steps": [
     {
       "git": [
@@ -8,13 +8,62 @@
       ]
     },
     {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "write": "run.sh",
+      "content": "#!/bin/sh\necho hi\n"
+    },
+    {
+      "chmod": "run.sh",
+      "mode": "755"
+    },
+    {
+      "symlink": "link",
+      "target": "README.md"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "modes"
+      ]
+    },
+    {
       "run": [
-        "hash-object",
-        "--stdin",
-        "-w"
+        "cat-file",
+        "-p",
+        "01fa744ba1d529a4275ea481ee70375be8479391"
       ],
-      "matchOutput": true,
-      "stdin": "from stdin\n"
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "cat-file",
+        "-p",
+        "7d9c4fdc4850d40da15f3c8274807fb856b92ddb"
+      ],
+      "matchOutput": true
     }
   ]
 }

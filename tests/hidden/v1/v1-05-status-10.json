@@ -1,5 +1,5 @@
 {
-  "name": "v1-05-status-10: a staged deletion with the file recreated",
+  "name": "v1-05-status-10: a mode change only",
   "steps": [
     {
       "git": [
@@ -8,20 +8,8 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\n"
-    },
-    {
-      "write": "src/app.js",
-      "content": "console.log('hello');\n"
-    },
-    {
-      "write": "src/lib/util.js",
-      "content": "export const add = (a, b) => a + b;\n"
-    },
-    {
-      "write": "docs/guide.txt",
-      "content": "Read me first.\n"
+      "write": "script.sh",
+      "content": "#!/bin/sh\n"
     },
     {
       "git": [
@@ -34,19 +22,12 @@
         "commit",
         "-q",
         "-m",
-        "Initial commit"
+        "c"
       ]
     },
     {
-      "git": [
-        "rm",
-        "-q",
-        "README.md"
-      ]
-    },
-    {
-      "write": "README.md",
-      "content": "back again\n"
+      "chmod": "script.sh",
+      "mode": "755"
     },
     {
       "run": [

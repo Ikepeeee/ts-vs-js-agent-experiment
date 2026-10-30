@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-10: new file and deleted file headers",
+  "name": "v2-01-diff-10: empty files",
   "steps": [
     {
       "git": [
@@ -8,20 +8,8 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\n"
-    },
-    {
-      "write": "src/app.js",
-      "content": "console.log('hello');\n"
-    },
-    {
-      "write": "src/lib/util.js",
-      "content": "export const add = (a, b) => a + b;\n"
-    },
-    {
-      "write": "docs/guide.txt",
-      "content": "Read me first.\n"
+      "write": "full.txt",
+      "content": "content\n"
     },
     {
       "git": [
@@ -34,30 +22,33 @@
         "commit",
         "-q",
         "-m",
-        "Initial commit"
+        "initial"
       ]
     },
     {
-      "write": "brand-new.txt",
-      "content": "fresh\n"
+      "write": "empty.txt",
+      "content": ""
     },
     {
-      "git": [
-        "rm",
-        "-q",
-        "src/app.js"
-      ]
+      "write": "full.txt",
+      "content": ""
     },
     {
       "git": [
         "add",
-        "-A"
+        "empty.txt"
       ]
     },
     {
       "run": [
         "diff",
         "--cached"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "diff"
       ],
       "matchOutput": true
     }

@@ -1,5 +1,5 @@
 {
-  "name": "v1-04-objects-09: cat-file -p of a commit",
+  "name": "v1-04-objects-09: trees written by tgit use git's modes",
   "steps": [
     {
       "git": [
@@ -8,94 +8,37 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\n"
+      "write": "plain.txt",
+      "content": "p\n"
     },
     {
-      "write": "src/app.js",
-      "content": "console.log('hello');\n"
+      "write": "tool.sh",
+      "content": "#!/bin/sh\n"
     },
     {
-      "write": "src/lib/util.js",
-      "content": "export const add = (a, b) => a + b;\n"
+      "chmod": "tool.sh",
+      "mode": "755"
     },
     {
-      "write": "docs/guide.txt",
-      "content": "Read me first.\n"
+      "symlink": "alias",
+      "target": "plain.txt"
     },
     {
-      "git": [
-        "add",
-        "-A"
-      ]
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Initial commit"
-      ]
-    },
-    {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\nNow with more text.\n"
-    },
-    {
-      "git": [
-        "add",
-        "-A"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000060 +0000",
-        "GIT_COMMITTER_DATE": "1700000060 +0000"
-      }
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Expand README"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000060 +0000",
-        "GIT_COMMITTER_DATE": "1700000060 +0000"
-      }
-    },
-    {
-      "write": "notes.txt",
-      "content": "note 1\n"
-    },
-    {
-      "git": [
-        "add",
-        "-A"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000120 +0000",
-        "GIT_COMMITTER_DATE": "1700000120 +0000"
-      }
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Add notes"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000120 +0000",
-        "GIT_COMMITTER_DATE": "1700000120 +0000"
-      }
+      "write": "dir/inner.txt",
+      "content": "i\n"
     },
     {
       "run": [
-        "cat-file",
-        "-p",
-        "HEAD"
-      ],
-      "matchOutput": true
+        "add",
+        "."
+      ]
+    },
+    {
+      "run": [
+        "commit",
+        "-m",
+        "modes"
+      ]
     }
   ]
 }

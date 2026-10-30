@@ -1,0 +1,42 @@
+{
+  "name": "v3-04-reflog-01: the first commit in a new repository",
+  "steps": [
+    {
+      "run": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "a.txt",
+      "content": "a\n"
+    },
+    {
+      "run": [
+        "add",
+        "a.txt"
+      ]
+    },
+    {
+      "run": [
+        "commit",
+        "-m",
+        "First"
+      ]
+    },
+    {
+      "run": [
+        "reflog"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "reflog",
+        "show",
+        "main"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

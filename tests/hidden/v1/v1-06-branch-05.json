@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-branch-05: creating an existing branch fails",
+  "name": "v1-06-branch-05: listing while on another branch",
   "steps": [
     {
       "git": [
@@ -96,11 +96,19 @@
       ]
     },
     {
+      "git": [
+        "switch",
+        "-q",
+        "-c",
+        "work",
+        "HEAD~1"
+      ]
+    },
+    {
       "run": [
-        "branch",
-        "feature"
+        "branch"
       ],
-      "expectExit": 128
+      "matchOutput": true
     }
   ]
 }

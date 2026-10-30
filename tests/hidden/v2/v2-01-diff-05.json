@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-05: diff with path limiting",
+  "name": "v2-01-diff-05: diff --name-only",
   "steps": [
     {
       "git": [
@@ -39,30 +39,87 @@
     },
     {
       "write": "README.md",
-      "content": "r\n"
+      "content": "# Demo\n\nA small project.\nNow with more text.\n"
     },
     {
-      "write": "src/app.js",
-      "content": "a\n"
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
     },
     {
-      "write": "src/lib/util.js",
-      "content": "u\n"
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Expand README"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "write": "notes.txt",
+      "content": "note 1\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Add notes"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
     },
     {
       "run": [
         "diff",
-        "--",
-        "src"
+        "--name-only",
+        "HEAD~2",
+        "HEAD"
       ],
       "matchOutput": true
     },
     {
+      "write": "src/app.js",
+      "content": "x\n"
+    },
+    {
       "run": [
         "diff",
-        "--",
-        "README.md",
-        "src/lib"
+        "--name-only"
+      ],
+      "matchOutput": true
+    },
+    {
+      "git": [
+        "add",
+        "src/app.js"
+      ]
+    },
+    {
+      "run": [
+        "diff",
+        "--cached",
+        "--name-only"
       ],
       "matchOutput": true
     }

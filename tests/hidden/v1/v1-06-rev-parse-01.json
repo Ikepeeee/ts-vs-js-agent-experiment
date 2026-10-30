@@ -97,20 +97,12 @@
       ]
     },
     {
-      "git": [
-        "tag",
-        "v1",
-        "HEAD~2"
-      ]
-    },
-    {
       "run": [
         "rev-parse",
         "main",
         "refs/heads/main",
         "feature",
-        "v1",
-        "refs/tags/v1"
+        "refs/heads/feature"
       ],
       "matchOutput": true
     }

@@ -2,13 +2,15 @@
 // Evaluates one version of one series (experiment-design.md 13.4). Runs inside the evaluation image, from the
 // experiment root, with the network off.
 // Usage: node eval/evaluate.mjs --dir results/S01/v2 --lang ts --version v2
-// Writes <dir>/eval/: hidden.json, public.json, random.json, realrepo.json (v3), size.json,
+// Writes <dir>/eval/: hidden.json, public.json, random.json, size.json,
 // audit.json, checkjs.json (js), *.log, and summary.json.
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 
 const VERSIONS = ["v1", "v2", "v3"];
+// The seed of hidden test 2. The agent has the generator but not this seed.
+const RANDOM_SEED = "20261029";
 
 const args = process.argv.slice(2);
 const opt = (name) => {
@@ -40,10 +42,9 @@ const runner = (name, paths) => sh("node", ["tests/runner/run.mjs", "--tgit", tg
 runner("hidden", upTo.map((v) => `tests/hidden/${v}`));
 runner("public", upTo.map((v) => `tests/public/${v}`));
 const randomDir = fs.mkdtempSync("/tmp/random-");
-sh("node", ["tests/random/gen.mjs", "--version", version, "--out", randomDir], "random-gen.log");
+sh("node", ["tests/random/gen.mjs", "--version", version, "--seed", RANDOM_SEED, "--out", randomDir], "random-gen.log");
 runner("random", [randomDir]);
 fs.rmSync(randomDir, { recursive: true, force: true });
-if (version === "v3") sh("node", ["tests/realrepo/compare.mjs", "--tgit", tgit, "--json", path.join(out, "realrepo.json")], "realrepo.log");
 
 const logDirs = fs.readdirSync(dir).filter((n) => n.startsWith("logs-")).map((n) => path.join(dir, n));
 sh("node", ["eval/size.mjs", repo, path.join(out, "size.json")]);
@@ -77,7 +78,6 @@ fs.writeFileSync(
       hidden: tally(read("hidden.json")),
       public: tally(read("public.json")),
       random: random && { ...tally(random), failures_by_command: byCommand },
-      realrepo: tally(read("realrepo.json")),
       size: read("size.json"),
       audit: audit && { violations: audit.violations.length, extra_dependencies: audit.package_json.extra },
       checkjs_errors: read("checkjs.json")?.errors ?? null,

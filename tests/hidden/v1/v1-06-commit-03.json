@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-commit-03: commit --allow-empty",
+  "name": "v1-06-commit-03: commit -a stages deletions but not untracked files",
   "steps": [
     {
       "git": [
@@ -38,11 +38,22 @@
       ]
     },
     {
+      "delete": "docs/guide.txt"
+    },
+    {
+      "write": "src/app.js",
+      "content": "changed\n"
+    },
+    {
+      "write": "untracked.txt",
+      "content": "u\n"
+    },
+    {
       "run": [
         "commit",
-        "--allow-empty",
+        "-a",
         "-m",
-        "Nothing changed"
+        "Delete and modify"
       ]
     }
   ]

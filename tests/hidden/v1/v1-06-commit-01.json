@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-commit-01: repeated -m become paragraphs",
+  "name": "v1-06-commit-01: commit -a",
   "steps": [
     {
       "git": [
@@ -38,24 +38,15 @@
       ]
     },
     {
-      "write": "a.txt",
-      "content": "a\n"
-    },
-    {
-      "git": [
-        "add",
-        "a.txt"
-      ]
+      "write": "README.md",
+      "content": "updated\n"
     },
     {
       "run": [
         "commit",
+        "-a",
         "-m",
-        "Subject line",
-        "-m",
-        "Body paragraph one.",
-        "-m",
-        "Body paragraph two."
+        "Update README"
       ]
     }
   ]

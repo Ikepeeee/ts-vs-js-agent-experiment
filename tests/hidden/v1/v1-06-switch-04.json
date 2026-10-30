@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-switch-04: checkout -- path restores files",
+  "name": "v1-06-switch-04: switching adds and removes files and directories",
   "steps": [
     {
       "git": [
@@ -38,18 +38,56 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "broken\n"
+      "git": [
+        "switch",
+        "-q",
+        "-c",
+        "other"
+      ]
     },
     {
-      "delete": "src/app.js"
+      "git": [
+        "rm",
+        "-r",
+        "-q",
+        "src"
+      ]
+    },
+    {
+      "write": "extra/deep/file.txt",
+      "content": "e\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Restructure"
+      ]
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "main"
+      ]
     },
     {
       "run": [
-        "checkout",
-        "--",
-        "README.md",
-        "src/app.js"
+        "switch",
+        "other"
+      ]
+    },
+    {
+      "run": [
+        "switch",
+        "main"
       ]
     }
   ]

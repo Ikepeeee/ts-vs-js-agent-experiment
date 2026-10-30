@@ -15,11 +15,9 @@ mkdir -p "$OUT"
   done
   echo "== self-test with a broken tgit (should mostly fail)"
   node runner/run.mjs --tgit "[\"node\",\"$PWD/runner/fake-tgit.mjs\",\"0\"]" hidden public | tail -1
-  echo "== real repository"
-  node realrepo/compare.mjs --tgit git --json "../$OUT/realrepo.json"
   for v in v1 v2 v3; do
     echo "== random sequences $v"
-    node random/gen.mjs --version $v --out /tmp/random/$v
+    node random/gen.mjs --version $v --seed 20261029 --out /tmp/random/$v
     node runner/run.mjs --tgit git --json "../$OUT/random-$v.json" /tmp/random/$v
   done
   echo "== done"

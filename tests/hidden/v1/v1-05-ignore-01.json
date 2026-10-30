@@ -55,9 +55,8 @@
     },
     {
       "run": [
-        "ls-files",
-        "-o",
-        "--exclude-standard"
+        "status",
+        "--porcelain"
       ],
       "matchOutput": true
     }

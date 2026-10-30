@@ -1,5 +1,5 @@
 {
-  "name": "v1-05-add-02: add -A stages new, modified, and deleted files",
+  "name": "v1-05-add-02: add a directory",
   "steps": [
     {
       "git": [
@@ -24,34 +24,13 @@
       "content": "Read me first.\n"
     },
     {
-      "git": [
-        "add",
-        "-A"
-      ]
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Initial commit"
-      ]
-    },
-    {
-      "write": "README.md",
-      "content": "changed\n"
-    },
-    {
-      "delete": "docs/guide.txt"
-    },
-    {
-      "write": "new/file.txt",
-      "content": "new\n"
+      "write": "other.txt",
+      "content": "o\n"
     },
     {
       "run": [
         "add",
-        "-A"
+        "src"
       ]
     }
   ]

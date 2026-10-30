@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-switch-02: switch --detach",
+  "name": "v1-06-switch-02: non-conflicting local changes are carried over",
   "steps": [
     {
       "git": [
@@ -90,10 +90,24 @@
       }
     },
     {
+      "git": [
+        "branch",
+        "old",
+        "HEAD~2"
+      ]
+    },
+    {
+      "write": "src/app.js",
+      "content": "local edit\n"
+    },
+    {
+      "write": "untracked.txt",
+      "content": "u\n"
+    },
+    {
       "run": [
         "switch",
-        "--detach",
-        "HEAD~1"
+        "old"
       ]
     }
   ]

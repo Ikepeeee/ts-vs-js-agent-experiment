@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-17: changes close together share one hunk",
+  "name": "v2-01-diff-17: function names in hunk headers",
   "steps": [
     {
       "git": [
@@ -8,8 +8,8 @@
       ]
     },
     {
-      "write": "list.txt",
-      "content": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\nline 11\nline 12\nline 13\nline 14\nline 15\nline 16\nline 17\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\n"
+      "write": "prog.py",
+      "content": "def first():\n    a1 = 1\n    a2 = 2\n    a3 = 3\n    a4 = 4\n    a5 = 5\n    a6 = 6\n    a7 = 7\n    a8 = 8\n    a9 = 9\n    a10 = 10\n    a11 = 11\n    a12 = 12\n\nclass Second:\n    b1 = 1\n    b2 = 2\n    b3 = 3\n    b4 = 4\n    b5 = 5\n    b6 = 6\n    b7 = 7\n    b8 = 8\n    b9 = 9\n    b10 = 10\n    b11 = 11\n    b12 = 12\n"
     },
     {
       "git": [
@@ -26,18 +26,8 @@
       ]
     },
     {
-      "write": "list.txt",
-      "content": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline ten\nline 11\nline 12\nline 13\nline 14\nline 15\nline sixteen\nline 17\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\n"
-    },
-    {
-      "run": [
-        "diff"
-      ],
-      "matchOutput": true
-    },
-    {
-      "write": "list.txt",
-      "content": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline ten\nline 11\nline 12\nline 13\nline 14\nline 15\nline 16\nline seventeen\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\n"
+      "write": "prog.py",
+      "content": "def first():\n    a1 = 1\n    a2 = 2\n    a3 = 3\n    a4 = 4\n    a5 = 5\n    a6 = 6\n    a7 = 7\n    a8 = 8\n    a9 = 9\n    a10 = 10\n    a11 = 111\n    a12 = 12\n\nclass Second:\n    b1 = 1\n    b2 = 2\n    b3 = 3\n    b4 = 4\n    b5 = 5\n    b6 = 6\n    b7 = 7\n    b8 = 8\n    b9 = 9\n    b10 = 100\n    b11 = 11\n    b12 = 12\n"
     },
     {
       "run": [

@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-branch-02: -d of an unmerged branch fails",
+  "name": "v1-06-branch-02: create a branch at a given commit",
   "steps": [
     {
       "git": [
@@ -38,45 +38,82 @@
       ]
     },
     {
-      "git": [
-        "switch",
-        "-q",
-        "-c",
-        "topic"
-      ]
-    },
-    {
-      "write": "t.txt",
-      "content": "t\n"
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\nNow with more text.\n"
     },
     {
       "git": [
         "add",
         "-A"
-      ]
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
     },
     {
       "git": [
         "commit",
         "-q",
         "-m",
-        "topic work"
-      ]
+        "Expand README"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "write": "notes.txt",
+      "content": "note 1\n"
     },
     {
       "git": [
-        "switch",
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
         "-q",
-        "main"
+        "-m",
+        "Add notes"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "run": [
+        "branch",
+        "old",
+        "HEAD~2"
       ]
     },
     {
       "run": [
         "branch",
-        "-d",
-        "topic"
+        "zeta",
+        "HEAD~1"
+      ]
+    },
+    {
+      "run": [
+        "branch",
+        "Alpha"
+      ]
+    },
+    {
+      "run": [
+        "branch"
       ],
-      "expectExit": 1
+      "matchOutput": true
     }
   ]
 }

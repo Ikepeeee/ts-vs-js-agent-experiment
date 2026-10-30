@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-14: empty files",
+  "name": "v2-01-diff-14: repeated lines make the match ambiguous",
   "steps": [
     {
       "git": [
@@ -8,8 +8,8 @@
       ]
     },
     {
-      "write": "full.txt",
-      "content": "content\n"
+      "write": "blocks.txt",
+      "content": "{\n  x\n}\n{\n  y\n}\n{\n  z\n}\n"
     },
     {
       "git": [
@@ -26,25 +26,18 @@
       ]
     },
     {
-      "write": "empty.txt",
-      "content": ""
-    },
-    {
-      "write": "full.txt",
-      "content": ""
-    },
-    {
-      "git": [
-        "add",
-        "empty.txt"
-      ]
+      "write": "blocks.txt",
+      "content": "{\n  x\n}\n{\n  new\n}\n{\n  y\n}\n{\n  z\n}\n"
     },
     {
       "run": [
-        "diff",
-        "--cached"
+        "diff"
       ],
       "matchOutput": true
+    },
+    {
+      "write": "blocks.txt",
+      "content": "{\n  y\n}\n{\n  x\n}\n{\n  z\n}\n"
     },
     {
       "run": [

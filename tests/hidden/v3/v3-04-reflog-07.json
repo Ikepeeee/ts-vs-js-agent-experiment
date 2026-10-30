@@ -1,0 +1,144 @@
+{
+  "name": "v3-04-reflog-07: reflog show <branch> after several operations",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\nNow with more text.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Expand README"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "write": "notes.txt",
+      "content": "note 1\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Add notes"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "write": "x.txt",
+      "content": "x\n"
+    },
+    {
+      "run": [
+        "add",
+        "x.txt"
+      ]
+    },
+    {
+      "run": [
+        "commit",
+        "-m",
+        "Add x"
+      ]
+    },
+    {
+      "run": [
+        "reset",
+        "--hard",
+        "HEAD~2"
+      ]
+    },
+    {
+      "delete": "docs/guide.txt"
+    },
+    {
+      "run": [
+        "commit",
+        "-a",
+        "-m",
+        "Remove the guide"
+      ]
+    },
+    {
+      "run": [
+        "reflog",
+        "show",
+        "main"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "reflog",
+        "show",
+        "HEAD"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

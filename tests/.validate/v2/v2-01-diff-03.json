@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-03: diff --stat",
+  "name": "v2-01-diff-03: diff between commits",
   "steps": [
     {
       "git": [
@@ -39,16 +39,45 @@
     },
     {
       "write": "README.md",
-      "content": "# Demo\n\nChanged.\n"
+      "content": "# Demo\n\nA small project.\nNow with more text.\n"
     },
     {
-      "write": "docs/guide.txt",
-      "content": "Read me first.\nThen this.\n"
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Expand README"
+      ]
+    },
+    {
+      "write": "notes.txt",
+      "content": "note 1\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Add notes"
+      ]
     },
     {
       "run": [
         "diff",
-        "--stat"
+        "HEAD~2",
+        "HEAD"
       ],
       "matchOutput": true
     }

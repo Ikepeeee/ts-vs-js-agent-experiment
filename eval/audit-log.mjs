@@ -6,8 +6,8 @@ import fs from "node:fs";
 import path from "node:path";
 
 const ALLOWED = {
-  ts: ["typescript", "@types/node", "eslint", "@eslint/js", "typescript-eslint", "fast-check"],
-  js: ["eslint", "@eslint/js", "fast-check"],
+  ts: ["typescript", "@types/node", "eslint", "@eslint/js", "typescript-eslint"],
+  js: ["eslint", "@eslint/js"],
 };
 // Programs the allowed packages install, which npx may run without downloading anything.
 const LOCAL_BINS = ["tsc", "eslint"];

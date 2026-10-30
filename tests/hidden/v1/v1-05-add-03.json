@@ -1,5 +1,5 @@
 {
-  "name": "v1-05-add-03: add -u stages only tracked files",
+  "name": "v1-05-add-03: add -A stages new, modified, and deleted files",
   "steps": [
     {
       "git": [
@@ -38,20 +38,20 @@
       ]
     },
     {
-      "write": "src/app.js",
-      "content": "console.log('bye');\n"
+      "write": "README.md",
+      "content": "changed\n"
     },
     {
-      "delete": "README.md"
+      "delete": "docs/guide.txt"
     },
     {
-      "write": "untracked.txt",
-      "content": "u\n"
+      "write": "new/file.txt",
+      "content": "new\n"
     },
     {
       "run": [
         "add",
-        "-u"
+        "-A"
       ]
     }
   ]

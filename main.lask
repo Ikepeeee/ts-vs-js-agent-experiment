@@ -118,9 +118,9 @@ internal build_image(kind: String): String = do {
 
 // Confirm the tests against the real git (13.1 step 2).
 //
-// Runs every hand-written scenario twice, the self-test with a broken tgit, the
-// real repository, and 2,000 random sequences per version, with the real git on
-// both sides, in the evaluation image. Takes about half an hour.
+// Runs every hand-written scenario twice, the self-test with a broken tgit, and
+// 2,000 random sequences per version, with the real git on both sides, in the
+// evaluation image.
 validate(): Void = do {
   require_lask()
   stamp = $ date +%Y%m%d-%H%M%S
@@ -425,11 +425,14 @@ internal in_repo_ok_at(c: String, dir: String, cmd: String): String = do {
 }
 
 // Add the version's specification and public tests, and commit them as the runner.
-// v0.1.0 also creates the repository with the condition's AGENTS.md (13.2).
+// v0.1.0 also creates the repository with the condition's AGENTS.md and the
+// provided difftest tools: the runner and the random generator (13.2).
 internal prepare_version(v: String, lang: String, c: String): Void = do {
   if (v == "v1") {
-    in_repo_ok_at(c, "/home/node", "mkdir -p tgit/docs tgit/test/difftest/scenarios/given")
+    in_repo_ok_at(c, "/home/node", "mkdir -p tgit/docs tgit/test/difftest/scenarios/given tgit/test/difftest/tools")
     pipe_ok("docker exec -i -w /home/node/tgit #{c} sh -c 'cat > AGENTS.md' < #{lang}/AGENTS.md")
+    pipe_ok("docker exec -i -w /home/node/tgit #{c} sh -c 'cat > test/difftest/tools/run.mjs' < tests/runner/run.mjs")
+    pipe_ok("docker exec -i -w /home/node/tgit #{c} sh -c 'cat > test/difftest/tools/gen.mjs' < tests/random/gen.mjs")
   }
   pipe_ok("docker exec -i -w /home/node/tgit #{c} sh -c 'cat > docs/spec-#{v}.md' < spec/spec-#{v}.md")
   pipe_ok("tar -C tests/public/#{v} -cf - . | docker exec -i -w /home/node/tgit/test/difftest/scenarios/given #{c} tar -xf -")
@@ -855,8 +858,9 @@ internal resumed(st: State, kind: String): State = {
   api_error_waits: st.api_error_waits, session: st.session, mode: kind, ending: ""
 }
 
+// The given scenarios and the provided tools, which the agent may not change.
 internal given_hash(c: String): String =
-  trim(in_repo_ok(c, "find test/difftest/scenarios/given -type f | LC_ALL=C sort | xargs sha256sum | sha256sum"))
+  trim(in_repo_ok(c, "find test/difftest/scenarios/given test/difftest/tools -type f | LC_ALL=C sort | xargs sha256sum | sha256sum"))
 
 // The number of auto-compactions in a version's logs: Claude's compact_boundary,
 // Copilot's session.compaction_complete.

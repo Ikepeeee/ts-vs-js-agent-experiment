@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-16: changes far apart produce separate hunks",
+  "name": "v2-01-diff-16: diff from a subdirectory",
   "steps": [
     {
       "git": [
@@ -8,8 +8,20 @@
       ]
     },
     {
-      "write": "code.c",
-      "content": "function f1() {\n  statement 2;\n  statement 3;\n  statement 4;\n  statement 5;\n  statement 6;\n  statement 7;\n  statement 8;\n  statement 9;\n  statement 10;\nfunction f11() {\n  statement 12;\n  statement 13;\n  statement 14;\n  statement 15;\n  statement 16;\n  statement 17;\n  statement 18;\n  statement 19;\n  statement 20;\nfunction f21() {\n  statement 22;\n  statement 23;\n  statement 24;\n  statement 25;\n  statement 26;\n  statement 27;\n  statement 28;\n  statement 29;\n  statement 30;\nfunction f31() {\n  statement 32;\n  statement 33;\n  statement 34;\n  statement 35;\n  statement 36;\n  statement 37;\n  statement 38;\n  statement 39;\n  statement 40;\n"
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
     },
     {
       "git": [
@@ -22,18 +34,31 @@
         "commit",
         "-q",
         "-m",
-        "initial"
+        "Initial commit"
       ]
     },
     {
-      "write": "code.c",
-      "content": "function f1() {\n  statement 2;\n  statement three;\n  statement 4;\n  statement 5;\n  statement 6;\n  statement 7;\n  statement 8;\n  statement 9;\n  statement 10;\nfunction f11() {\n  statement 12;\n  statement 13;\n  statement 14;\n  statement 15;\n  statement 16;\n  statement 17;\n  statement 18;\n  statement 19;\n  statement 20;\nfunction f21() {\n  statement 22;\n  statement 23;\n  statement 24;\n  statement 25;\n  statement 26;\n  statement 27;\n  statement 28;\n  statement 29;\n  statement 30;\nfunction f31() {\n  statement 32;\n  statement 33;\n  statement 34;\n  statement thirty-five;\n  statement 36;\n  statement 37;\n  statement 38;\n  statement 39;\n  statement 40;\n"
+      "write": "README.md",
+      "content": "top\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "app\n"
     },
     {
       "run": [
         "diff"
       ],
-      "matchOutput": true
+      "matchOutput": true,
+      "cwd": "src"
+    },
+    {
+      "run": [
+        "diff",
+        "--name-only"
+      ],
+      "matchOutput": true,
+      "cwd": "src"
     }
   ]
 }

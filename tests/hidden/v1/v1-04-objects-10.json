@@ -1,5 +1,5 @@
 {
-  "name": "v1-04-objects-10: cat-file -p of a tree with modes",
+  "name": "v1-04-objects-10: cat-file with an abbreviated object ID",
   "steps": [
     {
       "git": [
@@ -24,18 +24,6 @@
       "content": "Read me first.\n"
     },
     {
-      "write": "run.sh",
-      "content": "#!/bin/sh\necho hi\n"
-    },
-    {
-      "chmod": "run.sh",
-      "mode": "755"
-    },
-    {
-      "symlink": "link",
-      "target": "README.md"
-    },
-    {
       "git": [
         "add",
         "-A"
@@ -46,22 +34,22 @@
         "commit",
         "-q",
         "-m",
-        "modes"
+        "Initial commit"
       ]
     },
     {
       "run": [
         "cat-file",
         "-p",
-        "01fa744ba1d529a4275ea481ee70375be8479391"
+        "e921523"
       ],
       "matchOutput": true
     },
     {
       "run": [
         "cat-file",
-        "-p",
-        "7d9c4fdc4850d40da15f3c8274807fb856b92ddb"
+        "-t",
+        "e921523b1b"
       ],
       "matchOutput": true
     }

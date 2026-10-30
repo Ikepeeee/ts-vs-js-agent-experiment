@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-switch-06: conflicting local changes make switching fail",
+  "name": "v1-06-switch-06: switching to a missing branch fails",
   "steps": [
     {
       "git": [
@@ -90,29 +90,11 @@
       }
     },
     {
-      "git": [
-        "branch",
-        "old",
-        "HEAD~2"
-      ]
-    },
-    {
-      "write": "README.md",
-      "content": "local edit that conflicts\n"
-    },
-    {
       "run": [
         "switch",
-        "old"
+        "nope"
       ],
-      "expectExit": 1
-    },
-    {
-      "run": [
-        "checkout",
-        "old"
-      ],
-      "expectExit": 1
+      "expectExit": 128
     }
   ]
 }

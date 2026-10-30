@@ -1,5 +1,5 @@
 {
-  "name": "v1-04-objects-08: hash-object -t commit writes a valid commit",
+  "name": "v1-04-objects-08: trees written by tgit use git's entry order",
   "steps": [
     {
       "git": [
@@ -8,15 +8,41 @@
       ]
     },
     {
+      "write": "a-b",
+      "content": "1\n"
+    },
+    {
+      "write": "a/x",
+      "content": "2\n"
+    },
+    {
+      "write": "a.b",
+      "content": "3\n"
+    },
+    {
+      "write": "a0",
+      "content": "4\n"
+    },
+    {
+      "write": "ab/c",
+      "content": "5\n"
+    },
+    {
+      "write": "a_",
+      "content": "6\n"
+    },
+    {
       "run": [
-        "hash-object",
-        "-t",
+        "add",
+        "."
+      ]
+    },
+    {
+      "run": [
         "commit",
-        "-w",
-        "--stdin"
-      ],
-      "matchOutput": true,
-      "stdin": "tree 4b825dc642cb6eb9a060e54bf8d69288fbee4904\nauthor A U Thor <a@example.com> 1 +0000\ncommitter A U Thor <a@example.com> 1 +0000\n\nhand made\n"
+        "-m",
+        "ordering"
+      ]
     }
   ]
 }

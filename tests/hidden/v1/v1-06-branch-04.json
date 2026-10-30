@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-branch-04: -m renames the current branch",
+  "name": "v1-06-branch-04: creating an existing branch fails",
   "steps": [
     {
       "git": [
@@ -90,25 +90,17 @@
       }
     },
     {
-      "run": [
+      "git": [
         "branch",
-        "-m",
-        "trunk"
+        "feature"
       ]
     },
     {
       "run": [
-        "branch"
+        "branch",
+        "feature"
       ],
-      "matchOutput": true
-    },
-    {
-      "run": [
-        "rev-parse",
-        "--abbrev-ref",
-        "HEAD"
-      ],
-      "matchOutput": true
+      "expectExit": 128
     }
   ]
 }

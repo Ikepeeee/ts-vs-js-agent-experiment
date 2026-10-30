@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-commit-04: commit --amend",
+  "name": "v1-06-commit-04: nothing to commit fails",
   "steps": [
     {
       "git": [
@@ -38,74 +38,12 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\nNow with more text.\n"
-    },
-    {
-      "git": [
-        "add",
-        "-A"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000060 +0000",
-        "GIT_COMMITTER_DATE": "1700000060 +0000"
-      }
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Expand README"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000060 +0000",
-        "GIT_COMMITTER_DATE": "1700000060 +0000"
-      }
-    },
-    {
-      "write": "notes.txt",
-      "content": "note 1\n"
-    },
-    {
-      "git": [
-        "add",
-        "-A"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000120 +0000",
-        "GIT_COMMITTER_DATE": "1700000120 +0000"
-      }
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Add notes"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000120 +0000",
-        "GIT_COMMITTER_DATE": "1700000120 +0000"
-      }
-    },
-    {
-      "write": "notes.txt",
-      "content": "note 1\nnote 2\n"
-    },
-    {
-      "git": [
-        "add",
-        "notes.txt"
-      ]
-    },
-    {
       "run": [
         "commit",
-        "--amend",
         "-m",
-        "Add notes (amended)"
-      ]
+        "empty"
+      ],
+      "expectExit": 1
     }
   ]
 }

@@ -36,7 +36,7 @@ Pre-registered before the runs, and not changed after seeing the results.
 | Language | TypeScript (Node.js strips the types and runs it directly) | JavaScript (ES modules) |
 | Types | `strict`, `noUncheckedIndexedAccess`, no `any` | No type annotations. JSDoc type comments and enabling type checking are also forbidden |
 | Done when | Tests, differential tests, lint, **type check** | Tests, differential tests, lint |
-| Everything else | The same (spec, public tests, model, tools, ESLint, fast-check, how the differential tests are built, working rules) | Same as left |
+| Everything else | The same (spec, public tests, model, tools, ESLint, the provided difftest runner and random generator, working rules) | Same as left |
 
 The two `AGENTS.md` files differ only in the few lines about the language; check with `diff ts/AGENTS.md js/AGENTS.md`.
 
@@ -55,13 +55,14 @@ The expected cumulative lines of implementation code, excluding tests. This is n
 
 | Version | Main content | Cumulative lines | In tokens |
 |---|---|---|---|
-| v0.1.0 | Foundation, objects, index, commits and history | about 5,000–6,000 | about 50K–60K |
-| v0.2.0 | Diff, config, full ignore support, merge, annotated tags, stash | about 10,000–11,000 | about 100K–110K |
-| v0.3.0 | cherry-pick, revert, rebase, reflog, packed-refs, reading packfiles | about 13,000–15,000 | about 130K–150K |
+| v0.1.0 | Foundation, objects, index, commits and history | about 900 | about 9K |
+| v0.2.0 | Diff, merge | about 1,450 | about 15K |
+| v0.3.0 | Tags, reset, cherry-pick, revert, reflog | about 2,000 | about 20K |
 
 - Tokens are estimated at about 10 tokens per line.
 - The actual line counts vary a lot with how thoroughly the agent builds things. JavaScript tends to be shorter than TypeScript (in Endo's measurement, TypeScript was about 1.25× JavaScript). Line counts are measured and recorded, and the analysis takes the difference in size into account.
-- Relation to RQ3: current models have a context of 1M tokens, which would hold the whole code even at v0.3.0. To test "types help once the code no longer fits", every series sets `CLAUDE_CODE_DISABLE_1M_CONTEXT=1`, limiting the context to 200K tokens. The whole code is then expected to stop fitting during the second half of v0.2.0.
+- The scope is kept to about 2,000 lines at v0.3.0 so that a series fits within the usage limits of a Pro plan (reduced on October 30, 2026; the earlier scope of about 13,000–15,000 lines is in the git history). The differential test runner and the random generator are provided rather than built by the agent, for the same reason.
+- Relation to RQ3: every series uses the smallest context available. Claude Code sets `CLAUDE_CODE_DISABLE_1M_CONTEXT=1`, limiting the context to 200K tokens, and GitHub Copilot CLI uses `--context=default`. At about 20K tokens, the whole code fits in the context even at v0.3.0. Context pressure therefore comes from the conversation (files read, test output, the agent's own reasoning) rather than from the size of the code, and H3 is tested at a scale where the code itself still fits.
 
 ## 5. Agent and environment
 
@@ -100,26 +101,10 @@ The expected cumulative lines of implementation code, excluding tests. This is n
 
 ### Hidden tests (the main instrument)
 
-Tests the AI never sees, written and frozen before the trials start, with their hashes pre-registered. They run on their own runner, separate from the differential tests the agent builds.
+Tests the AI never sees, written and frozen before the trials start, with their hashes pre-registered. They run on the same runner the agent is given, with scenarios and a random seed the agent never sees.
 
 1. **Hidden scenarios:** handwritten scenarios per item of the spec, compared against the real git. There is a set for each version, and evaluating v0.2.0 also runs the v0.1.0 scenarios (regressions count too).
-2. **Random differential tests:** a separate generator produces random sequences of the commands available in that version. About 2,000 with a fixed seed. The measure is the share of sequences that differ from the real git.
-3. **A real repository (v0.3.0):** in a real open-source repository after `gc`, read-only commands are compared with the real git.
-   - **The repository:** [psf/requests](https://github.com/psf/requests), `main`, pinned to commit `3c7baaa05ab4aa49cc819ce3a819d260de19c157` (October 26, 2026). It is under the Apache License 2.0, so it can be published with the results.
-   - **Why this one:** its history contains nothing outside the spec. No submodule entry (mode `160000`) ever appears, and it does not use Git LFS. At the same time, it has things that artificial scenarios rarely produce:
-
-     | Item | Value |
-     |---|---|
-     | Commits | 6,496 (1,612 merges, one root) |
-     | Tags | 162 (34 annotated) |
-     | Signed commits (`gpgsig` header) | 1,014 |
-     | Non-ASCII author or committer names | 145 commits |
-     | Symbolic link and executable-bit changes | present |
-     | Binary files at HEAD (images and the like) | 5 |
-     | Pack size | about 14 MB |
-
-   - **Preparation:** before the main experiment, it is cloned with `--bare`, archived, and its hash is pre-registered. Evaluation extracts this archive and does not touch the network. The packs come in the same two forms as the spec's completion criteria: after `git gc`, and after `git -c repack.useDeltaBaseOffset=false repack -a -d -f`.
-   - **Commands compared:** the read-only commands in the spec (`cat-file`, `rev-parse`, `log`, `show`, `diff` between commits, `ls-files`, `status`, listing with `branch` and `tag`, `merge-base`). `status` and `ls-files` run in a working tree with HEAD checked out. The commits and paths are chosen at random with a fixed seed.
+2. **Random differential tests:** the generator produces random sequences of the commands available in that version. About 2,000 with a fixed seed. The measure is the share of sequences that differ from the real git. The agent has the same generator but not the seed.
 
 The hidden tests are built only from the spec and the real git's behavior. Nothing is added or changed after looking at either condition's output.
 
@@ -127,11 +112,11 @@ The hidden tests are built only from the spec and the real git's behavior. Nothi
 
 Separately from the hidden tests, there are scenarios given to the agent. They are written in the format of section 1 of the spec and placed in the repository's `test/difftest/scenarios/given/`. Before each version starts, that version's tests are added (the earlier versions' stay). They have only three roles:
 
-1. An example of the scenario format, which also checks that the agent's runner can read it
+1. An example of the scenario format
 2. A minimal check that things work: only the normal cases and representative errors, no edge cases
 3. An objective criterion for done: all public tests passing is the shared completion target for both conditions
 
-They are kept to about one fifth of the hidden scenarios. The more public tests there are, the more matching them becomes the goal, and the smaller the difference between the conditions. The agent may not change the files in `given/` (forbidden in `AGENTS.md`). After each trial their hashes are checked, and any change is recorded.
+They are kept to about one fifth of the hidden scenarios. The more public tests there are, the more matching them becomes the goal, and the smaller the difference between the conditions. The agent may not change the files in `given/` or the provided tools in `test/difftest/tools/` (forbidden in `AGENTS.md`). After each trial their hashes are checked, and any change is recorded.
 
 ### Test perspectives and counts
 
@@ -150,63 +135,52 @@ For each command, the applicable perspectives below become scenarios.
 
 The hidden scenarios are roughly 60% basic and 40% edge cases. With only basic cases, both conditions would pass at the ceiling; with only edge cases, both would fail; either way the difference would not show. The public tests are basic only.
 
-#### v0.1.0 (120 hidden, 25 public)
+#### v0.1.0 (82 hidden, 16 public)
 
 | Spec section | Main perspectives | Hidden | Public |
 |---|---|---|---|
 | 2 Command dispatch | Unknown commands, outside a repository, finding `.git` in a parent | 4 | 1 |
-| 3 `init` | No arguments, nested directories, `--bare`, `-b`, `-q`, reinitializing, committing with the real git | 8 | 2 |
-| 4 Objects, `hash-object`, `cat-file` | Empty, binary and large files; `-w`, `-t`, `--stdin`; invalid content; showing all four object types; revision syntax; tree order and modes | 18 | 3 |
-| 5 `add` | Paths, directories, `.`, `-A`, `-u`, ignored paths, missing paths, a file replaced by a directory and the reverse | 10 | 2 |
-| 5 `rm` | `--cached`, `-r`, `-f`, files with changes, untracked paths | 6 | 1 |
-| 5 `ls-files` | `-s`, `-c`, `-o`, `--exclude-standard` | 5 | 1 |
-| 5 `status` | Untracked files and directories; staged and unstaged additions, changes and deletions; changes on both sides; no commits | 12 | 2 |
-| 5 `.gitignore` (root only) | Comments, blank lines, wildcards, directories, anchoring | 5 | 1 |
-| 6 `commit` | Repeated `-m`, `-a`, `--allow-empty`, `--amend`, nothing to commit, matching hashes, `fsck --strict` | 9 | 2 |
-| 6 `rev-parse` | Ref names, short IDs, combinations of `~n` and `^`, `--short`, `--abbrev-ref`, invalid revisions, unborn HEAD | 7 | 1 |
-| 6 `log` | Default output, `--oneline`, each `--format` placeholder, `-n`, path limiting, unborn branch | 8 | 2 |
-| 6 `show` | `-s`, `--no-patch` | 2 | 1 |
-| 6 `branch` | Listing, creating, `-d` (fails when unmerged), `-D`, `-m` (current branch), existing names | 7 | 2 |
-| 6 `switch`, `checkout` | Branches, `-c` and `-b`, `--detach`, commits, restoring paths, carrying over changes that do and do not conflict | 9 | 2 |
-| 6 `reset` | `--soft`, `--mixed`, `--hard`, with paths | 6 | 1 |
-| 6 `tag` (lightweight) | Creating, listing, `-d`, existing names | 4 | 1 |
-| Total | | 120 | 25 |
+| 3 `init` | No arguments, directory arguments, nested directories, `-b`, `-q`, reinitializing, committing with the real git | 8 | 1 |
+| 4 Objects, `hash-object`, `cat-file` | Empty and binary files; `-w`; `-t`, `-s`, `-p`; revision syntax; tree order and modes; invalid names | 11 | 3 |
+| 5 `add` | Paths, directories, `.`, `-A`, ignored paths, missing paths, a file replaced by a directory and the reverse | 10 | 1 |
+| 5 `ls-files` | Plain and `-s`, subdirectories, quoted paths | 3 | 1 |
+| 5 `status` | `--porcelain`: untracked files and directories; staged and unstaged additions, changes and deletions; changes on both sides; no commits | 11 | 1 |
+| 5 `.gitignore` (root only) | Comments, blank lines, wildcards, directories | 4 | 1 |
+| 6 `commit` | Repeated `-m`, `-a`, nothing to commit, matching hashes, `fsck --strict` | 7 | 1 |
+| 6 `rev-parse` | Ref names, short IDs, combinations of `~n` and `^`, invalid revisions, unborn HEAD | 5 | 1 |
+| 6 `log` | Default output, `--oneline`, `-n`, unborn branch | 6 | 2 |
+| 6 `branch` | Listing, creating, `-d` (fails when unmerged), existing names | 6 | 1 |
+| 6 `switch` | Branches, `-c`, carrying over changes that do and do not conflict | 7 | 2 |
+| Total | | 82 | 16 |
 
-#### v0.2.0 (80 hidden, 15 public)
+#### v0.2.0 (35 hidden, 8 public)
 
 | Spec section | Main perspectives | Hidden | Public |
 |---|---|---|---|
-| 1 `diff` | Working tree vs index, `--cached` (including with no commits), two commits, path limiting, `--stat` (`COLUMNS`), `--name-only`, `--name-status`, each header line, no newline at end of file, binary, empty files, CRLF, hunk positions and splitting | 22 | 4 |
-| 1 `show`, `log -p` | Showing with a patch, merge commits | 4 | 1 |
-| 2 `config` | Get, set, `--unset`, `--list`, missing keys, values with spaces, quotes or `#`, subsections, `commit` using `user.*` | 8 | 1 |
-| 3 Ignore rules | Negation, `**`, precedence of `.gitignore` in subdirectories, `info/exclude`, trailing spaces, escapes | 8 | 1 |
-| 4 `merge-base` | Simple fork, `--all`, criss-cross | 5 | 1 |
-| 4 `merge` | Fast-forward, `--no-ff`, `--ff-only` (including failure), three-way merge, default message, already up to date, conflicts (same line, add/add, modify/delete, binary), committing the resolution, `--abort`, with local changes | 20 | 4 |
-| 5 Annotated tags | Matching hashes, `show`, `cat-file -p` | 4 | 1 |
-| 6 `stash` | `push` and no arguments, `pop`, `apply`, `list`, `drop`, commit structure, conflicts on `pop` | 9 | 2 |
-| Total | | 80 | 15 |
+| 1 `diff` | Working tree vs index, `--cached` (including with no commits), two commits, `--name-only`, each header line, no newline at end of file, binary, empty files, hunk positions and splitting, function names | 17 | 3 |
+| 1 `show` | Showing with a patch, the root commit | 3 | 1 |
+| 2 `merge-base` | Simple fork, ancestors | 2 | 1 |
+| 2 `merge` | Fast-forward, three-way merge, default message, `-m`, already up to date, conflicts (same lines, add/add), committing the resolution, with local changes | 13 | 3 |
+| Total | | 35 | 8 |
 
-#### v0.3.0 (60 hidden, 10 public)
+#### v0.3.0 (36 hidden, 8 public)
 
 | Spec section | Main perspectives | Hidden | Public |
 |---|---|---|---|
-| 1 `cherry-pick` | Matching hashes, conflicts, `--continue`, `--abort`, changes already applied | 10 | 2 |
-| 1 `revert` | `--no-edit`, default message, resulting tree | 5 | 1 |
-| 2 `rebase` | `<upstream>`, `--onto`, matching hashes, state when stopped on a conflict, `--continue`, `--abort` | 12 | 2 |
-| 3 reflog | Entries each command writes, `reflog`, `reflog show <ref>` | 10 | 2 |
-| 4 packed-refs | Reading, refs both loose and packed, `pack-refs --all`, deleting a ref that is only in packed-refs | 7 | 1 |
-| 5 packfile | Reading after `gc`, `OFS_DELTA`, `REF_DELTA`, deep delta chains, packed and loose mixed, each command working | 16 | 2 |
-| Total | | 60 | 10 |
-
-In v0.3.0 there is also the comparison on a real repository (hidden test 3).
+| 1 `tag` | Lightweight and annotated, listing order, `-d`, existing names, matching hashes, `show`, `cat-file`, tags as revisions | 10 | 2 |
+| 2 `reset` | `--soft`, `--mixed`, `--hard`, untracked files | 6 | 1 |
+| 3 `cherry-pick` | Matching hashes, conflicts, `--abort`, local changes | 7 | 2 |
+| 3 `revert` | `--no-edit`, default message, resulting tree | 5 | 1 |
+| 4 reflog | Entries each command writes, `reflog`, `reflog show <branch>` | 8 | 2 |
+| Total | | 36 | 8 |
 
 #### Counts run per version
 
 | Version evaluated | Hidden scenarios | Public tests (`given/`) |
 |---|---|---|
-| v0.1.0 | 120 | 25 |
-| v0.2.0 | 200 (including v0.1.0's) | 40 |
-| v0.3.0 | 260 (including v0.1.0's and v0.2.0's) | 50 |
+| v0.1.0 | 82 | 16 |
+| v0.2.0 | 117 (including v0.1.0's) | 24 |
+| v0.3.0 | 153 (including v0.1.0's and v0.2.0's) | 32 |
 
 #### Rules for writing them
 
@@ -264,7 +238,7 @@ A random sample of hidden-test failures is classified into four causes: interfac
 
 ## 9. Procedure
 
-1. **Build the hidden tests, the public tests and the trial runner:** hidden scenarios, public tests, the random differential-test generator, the real-repository comparison, the machinery that runs a series in a container, and the collection of records.
+1. **Build the hidden tests, the public tests and the trial runner:** hidden scenarios, public tests, the differential-test runner and random generator (also given to the agent), the machinery that runs a series in a container, and the collection of records.
 2. **Pilot.** One series per combination of language and model, v0.1.0 only. In addition, one series of Opus × TypeScript, expected to be the heaviest, runs through v0.3.0. Check the turns, active time and usage per version, how often the agent stops, and infrastructure bugs. Pilot data is not used in the main analysis.
    - The pilot's caps are provisional values that only stop runaways (3,000 turns and 24 hours of active time per version).
    - The main experiment's caps are three times the pilot's maximum of turns and of active time, each rounded to a round number. This formula is recorded before the pilot and not changed after seeing the results.
@@ -313,7 +287,7 @@ The procedure of chapter 9, written down to the commands actually typed. Every o
 | `images/eval/Dockerfile` | The evaluation image: the trial image's base and git, plus TypeScript 7.0.2 and `@types/node` 24.19.2 for `tsc --checkJs`. They are not in the trial image, so agents in the JavaScript condition cannot use `tsc` |
 | `images.json` | The IDs of the two trial images. Containers start from these IDs, so the contents are pinned |
 | `eval/` | Scripts for evaluation, size, the network and package audit, checking the tests, and freezing |
-| `tests/` | Runner, hidden tests, public tests, generator, real repository. See `tests/README.md` for usage |
+| `tests/` | Runner, hidden tests, public tests, generator. See `tests/README.md` for usage |
 
 ### 13.1 Preparation (once, before the experiment)
 
@@ -330,7 +304,7 @@ The procedure of chapter 9, written down to the commands actually typed. Every o
    lask run validate
    ```
 
-3. **Freeze and take the hashes.** They cover the specs, the two `AGENTS.md`, the public tests, the hidden tests, the runner, the generator with its seed and output, the real repository's archive and command list, `main.lask`, `lask.json` and `lask.lock.json`, the image definitions and `images.json`, and the scripts in `eval/`.
+3. **Freeze and take the hashes.** They cover the specs, the two `AGENTS.md`, the public tests, the hidden tests, the runner, the generator with its seed and output, `main.lask`, `lask.json` and `lask.lock.json`, the image definitions and `images.json`, and the scripts in `eval/`.
 
    ```sh
    lask run freeze          # freeze/files.sha256, freeze/random.txt, freeze/freeze.sha256
@@ -395,6 +369,8 @@ Each series has a home directory, `playground/<name>_<lang>_<model>/` (for examp
   AGENTS.md                         # from ts/ or js/, depending on the condition
   docs/spec-v1.md
   test/difftest/scenarios/given/    # tests/public/v1/*.json (without manifest.json)
+  test/difftest/tools/run.mjs       # tests/runner/run.mjs
+  test/difftest/tools/gen.mjs       # tests/random/gen.mjs
   ```
 
 ### 13.3 The flow of one series
@@ -410,7 +386,7 @@ lask run exp-v3 S01                                      # v0.3.0
 `exp-v2` and `exp-v3` start only after the previous version has finished, and only when the playground's repository is still at the commit where it ended. The caps are passed with `--max-turns` (default 3,000) and `--max-hours` (default 24). The defaults are the pilot's provisional values; the main experiment passes the values decided in chapter 9, step 2. For the version N it is given, the trial runner does the following.
 
 1. **Prepare the version:** start the container, add `docs/spec-vN.md`, add `tests/public/vN/*.json` to `given/`, and commit (for N ≥ 2 the message is `Add spec vN`). The earlier versions' specs and public tests stay.
-2. **Save the state at the start of the version:** pack the whole home into `results/<series>/vN/start.tar`, used for restarts in 13.6. Also take the hashes of `given/`.
+2. **Save the state at the start of the version:** pack the whole home into `results/<series>/vN/start.tar`, used for restarts in 13.6. Also take the hashes of `given/` and `test/difftest/tools/`.
 3. **Start the agent:** in a new conversation, give it only the fixed sentence.
 
    ```sh
@@ -439,7 +415,7 @@ lask run exp-v3 S01                                      # v0.3.0
 5. **Save the output:** pack the repository into `results/<series>/vN/repo.tar` (including `.git`), and write the following to `run.json`:
    - How it ended, whether the tag exists, the commit the repository ended at, turns, active time, time spent waiting on usage limits, and the caps
    - Number of resumes (separately for stopped, usage limit and API error), number of auto-compactions, number of restarts due to infrastructure failures
-   - Whether the hashes of `given/` are the same as at the start of the version
+   - Whether the hashes of `given/` and `test/difftest/tools/` are the same as at the start of the version
    - A record per start (tokens from `result`, cost at API prices, turns, duration, conversation ID)
 
    `package-lock.json` and the like are in `repo.tar`. The container is then removed; the home stays in `playground/` for the next version.
@@ -462,7 +438,6 @@ It writes the following to `results/<series>/vN/eval/`.
 | `hidden.json` | Hidden scenarios (the primary metric): every scenario up to that version |
 | `public.json` | Public tests (the "completion" metric): all of them up to that version |
 | `random.json` | Random differential tests: that version's 2,000 |
-| `realrepo.json` | Comparison on a real repository (v0.3.0 only) |
 | `size.json` | Lines of implementation excluding tests (not counting blank and comment-only lines), the number of files and lines of tests the agent wrote, and the number of scenarios it wrote |
 | `audit.json` | The network and package audit. Every Bash command in the conversation logs is searched for network operations such as `curl`, `wget` and `git clone`; `npm pack`, `npm view` and the like; `npm install` of unlisted packages; `npx` that downloads packages; other package managers; and calls to the web tools. It also checks the dependencies in `package.json`. A violation does not exclude the trial; it is evaluated as is |
 | `checkjs.json` | Latent type errors (JavaScript condition only): the number of errors from `tsc --allowJs --checkJs --noEmit` |

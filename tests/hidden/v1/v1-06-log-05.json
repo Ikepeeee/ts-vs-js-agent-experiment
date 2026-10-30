@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-log-05: a multi-paragraph message with %b",
+  "name": "v1-06-log-05: log from a subdirectory",
   "steps": [
     {
       "git": [
@@ -38,41 +38,64 @@
       ]
     },
     {
-      "write": "x.txt",
-      "content": "x\n"
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\nNow with more text.\n"
     },
     {
       "git": [
         "add",
-        "x.txt"
-      ]
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
     },
     {
       "git": [
         "commit",
         "-q",
         "-m",
-        "Subject",
+        "Expand README"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "write": "notes.txt",
+      "content": "note 1\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
         "-m",
-        "First paragraph\nwith two lines.",
-        "-m",
-        "Second paragraph."
-      ]
+        "Add notes"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
     },
     {
       "run": [
         "log",
-        "--format=[%s]%n[%b]"
+        "--oneline"
       ],
-      "matchOutput": true
-    },
-    {
-      "run": [
-        "log",
-        "-n",
-        "1"
-      ],
-      "matchOutput": true
+      "matchOutput": true,
+      "cwd": "src/lib"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-13: binary files",
+  "name": "v2-01-diff-13: inserting a function between functions",
   "steps": [
     {
       "git": [
@@ -8,8 +8,8 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "r\n"
+      "write": "fns.js",
+      "content": "function a() {\n  return 1;\n}\n\nfunction c() {\n  return 3;\n}\n"
     },
     {
       "git": [
@@ -26,50 +26,12 @@
       ]
     },
     {
-      "write": "image.bin",
-      "contentBase64": "AAECAwD//g=="
-    },
-    {
-      "git": [
-        "add",
-        "image.bin"
-      ]
-    },
-    {
-      "run": [
-        "diff",
-        "--cached"
-      ],
-      "matchOutput": true
-    },
-    {
-      "git": [
-        "add",
-        "-A"
-      ]
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "bin"
-      ]
-    },
-    {
-      "write": "image.bin",
-      "contentBase64": "AAkJCQD/"
+      "write": "fns.js",
+      "content": "function a() {\n  return 1;\n}\n\nfunction b() {\n  return 2;\n}\n\nfunction c() {\n  return 3;\n}\n"
     },
     {
       "run": [
         "diff"
-      ],
-      "matchOutput": true
-    },
-    {
-      "run": [
-        "diff",
-        "--stat"
       ],
       "matchOutput": true
     }

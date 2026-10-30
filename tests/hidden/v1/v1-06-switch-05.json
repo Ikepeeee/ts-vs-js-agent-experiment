@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-switch-05: non-conflicting local changes are carried over",
+  "name": "v1-06-switch-05: switching changes modes and symlinks",
   "steps": [
     {
       "git": [
@@ -8,20 +8,12 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\n"
+      "write": "tool",
+      "content": "#!/bin/sh\n"
     },
     {
-      "write": "src/app.js",
-      "content": "console.log('hello');\n"
-    },
-    {
-      "write": "src/lib/util.js",
-      "content": "export const add = (a, b) => a + b;\n"
-    },
-    {
-      "write": "docs/guide.txt",
-      "content": "Read me first.\n"
+      "write": "target.txt",
+      "content": "t\n"
     },
     {
       "git": [
@@ -34,80 +26,56 @@
         "commit",
         "-q",
         "-m",
-        "Initial commit"
+        "plain"
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\nNow with more text.\n"
+      "git": [
+        "switch",
+        "-q",
+        "-c",
+        "modes"
+      ]
+    },
+    {
+      "chmod": "tool",
+      "mode": "755"
+    },
+    {
+      "symlink": "link",
+      "target": "target.txt"
     },
     {
       "git": [
         "add",
         "-A"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000060 +0000",
-        "GIT_COMMITTER_DATE": "1700000060 +0000"
-      }
+      ]
     },
     {
       "git": [
         "commit",
         "-q",
         "-m",
-        "Expand README"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000060 +0000",
-        "GIT_COMMITTER_DATE": "1700000060 +0000"
-      }
-    },
-    {
-      "write": "notes.txt",
-      "content": "note 1\n"
-    },
-    {
-      "git": [
-        "add",
-        "-A"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000120 +0000",
-        "GIT_COMMITTER_DATE": "1700000120 +0000"
-      }
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Add notes"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000120 +0000",
-        "GIT_COMMITTER_DATE": "1700000120 +0000"
-      }
-    },
-    {
-      "git": [
-        "branch",
-        "old",
-        "HEAD~2"
+        "exec and link"
       ]
     },
     {
-      "write": "src/app.js",
-      "content": "local edit\n"
-    },
-    {
-      "write": "untracked.txt",
-      "content": "u\n"
+      "git": [
+        "switch",
+        "-q",
+        "main"
+      ]
     },
     {
       "run": [
         "switch",
-        "old"
+        "modes"
+      ]
+    },
+    {
+      "run": [
+        "switch",
+        "main"
       ]
     }
   ]

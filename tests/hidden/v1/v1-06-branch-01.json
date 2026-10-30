@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-branch-01: create a branch at a given commit",
+  "name": "v1-06-branch-01: branch -d of a merged branch",
   "steps": [
     {
       "git": [
@@ -90,23 +90,16 @@
       }
     },
     {
-      "run": [
+      "git": [
         "branch",
-        "old",
-        "HEAD~2"
+        "done"
       ]
     },
     {
       "run": [
         "branch",
-        "zeta",
-        "HEAD~1"
-      ]
-    },
-    {
-      "run": [
-        "branch",
-        "Alpha"
+        "-d",
+        "done"
       ]
     },
     {

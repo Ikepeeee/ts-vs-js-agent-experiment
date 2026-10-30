@@ -14,13 +14,6 @@
     "title": "init with no arguments"
   },
   {
-    "id": "v1-03-init-02",
-    "version": "v1",
-    "section": "03-init",
-    "level": "basic",
-    "title": "init with a directory argument"
-  },
-  {
     "id": "v1-04-objects-01",
     "version": "v1",
     "section": "04-objects",
@@ -49,20 +42,6 @@
     "title": "add a single file"
   },
   {
-    "id": "v1-05-add-02",
-    "version": "v1",
-    "section": "05-add",
-    "level": "basic",
-    "title": "add ."
-  },
-  {
-    "id": "v1-05-rm-01",
-    "version": "v1",
-    "section": "05-rm",
-    "level": "basic",
-    "title": "rm a committed file"
-  },
-  {
     "id": "v1-05-ls-files-01",
     "version": "v1",
     "section": "05-ls-files",
@@ -77,13 +56,6 @@
     "title": "status --porcelain with untracked and staged files"
   },
   {
-    "id": "v1-05-status-02",
-    "version": "v1",
-    "section": "05-status",
-    "level": "basic",
-    "title": "status normal output exit code"
-  },
-  {
     "id": "v1-05-ignore-01",
     "version": "v1",
     "section": "05-ignore",
@@ -96,13 +68,6 @@
     "section": "06-commit",
     "level": "basic",
     "title": "commit -m"
-  },
-  {
-    "id": "v1-06-commit-02",
-    "version": "v1",
-    "section": "06-commit",
-    "level": "basic",
-    "title": "commit -a"
   },
   {
     "id": "v1-06-rev-parse-01",
@@ -126,25 +91,11 @@
     "title": "log default output"
   },
   {
-    "id": "v1-06-show-01",
-    "version": "v1",
-    "section": "06-show",
-    "level": "basic",
-    "title": "show -s HEAD"
-  },
-  {
     "id": "v1-06-branch-01",
     "version": "v1",
     "section": "06-branch",
     "level": "basic",
     "title": "create and list branches"
-  },
-  {
-    "id": "v1-06-branch-02",
-    "version": "v1",
-    "section": "06-branch",
-    "level": "basic",
-    "title": "branch -d of a merged branch"
   },
   {
     "id": "v1-06-switch-01",
@@ -158,21 +109,7 @@
     "version": "v1",
     "section": "06-switch",
     "level": "basic",
-    "title": "checkout -b"
-  },
-  {
-    "id": "v1-06-reset-01",
-    "version": "v1",
-    "section": "06-reset",
-    "level": "basic",
-    "title": "reset --hard HEAD~1"
-  },
-  {
-    "id": "v1-06-tag-01",
-    "version": "v1",
-    "section": "06-tag",
-    "level": "basic",
-    "title": "create and list tags"
+    "title": "switch -c"
   },
   {
     "id": "v2-01-diff-01",
@@ -193,160 +130,97 @@
     "version": "v2",
     "section": "01-diff",
     "level": "basic",
-    "title": "diff --stat"
+    "title": "diff between commits"
   },
   {
-    "id": "v2-01-diff-04",
+    "id": "v2-01-show-01",
     "version": "v2",
-    "section": "01-diff",
-    "level": "basic",
-    "title": "diff --name-status between commits"
-  },
-  {
-    "id": "v2-01-show-log-p-01",
-    "version": "v2",
-    "section": "01-show-log-p",
+    "section": "01-show",
     "level": "basic",
     "title": "show of a commit with its patch"
   },
   {
-    "id": "v2-02-config-01",
+    "id": "v2-02-merge-base-01",
     "version": "v2",
-    "section": "02-config",
-    "level": "basic",
-    "title": "set and get a value"
-  },
-  {
-    "id": "v2-03-ignore-01",
-    "version": "v2",
-    "section": "03-ignore",
-    "level": "basic",
-    "title": "a negated pattern"
-  },
-  {
-    "id": "v2-04-merge-base-01",
-    "version": "v2",
-    "section": "04-merge-base",
+    "section": "02-merge-base",
     "level": "basic",
     "title": "merge-base of two branches"
   },
   {
-    "id": "v2-04-merge-01",
+    "id": "v2-02-merge-01",
     "version": "v2",
-    "section": "04-merge",
+    "section": "02-merge",
     "level": "basic",
     "title": "fast-forward merge"
   },
   {
-    "id": "v2-04-merge-02",
+    "id": "v2-02-merge-02",
     "version": "v2",
-    "section": "04-merge",
+    "section": "02-merge",
     "level": "basic",
     "title": "three-way merge without conflicts"
   },
   {
-    "id": "v2-04-merge-03",
+    "id": "v2-02-merge-03",
     "version": "v2",
-    "section": "04-merge",
+    "section": "02-merge",
     "level": "basic",
     "title": "a conflicting merge"
   },
   {
-    "id": "v2-04-merge-04",
-    "version": "v2",
-    "section": "04-merge",
+    "id": "v3-01-tag-01",
+    "version": "v3",
+    "section": "01-tag",
     "level": "basic",
-    "title": "merge --abort"
+    "title": "create and list tags"
   },
   {
-    "id": "v2-05-annotated-tag-01",
-    "version": "v2",
-    "section": "05-annotated-tag",
+    "id": "v3-01-tag-02",
+    "version": "v3",
+    "section": "01-tag",
     "level": "basic",
     "title": "tag -a and cat-file -p"
   },
   {
-    "id": "v2-06-stash-01",
-    "version": "v2",
-    "section": "06-stash",
-    "level": "basic",
-    "title": "stash push and stash list"
-  },
-  {
-    "id": "v2-06-stash-02",
-    "version": "v2",
-    "section": "06-stash",
-    "level": "basic",
-    "title": "stash pop"
-  },
-  {
-    "id": "v3-01-cherry-pick-01",
+    "id": "v3-02-reset-01",
     "version": "v3",
-    "section": "01-cherry-pick",
+    "section": "02-reset",
+    "level": "basic",
+    "title": "reset --hard HEAD~1"
+  },
+  {
+    "id": "v3-03-cherry-pick-01",
+    "version": "v3",
+    "section": "03-cherry-pick",
     "level": "basic",
     "title": "cherry-pick a commit"
   },
   {
-    "id": "v3-01-cherry-pick-02",
+    "id": "v3-03-cherry-pick-02",
     "version": "v3",
-    "section": "01-cherry-pick",
+    "section": "03-cherry-pick",
     "level": "basic",
     "title": "cherry-pick conflict and --abort"
   },
   {
-    "id": "v3-01-revert-01",
+    "id": "v3-03-revert-01",
     "version": "v3",
-    "section": "01-revert",
+    "section": "03-revert",
     "level": "basic",
     "title": "revert --no-edit HEAD"
   },
   {
-    "id": "v3-02-rebase-01",
+    "id": "v3-04-reflog-01",
     "version": "v3",
-    "section": "02-rebase",
-    "level": "basic",
-    "title": "rebase onto an upstream branch"
-  },
-  {
-    "id": "v3-02-rebase-02",
-    "version": "v3",
-    "section": "02-rebase",
-    "level": "basic",
-    "title": "rebase --abort after a conflict"
-  },
-  {
-    "id": "v3-03-reflog-01",
-    "version": "v3",
-    "section": "03-reflog",
+    "section": "04-reflog",
     "level": "basic",
     "title": "reflog after commits"
   },
   {
-    "id": "v3-03-reflog-02",
+    "id": "v3-04-reflog-02",
     "version": "v3",
-    "section": "03-reflog",
+    "section": "04-reflog",
     "level": "basic",
     "title": "reflog show of a branch"
-  },
-  {
-    "id": "v3-04-packed-refs-01",
-    "version": "v3",
-    "section": "04-packed-refs",
-    "level": "basic",
-    "title": "resolve a ref stored in packed-refs"
-  },
-  {
-    "id": "v3-05-packfile-01",
-    "version": "v3",
-    "section": "05-packfile",
-    "level": "basic",
-    "title": "cat-file after git gc"
-  },
-  {
-    "id": "v3-05-packfile-02",
-    "version": "v3",
-    "section": "05-packfile",
-    "level": "basic",
-    "title": "log after git gc"
   }
 ]

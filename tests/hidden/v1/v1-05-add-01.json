@@ -1,5 +1,5 @@
 {
-  "name": "v1-05-add-01: add a directory",
+  "name": "v1-05-add-01: add .",
   "steps": [
     {
       "git": [
@@ -24,13 +24,13 @@
       "content": "Read me first.\n"
     },
     {
-      "write": "other.txt",
-      "content": "o\n"
+      "write": "top.txt",
+      "content": "t\n"
     },
     {
       "run": [
         "add",
-        "src"
+        "."
       ]
     }
   ]

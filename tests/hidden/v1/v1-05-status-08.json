@@ -1,5 +1,5 @@
 {
-  "name": "v1-05-status-08: status --porcelain from a subdirectory",
+  "name": "v1-05-status-08: status quotes special paths",
   "steps": [
     {
       "git": [
@@ -8,54 +8,29 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\n"
+      "write": "with space.txt",
+      "content": "x\n"
     },
     {
-      "write": "src/app.js",
-      "content": "console.log('hello');\n"
+      "write": "日本語.txt",
+      "content": "x\n"
     },
     {
-      "write": "src/lib/util.js",
-      "content": "export const add = (a, b) => a + b;\n"
-    },
-    {
-      "write": "docs/guide.txt",
-      "content": "Read me first.\n"
+      "write": "-dash.txt",
+      "content": "x\n"
     },
     {
       "git": [
         "add",
-        "-A"
+        "日本語.txt"
       ]
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Initial commit"
-      ]
-    },
-    {
-      "write": "src/new.js",
-      "content": "n\n"
-    },
-    {
-      "write": "top.txt",
-      "content": "t\n"
-    },
-    {
-      "write": "docs/guide.txt",
-      "content": "edited\n"
     },
     {
       "run": [
         "status",
         "--porcelain"
       ],
-      "matchOutput": true,
-      "cwd": "src"
+      "matchOutput": true
     }
   ]
 }

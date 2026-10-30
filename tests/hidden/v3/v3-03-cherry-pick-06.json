@@ -1,0 +1,102 @@
+{
+  "name": "v3-03-cherry-pick-06: a pick that applies at shifted line numbers",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "list.txt",
+      "content": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\nline 11\nline 12\nline 13\nline 14\nline 15\nline 16\nline 17\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Base"
+      ]
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "-c",
+        "topic"
+      ]
+    },
+    {
+      "write": "list.txt",
+      "content": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\nline 11\nline 12\nline 13\nline 14\nline 15\nline 16\nline 17\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline twenty-five\nline 26\nline 27\nline 28\nline 29\nline 30\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Topic edits line 25"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "git": [
+        "switch",
+        "-q",
+        "main"
+      ]
+    },
+    {
+      "write": "list.txt",
+      "content": "inserted a\ninserted b\ninserted c\nline 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\nline 11\nline 12\nline 13\nline 14\nline 15\nline 16\nline 17\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Main inserts lines at the top"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "run": [
+        "cherry-pick",
+        "topic"
+      ]
+    }
+  ]
+}

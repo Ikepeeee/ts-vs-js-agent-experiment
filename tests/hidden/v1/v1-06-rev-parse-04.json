@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-rev-parse-04: --short",
+  "name": "v1-06-rev-parse-04: invalid revisions",
   "steps": [
     {
       "git": [
@@ -92,18 +92,18 @@
     {
       "run": [
         "rev-parse",
-        "--short",
-        "HEAD"
+        "nosuchbranch"
       ],
-      "matchOutput": true
+      "matchOutput": true,
+      "expectExit": 128
     },
     {
       "run": [
         "rev-parse",
-        "--short",
-        "HEAD~1"
+        "HEAD~5"
       ],
-      "matchOutput": true
+      "matchOutput": true,
+      "expectExit": 128
     }
   ]
 }

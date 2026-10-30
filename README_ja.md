@@ -15,7 +15,7 @@
 | `spec/spec-v1.md` 〜 `spec-v3.md` | tgitの仕様書（英語）。両条件で同一 | AI（1版ずつ渡す） |
 | `ts/AGENTS.md` | TypeScript条件のリポジトリに置く指示書（英語） | AI |
 | `js/AGENTS.md` | JavaScript条件のリポジトリに置く指示書（英語） | AI |
-| `tests/` | 公開テスト（AIに渡す）、隠しテスト、ランナー、生成器、実在リポジトリ | 人間（`tests/public/` だけはAIにも渡す） |
+| `tests/` | 公開テスト（AIに渡す）、隠しテスト、ランナーと生成器（AIにも渡す） | 人間（`tests/public/`、ランナー、生成器はAIにも渡す） |
 | `images/` | 試行と評価のコンテナイメージの定義 | 人間 |
 | `eval/` | 評価のスクリプト | 人間 |
 | `playground/` | 系列ごとの作業場所。エージェントのホーム（`exp-v1` が作る。コミットしない） | AI（自分の系列だけ） |
@@ -36,7 +36,7 @@
 ```sh
 lask sync                       # lask が動かすイメージを取得・作成する
 lask run build-images           # 試行のイメージを作る（Claude Code 用、GitHub Copilot CLI 用）
-lask run validate               # テスト自体を確かめる（約30分）
+lask run validate               # テスト自体を確かめる（約15分）
 lask run freeze                 # 事前登録するハッシュを取る
 lask run login                  # Claude の長期トークンを作る
 export CLAUDE_CODE_OAUTH_TOKEN=<トークン>   # この行を .env に書いて source .env でもよい

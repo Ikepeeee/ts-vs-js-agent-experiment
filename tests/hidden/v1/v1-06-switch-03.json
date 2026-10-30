@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-switch-03: checkout of a commit detaches HEAD",
+  "name": "v1-06-switch-03: conflicting local changes make switching fail",
   "steps": [
     {
       "git": [
@@ -90,10 +90,22 @@
       }
     },
     {
-      "run": [
-        "checkout",
+      "git": [
+        "branch",
+        "old",
         "HEAD~2"
       ]
+    },
+    {
+      "write": "README.md",
+      "content": "local edit that conflicts\n"
+    },
+    {
+      "run": [
+        "switch",
+        "old"
+      ],
+      "expectExit": 1
     }
   ]
 }

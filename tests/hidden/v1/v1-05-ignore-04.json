@@ -1,5 +1,5 @@
 {
-  "name": "v1-05-ignore-04: an anchored pattern matches only at the root",
+  "name": "v1-05-ignore-04: a directory pattern does not match a file",
   "steps": [
     {
       "git": [
@@ -39,23 +39,29 @@
     },
     {
       "write": ".gitignore",
-      "content": "/only-root\n"
+      "content": "cache/\n"
     },
     {
-      "write": "only-root",
-      "content": "r\n"
+      "write": "cache",
+      "content": "a file named cache\n"
     },
     {
-      "write": "src/only-root",
-      "content": "s\n"
+      "write": "src/cache/data",
+      "content": "d\n"
     },
     {
       "run": [
-        "ls-files",
-        "-o",
-        "--exclude-standard"
+        "status",
+        "--porcelain"
       ],
       "matchOutput": true
+    },
+    {
+      "run": [
+        "add",
+        "cache"
+      ],
+      "expectExit": 0
     }
   ]
 }

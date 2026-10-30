@@ -1,5 +1,5 @@
 {
-  "name": "v1-04-objects-11: cat-file -s of a blob and a commit",
+  "name": "v1-04-objects-11: cat-file with an invalid object name fails",
   "steps": [
     {
       "git": [
@@ -40,18 +40,20 @@
     {
       "run": [
         "cat-file",
-        "-s",
-        "6e5bb8244484b1590447f00cdac9fe9977c14b4a"
+        "-p",
+        "no-such-ref"
       ],
-      "matchOutput": true
+      "matchOutput": true,
+      "expectExit": 128
     },
     {
       "run": [
         "cat-file",
-        "-s",
-        "HEAD"
+        "-t",
+        "0123456789abcdef0123456789abcdef01234567"
       ],
-      "matchOutput": true
+      "matchOutput": true,
+      "expectExit": 128
     }
   ]
 }

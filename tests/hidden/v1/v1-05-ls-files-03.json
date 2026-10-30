@@ -1,5 +1,5 @@
 {
-  "name": "v1-05-ls-files-03: ls-files -o --exclude-standard",
+  "name": "v1-05-ls-files-03: ls-files quotes special paths",
   "steps": [
     {
       "git": [
@@ -8,20 +8,20 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\n"
+      "write": "with space.txt",
+      "content": "x\n"
     },
     {
-      "write": "src/app.js",
-      "content": "console.log('hello');\n"
+      "write": "日本語.txt",
+      "content": "x\n"
     },
     {
-      "write": "src/lib/util.js",
-      "content": "export const add = (a, b) => a + b;\n"
+      "write": "-dash.txt",
+      "content": "x\n"
     },
     {
-      "write": "docs/guide.txt",
-      "content": "Read me first.\n"
+      "write": "tab\there",
+      "content": "t\n"
     },
     {
       "git": [
@@ -34,30 +34,12 @@
         "commit",
         "-q",
         "-m",
-        "Initial commit"
+        "c"
       ]
     },
     {
-      "write": ".gitignore",
-      "content": "*.tmp\nbuild/\n"
-    },
-    {
-      "write": "x.tmp",
-      "content": "t\n"
-    },
-    {
-      "write": "build/out.js",
-      "content": "o\n"
-    },
-    {
-      "write": "kept.txt",
-      "content": "k\n"
-    },
-    {
       "run": [
-        "ls-files",
-        "-o",
-        "--exclude-standard"
+        "ls-files"
       ],
       "matchOutput": true
     }

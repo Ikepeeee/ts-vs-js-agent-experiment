@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-switch-07: switching adds and removes files and directories",
+  "name": "v1-06-switch-07: switch from a subdirectory",
   "steps": [
     {
       "git": [
@@ -38,57 +38,70 @@
       ]
     },
     {
-      "git": [
-        "switch",
-        "-q",
-        "-c",
-        "other"
-      ]
-    },
-    {
-      "git": [
-        "rm",
-        "-r",
-        "-q",
-        "src"
-      ]
-    },
-    {
-      "write": "extra/deep/file.txt",
-      "content": "e\n"
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\nNow with more text.\n"
     },
     {
       "git": [
         "add",
         "-A"
-      ]
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
     },
     {
       "git": [
         "commit",
         "-q",
         "-m",
-        "Restructure"
-      ]
+        "Expand README"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "write": "notes.txt",
+      "content": "note 1\n"
     },
     {
       "git": [
-        "switch",
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
         "-q",
-        "main"
+        "-m",
+        "Add notes"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "branch",
+        "old",
+        "HEAD~2"
       ]
     },
     {
       "run": [
         "switch",
-        "other"
-      ]
-    },
-    {
-      "run": [
-        "checkout",
-        "main"
-      ]
+        "old"
+      ],
+      "cwd": "src"
     }
   ]
 }

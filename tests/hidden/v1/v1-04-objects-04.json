@@ -1,5 +1,5 @@
 {
-  "name": "v1-04-objects-04: hash-object -w with several files",
+  "name": "v1-04-objects-04: cat-file -p of a commit",
   "steps": [
     {
       "git": [
@@ -8,24 +8,92 @@
       ]
     },
     {
-      "write": "one.txt",
-      "content": "1\n"
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
     },
     {
-      "write": "two.txt",
-      "content": "2\n"
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
     },
     {
-      "write": "three.txt",
-      "content": "3\n"
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\nNow with more text.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Expand README"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000060 +0000",
+        "GIT_COMMITTER_DATE": "1700000060 +0000"
+      }
+    },
+    {
+      "write": "notes.txt",
+      "content": "note 1\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Add notes"
+      ],
+      "env": {
+        "GIT_AUTHOR_DATE": "1700000120 +0000",
+        "GIT_COMMITTER_DATE": "1700000120 +0000"
+      }
     },
     {
       "run": [
-        "hash-object",
-        "-w",
-        "one.txt",
-        "two.txt",
-        "three.txt"
+        "cat-file",
+        "-p",
+        "HEAD"
       ],
       "matchOutput": true
     }

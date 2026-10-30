@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-06: diff --stat between commits",
+  "name": "v2-01-diff-06: new file and deleted file headers",
   "steps": [
     {
       "git": [
@@ -38,63 +38,26 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\nNow with more text.\n"
+      "write": "brand-new.txt",
+      "content": "fresh\n"
+    },
+    {
+      "git": [
+        "rm",
+        "-q",
+        "src/app.js"
+      ]
     },
     {
       "git": [
         "add",
         "-A"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000060 +0000",
-        "GIT_COMMITTER_DATE": "1700000060 +0000"
-      }
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Expand README"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000060 +0000",
-        "GIT_COMMITTER_DATE": "1700000060 +0000"
-      }
-    },
-    {
-      "write": "notes.txt",
-      "content": "note 1\n"
-    },
-    {
-      "git": [
-        "add",
-        "-A"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000120 +0000",
-        "GIT_COMMITTER_DATE": "1700000120 +0000"
-      }
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Add notes"
-      ],
-      "env": {
-        "GIT_AUTHOR_DATE": "1700000120 +0000",
-        "GIT_COMMITTER_DATE": "1700000120 +0000"
-      }
+      ]
     },
     {
       "run": [
         "diff",
-        "--stat",
-        "HEAD~2",
-        "HEAD"
+        "--cached"
       ],
       "matchOutput": true
     }

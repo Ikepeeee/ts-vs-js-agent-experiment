@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-04: diff between two commits",
+  "name": "v2-01-diff-04: diff between two commits in both directions",
   "steps": [
     {
       "git": [
@@ -93,7 +93,7 @@
       "run": [
         "diff",
         "HEAD~2",
-        "HEAD"
+        "HEAD~1"
       ],
       "matchOutput": true
     },

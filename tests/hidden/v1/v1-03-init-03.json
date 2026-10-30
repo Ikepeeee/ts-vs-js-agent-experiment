@@ -1,11 +1,10 @@
 {
-  "name": "v1-03-init-03: init --bare",
+  "name": "v1-03-init-03: init creates nested missing directories",
   "steps": [
     {
       "run": [
         "init",
-        "--bare",
-        "repo.git"
+        "a/b/c"
       ],
       "matchOutput": true
     }

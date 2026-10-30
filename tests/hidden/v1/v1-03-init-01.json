@@ -1,10 +1,10 @@
 {
-  "name": "v1-03-init-01: init -q prints nothing",
+  "name": "v1-03-init-01: init with a directory argument",
   "steps": [
     {
       "run": [
         "init",
-        "-q"
+        "project"
       ],
       "matchOutput": true
     }

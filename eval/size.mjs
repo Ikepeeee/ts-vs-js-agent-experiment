@@ -38,9 +38,11 @@ function codeLines(file) {
 }
 
 const files = walk(repo).map((p) => path.relative(repo, p));
+// The provided difftest tools (test/difftest/tools/) are neither: the agent did not write them.
+const provided = (f) => f.startsWith("test/difftest/tools/");
 const isTest = (f) => f.startsWith("test/") || /(^|\/)__tests__\//.test(f) || /\.test\.(ts|js|mjs)$/.test(f);
 const impl = files.filter((f) => CODE.test(f) && !isTest(f));
-const tests = files.filter((f) => CODE.test(f) && isTest(f));
+const tests = files.filter((f) => CODE.test(f) && isTest(f) && !provided(f));
 const scenarios = files.filter((f) => f.startsWith("test/difftest/scenarios/") && f.endsWith(".json") && !f.includes("/given/"));
 const count = (list) => list.reduce((sum, f) => sum + codeLines(path.join(repo, f)), 0);
 

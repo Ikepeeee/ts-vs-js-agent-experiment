@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-log-01: --format with every supported placeholder",
+  "name": "v1-06-log-01: -n limits the number of commits",
   "steps": [
     {
       "git": [
@@ -92,7 +92,17 @@
     {
       "run": [
         "log",
-        "--format=%H %h %T %P|%an <%ae> %ad|%s|%b|%n--"
+        "-n",
+        "2",
+        "--oneline"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "log",
+        "-n",
+        "1"
       ],
       "matchOutput": true
     }

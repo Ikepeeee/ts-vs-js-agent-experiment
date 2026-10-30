@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-branch-03: -D of an unmerged branch",
+  "name": "v1-06-branch-03: -d of an unmerged branch fails",
   "steps": [
     {
       "git": [
@@ -73,15 +73,10 @@
     {
       "run": [
         "branch",
-        "-D",
+        "-d",
         "topic"
-      ]
-    },
-    {
-      "run": [
-        "branch"
       ],
-      "matchOutput": true
+      "expectExit": 1
     }
   ]
 }

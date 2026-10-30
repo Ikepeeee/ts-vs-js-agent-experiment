@@ -15,7 +15,7 @@ Japanese version: `README_ja.md`. This English version is canonical; where the t
 | `spec/spec-v1.md` to `spec-v3.md` | The tgit specification (English). The same for both conditions | AI (one version at a time) |
 | `ts/AGENTS.md` | Instructions placed in the repository for the TypeScript condition | AI |
 | `js/AGENTS.md` | Instructions placed in the repository for the JavaScript condition | AI |
-| `tests/` | Public tests (given to the AI), hidden tests, runner, generator, real repository | Humans (only `tests/public/` is also given to the AI) |
+| `tests/` | Public tests (given to the AI), hidden tests, runner and generator (also given to the AI) | Humans (`tests/public/`, the runner and the generator are also given to the AI) |
 | `images/` | Definitions of the trial and evaluation container images | Humans |
 | `eval/` | Evaluation scripts | Humans |
 | `playground/` | Each series' working home, where the agent works (created by `exp-v1`, not committed) | AI (its own series only) |
@@ -36,7 +36,7 @@ Every operation is a `lask run <task>` typed in this folder. The trials also nee
 ```sh
 lask sync                       # pull and build the images lask runs
 lask run build-images           # build the trial images (Claude Code, GitHub Copilot CLI)
-lask run validate               # confirm the tests themselves (about 30 minutes)
+lask run validate               # confirm the tests themselves (about 15 minutes)
 lask run freeze                 # take the hashes to pre-register
 lask run login                  # create a long-lived Claude token
 export CLAUDE_CODE_OAUTH_TOKEN=<token>   # or keep this line in .env and: source .env

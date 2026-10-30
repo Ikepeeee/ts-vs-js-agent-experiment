@@ -1,5 +1,5 @@
 {
-  "name": "v2-01-diff-12: no newline at end of file",
+  "name": "v2-01-diff-12: changes close together share one hunk",
   "steps": [
     {
       "git": [
@@ -8,16 +8,8 @@
       ]
     },
     {
-      "write": "a.txt",
-      "content": "one\ntwo"
-    },
-    {
-      "write": "b.txt",
-      "content": "one\ntwo\n"
-    },
-    {
-      "write": "c.txt",
-      "content": "x\ny"
+      "write": "list.txt",
+      "content": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\nline 11\nline 12\nline 13\nline 14\nline 15\nline 16\nline 17\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\n"
     },
     {
       "git": [
@@ -34,16 +26,18 @@
       ]
     },
     {
-      "write": "a.txt",
-      "content": "one\ntwo\n"
+      "write": "list.txt",
+      "content": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline ten\nline 11\nline 12\nline 13\nline 14\nline 15\nline sixteen\nline 17\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\n"
     },
     {
-      "write": "b.txt",
-      "content": "one\ntwo"
+      "run": [
+        "diff"
+      ],
+      "matchOutput": true
     },
     {
-      "write": "c.txt",
-      "content": "x\nz"
+      "write": "list.txt",
+      "content": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline ten\nline 11\nline 12\nline 13\nline 14\nline 15\nline 16\nline seventeen\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\n"
     },
     {
       "run": [

@@ -1,0 +1,61 @@
+{
+  "name": "v3-02-reset-04: reset --hard removes a staged new file",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": "new.txt",
+      "content": "n\n"
+    },
+    {
+      "git": [
+        "add",
+        "new.txt"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "dirty\n"
+    },
+    {
+      "run": [
+        "reset",
+        "--hard"
+      ]
+    }
+  ]
+}

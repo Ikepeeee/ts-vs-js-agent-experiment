@@ -1,10 +1,10 @@
 {
-  "name": "v1-03-init-02: init creates nested missing directories",
+  "name": "v1-03-init-02: init -q prints nothing",
   "steps": [
     {
       "run": [
         "init",
-        "a/b/c"
+        "-q"
       ],
       "matchOutput": true
     }

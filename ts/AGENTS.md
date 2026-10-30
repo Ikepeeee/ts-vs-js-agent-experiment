@@ -15,7 +15,7 @@ What to build is given as a specification document for each release.
   - Type strictness: `strict: true` and `noUncheckedIndexedAccess: true`. Do not use `any`
 - **Execution:** No build step. The tool runs directly with `node src/main.ts`. Pin the Node.js version in `.nvmrc`
 - **Dependencies:** Zero runtime dependencies. Use only Node.js built-in modules
-  - The only dev dependencies are `typescript`, `@types/node`, `eslint`, `@eslint/js`, `typescript-eslint`, and `fast-check`. If you need another one, stop and ask a human
+  - The only dev dependencies are `typescript`, `@types/node`, `eslint`, `@eslint/js`, and `typescript-eslint`. If you need another one, stop and ask a human
 - **Network:** Do not use it, except to install the dev dependencies above from the npm registry. Do not download, fetch, or read other packages or source code (for example with `curl`, `git clone`, or `npm pack`)
 - **Comments and identifiers:** Write them in English
 
@@ -40,24 +40,24 @@ What to build is given as a specification document for each release.
 ## Testing
 
 - `npm test`: unit tests (`node --test`)
-- `npm run difftest`: differential tests against the real git
-- `npm run typecheck`: `tsc --noEmit`
+- `npm run difftest`: differential tests against the real git: your scenarios and a run of random sequences
 - `npm run lint`: ESLint
+- `npm run typecheck`: `tsc --noEmit`
 
 ### How differential testing works
 
 It lives in `test/difftest/`. The same sequence of commands is run against both the real `git` and `tgit`, each in its own temporary directory, and the results are compared.
 
-- What is compared: exit codes, output covered by the "output must match" rule, the set of objects written to `.git/objects`, refs, the index, and the contents of working tree files (the tgit-side repository is also inspected with the real git)
-- Fixed environment: `GIT_AUTHOR_NAME`, `GIT_AUTHOR_EMAIL`, `GIT_AUTHOR_DATE`, `GIT_COMMITTER_*`, `TZ=UTC`, `LANG=C`, `GIT_CONFIG_NOSYSTEM=1`, and a dedicated `HOME` whose `.gitconfig` sets `init.defaultBranch=main` and `core.autocrlf=false`
+- The tools are provided in `test/difftest/tools/`. Use them as they are
+  - `run.mjs` runs scenarios and compares the two sides: `node test/difftest/tools/run.mjs --tgit "node $PWD/src/main.ts" <dir-or-file>...` (the tgit command needs an absolute path, because each side runs in a temporary directory)
+  - `gen.mjs` writes random command sequences for a version as scenarios: `node test/difftest/tools/gen.mjs --version v1 --seed <seed> --count <n> --out <dir>`. Run them with `run.mjs`
+- What is compared: exit codes, output covered by the "output must match" rule, the set of objects written to `.git/objects`, refs, the index, the contents of working tree files, and the real `git fsck --strict` on the tgit side
+- Fixed environment (set by `run.mjs`): `GIT_AUTHOR_NAME`, `GIT_AUTHOR_EMAIL`, `GIT_AUTHOR_DATE`, `GIT_COMMITTER_*`, `TZ=UTC`, `LANG=C`, `GIT_CONFIG_NOSYSTEM=1`, and a dedicated `HOME` whose `.gitconfig` sets `init.defaultBranch=main` and `core.autocrlf=false`
   - tgit reads these two settings from `$HOME/.gitconfig`, as the real git does
-- Two kinds of scenarios
-  - Hand-written scenarios (`test/difftest/scenarios/**/*.json`)
-    - `test/difftest/scenarios/given/` holds the scenarios provided with the specifications. Put the scenarios you write elsewhere under `test/difftest/scenarios/`, never in `given/`
-  - Randomly generated command sequences using fast-check (property-based tests). When one fails, save the shrunk reproduction as a scenario
-- Run the real `git fsck --strict` on every repository tgit creates
+- Hand-written scenarios live in `test/difftest/scenarios/**/*.json`
+  - `test/difftest/scenarios/given/` holds the scenarios provided with the specifications. Put the scenarios you write elsewhere under `test/difftest/scenarios/`, never in `given/`
+  - When a random sequence fails, save a reduced reproduction as a scenario
 - Use the real git's default settings. Never change the real git's configuration (for example, diff or merge settings) to make its output easier to match
-- The random generator takes its seed from `DIFFTEST_SEED` and the number of runs from `DIFFTEST_RUNS`, and prints the seed it used. The defaults are a fixed seed and 200 runs
 
 ### What every command's tests must cover
 
@@ -68,9 +68,9 @@ It lives in `test/difftest/`. The same sequence of commands is run against both 
 
 ### Rules about tests
 
-- For any new command or feature, write the differential test scenarios first, confirm the expected results with the real git, and then implement it. Also add it to the random generator
+- For any new command or feature, write the differential test scenarios first, confirm the expected results with the real git, and then implement it
 - Never delete existing tests, loosen their expectations, or mark them `skip`. If you believe a test is wrong, stop and report why
-- Never modify, rename, or add to the files in `test/difftest/scenarios/given/`. If you believe one of them is wrong, stop and report why
+- Never modify, rename, or add to the files in `test/difftest/scenarios/given/` and `test/difftest/tools/`. If you believe one of them is wrong, stop and report why
 - Do not add branches to the implementation that exist only to make the differential tests pass
 - Work is "done" only when `npm test`, `npm run difftest`, `npm run typecheck`, and `npm run lint` all pass
 

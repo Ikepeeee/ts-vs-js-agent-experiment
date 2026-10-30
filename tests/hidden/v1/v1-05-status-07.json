@@ -1,5 +1,5 @@
 {
-  "name": "v1-05-status-07: status -s",
+  "name": "v1-05-status-07: status --porcelain from a subdirectory",
   "steps": [
     {
       "git": [
@@ -38,25 +38,24 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "m\n"
-    },
-    {
-      "write": "new.txt",
+      "write": "src/new.js",
       "content": "n\n"
     },
     {
-      "git": [
-        "add",
-        "new.txt"
-      ]
+      "write": "top.txt",
+      "content": "t\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "edited\n"
     },
     {
       "run": [
         "status",
-        "-s"
+        "--porcelain"
       ],
-      "matchOutput": true
+      "matchOutput": true,
+      "cwd": "src"
     }
   ]
 }

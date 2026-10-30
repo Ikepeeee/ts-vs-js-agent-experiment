@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-commit-07: amending the root commit",
+  "name": "v1-06-commit-07: a commit that removes every file",
   "steps": [
     {
       "git": [
@@ -38,11 +38,18 @@
       ]
     },
     {
+      "git": [
+        "rm",
+        "-r",
+        "-q",
+        "."
+      ]
+    },
+    {
       "run": [
         "commit",
-        "--amend",
         "-m",
-        "Reworded root"
+        "Remove everything"
       ]
     }
   ]

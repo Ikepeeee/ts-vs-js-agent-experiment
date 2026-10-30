@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-commit-06: a root commit with nested directories",
+  "name": "v1-06-commit-06: commit from a subdirectory",
   "steps": [
     {
       "git": [
@@ -8,33 +8,53 @@
       ]
     },
     {
-      "write": "a/b/c/d.txt",
-      "content": "deep\n"
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
     },
     {
-      "write": "a/b/e.txt",
-      "content": "e\n"
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
     },
     {
-      "write": "a/f.txt",
-      "content": "f\n"
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
     },
     {
-      "write": "z.txt",
-      "content": "z\n"
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
     },
     {
       "git": [
         "add",
-        "."
+        "-A"
       ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "write": "src/new.js",
+      "content": "n\n"
+    },
+    {
+      "git": [
+        "add",
+        "new.js"
+      ],
+      "cwd": "src"
     },
     {
       "run": [
         "commit",
         "-m",
-        "Nested"
-      ]
+        "From a subdirectory"
+      ],
+      "cwd": "src/lib"
     }
   ]
 }

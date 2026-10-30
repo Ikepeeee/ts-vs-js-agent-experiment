@@ -1,5 +1,5 @@
 {
-  "name": "v1-06-commit-05: nothing to commit fails",
+  "name": "v1-06-commit-05: a root commit with nested directories",
   "steps": [
     {
       "git": [
@@ -8,42 +8,33 @@
       ]
     },
     {
-      "write": "README.md",
-      "content": "# Demo\n\nA small project.\n"
+      "write": "a/b/c/d.txt",
+      "content": "deep\n"
     },
     {
-      "write": "src/app.js",
-      "content": "console.log('hello');\n"
+      "write": "a/b/e.txt",
+      "content": "e\n"
     },
     {
-      "write": "src/lib/util.js",
-      "content": "export const add = (a, b) => a + b;\n"
+      "write": "a/f.txt",
+      "content": "f\n"
     },
     {
-      "write": "docs/guide.txt",
-      "content": "Read me first.\n"
+      "write": "z.txt",
+      "content": "z\n"
     },
     {
       "git": [
         "add",
-        "-A"
-      ]
-    },
-    {
-      "git": [
-        "commit",
-        "-q",
-        "-m",
-        "Initial commit"
+        "."
       ]
     },
     {
       "run": [
         "commit",
         "-m",
-        "empty"
-      ],
-      "expectExit": 1
+        "Nested"
+      ]
     }
   ]
 }

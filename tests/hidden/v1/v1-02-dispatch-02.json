@@ -3,7 +3,8 @@
   "steps": [
     {
       "run": [
-        "status"
+        "status",
+        "--porcelain"
       ],
       "matchOutput": true,
       "expectExit": 128

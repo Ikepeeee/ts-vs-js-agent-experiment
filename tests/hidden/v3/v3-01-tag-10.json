@@ -1,0 +1,81 @@
+{
+  "name": "v3-01-tag-10: cat-file and rev-parse of an annotated tag made by the real git",
+  "steps": [
+    {
+      "git": [
+        "init",
+        "-q"
+      ]
+    },
+    {
+      "write": "README.md",
+      "content": "# Demo\n\nA small project.\n"
+    },
+    {
+      "write": "src/app.js",
+      "content": "console.log('hello');\n"
+    },
+    {
+      "write": "src/lib/util.js",
+      "content": "export const add = (a, b) => a + b;\n"
+    },
+    {
+      "write": "docs/guide.txt",
+      "content": "Read me first.\n"
+    },
+    {
+      "git": [
+        "add",
+        "-A"
+      ]
+    },
+    {
+      "git": [
+        "commit",
+        "-q",
+        "-m",
+        "Initial commit"
+      ]
+    },
+    {
+      "git": [
+        "tag",
+        "-a",
+        "v1.0",
+        "-m",
+        "Release 1.0"
+      ]
+    },
+    {
+      "run": [
+        "cat-file",
+        "-t",
+        "v1.0"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "cat-file",
+        "-s",
+        "v1.0"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "rev-parse",
+        "v1.0"
+      ],
+      "matchOutput": true
+    },
+    {
+      "run": [
+        "log",
+        "--oneline",
+        "v1.0"
+      ],
+      "matchOutput": true
+    }
+  ]
+}

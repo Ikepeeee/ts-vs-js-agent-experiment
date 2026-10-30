@@ -4,49 +4,43 @@ This document specifies v0.3.0, which builds on v0.2.0. Everything that worked i
 
 "Output must match" means that standard output must be identical to the real git's, character for character, under the fixed test environment described in `AGENTS.md`. Exit codes must always match.
 
-## 1. Applying and reverting commits
+## 1. Tags
+
+### `tag`
+
+Create a lightweight tag (at HEAD or at a given commit), create an annotated tag with `tag -a <name> -m <message> [<commit>]`, list (sorted; output must match), and `-d`. Creating an existing tag fails.
+
+- Tags live under `refs/tags/`, and tag names are accepted wherever a revision is.
+- An annotated tag is a tag object. The tagger is taken from the `GIT_COMMITTER_*` environment variables, and tag object hashes match the real git.
+- `cat-file` handles tag objects, and `show <tag>` of an annotated tag shows the tag and then its commit. Output must match.
+
+## 2. Resetting
+
+### `reset`
+
+`reset [--soft | --mixed | --hard] [<commit>]` (`--mixed` and `HEAD` are the defaults). HEAD, the index, and the working tree end up as in the real git.
+
+## 3. Applying and reverting commits
 
 ### `cherry-pick`
 
-`cherry-pick <commit>` for a single commit, `--continue`, and `--abort`. A clean pick produces the same commit hash as the real git. On conflict, the working tree, the index, and the in-progress state match the real git; the user can resolve and run `--continue`, or run `--abort`. Picking a commit whose changes are already present behaves like the real git.
+`cherry-pick <commit>` for a single commit, and `--abort`. A clean pick produces the same commit hash as the real git. On conflict, the working tree, the index, `CHERRY_PICK_HEAD`, and the exit code match the real git; `--abort` then restores the previous state.
 
 ### `revert`
 
-`revert <commit>` for a single commit, with `--no-edit`. The default message and the resulting tree match the real git.
+`revert --no-edit <commit>` for a single commit whose revert applies without conflicts. The default message and the resulting tree match the real git.
 
-## 2. Rebasing
+## 4. Reflog
 
-### `rebase`
-
-Non-interactive only: `rebase <upstream>`, `rebase --onto <newbase> <upstream>`, `--continue`, and `--abort`.
-
-- Without conflicts, the resulting commit hashes match the real git.
-- When a commit conflicts, the rebase stops in the same state as the real git; the user can resolve, `add`, and run `--continue`.
-- `--abort` restores the branch and HEAD to their state before the rebase.
-- Investigate how the real git stores in-progress rebase state, record it in `docs/notes/`, and then decide on the format.
-
-## 3. Reflog
-
-Write a reflog entry for HEAD and for the affected branch on every ref update (`commit`, `checkout`, `switch`, `reset`, `merge`, `cherry-pick`, `revert`, `rebase`, and branch creation and renaming), in the same format as the real git.
+Write a reflog entry for HEAD and for the affected branch on every ref update (`commit`, `switch`, `branch` creation, `merge`, `reset`, `cherry-pick`, and `revert`), in the same format as the real git.
 
 ### `reflog`
 
-`reflog` (equivalent to `reflog show HEAD`) and `reflog show <ref>`. Output must match.
-
-## 4. Packed refs
-
-- Read refs from `packed-refs`. A ref present both as a loose file and in `packed-refs` resolves like the real git.
-- `pack-refs --all` writes `packed-refs` in the same format as the real git.
-- Deleting a branch or tag that exists only in `packed-refs` works like the real git.
-
-## 5. Packfiles
-
-Read objects from packfiles: `.pack` files with `.idx` version 2, including `OFS_DELTA` and `REF_DELTA` objects and deep delta chains. Every command works on repositories whose objects are packed by the real `git gc`, or that mix packed and loose objects.
+`reflog` (equivalent to `reflog show HEAD`) and `reflog show <branch>`. Output must match.
 
 ## Done criteria
 
 - `npm test`, `npm run difftest`, and every other check listed in `AGENTS.md` pass.
-- Every read-only command matches the real git on a repository with at least 500 commits after the real `git gc`, and again after `git -c repack.useDeltaBaseOffset=false repack -a -d -f`.
-- The random generator covers every command, including starting from repositories that were `gc`-ed during setup, and passes with `DIFFTEST_RUNS=5000` for at least three different seeds.
+- The random differential tests for v3 pass with `--count 500` for at least three different seeds.
 - `docs/progress.md` is updated.
 - The release is tagged `v0.3.0`.
