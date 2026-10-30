@@ -49,8 +49,10 @@ langs: Array<String> = ["ts", "js"]
 agents: Array<String> = ["claude", "copilot"]
 claude_models: Array<String> = ["claude-sonnet-5-5", "claude-opus-5-5"]
 // Copilot's model IDs (copilot help, CLI 1.0.105), without the lightweight ones.
+// auto lets Copilot pick the model per session, so the model is not controlled;
+// on the Free plan it is the only one --model accepts.
 copilot_models: Array<String> = [
-  "claude-sonnet-5.5", "claude-opus-5.5", "gpt-6.1-sol", "gpt-6-astra", "gpt-6-luna", "gpt-5.3-codex", "gemini-3.8-flash"
+  "claude-sonnet-5.5", "claude-opus-5.5", "gpt-6.1-sol", "gpt-6-astra", "gpt-6-luna", "gpt-5.3-codex", "gemini-3.8-flash", "auto"
 ]
 fixed_resume = "Continue with your best judgment, following AGENTS.md and the specification."
 
@@ -140,16 +142,20 @@ freeze(): Void = do {
 //
 // Claude Code: runs `claude setup-token` on this machine, interactively. Set the
 // token it prints as CLAUDE_CODE_OAUTH_TOKEN in the shell that runs the trials.
-// GitHub Copilot CLI takes a fine-grained personal access token with the
-// "Copilot Requests" permission, made on github.com; this prints where.
+// GitHub Copilot CLI takes the GitHub CLI's token (gh auth token), or a
+// fine-grained personal access token with the "Copilot Requests" permission,
+// made on github.com; this prints both ways.
 //
 // @param agent  claude or copilot.
 // @complete agent claude copilot
 login(--agent: String = "claude"): Void = do {
   require_lask()
   if (agent == "copilot") {
-    log("create a fine-grained token with the account permission \"Copilot Requests\" at https://github.com/settings/personal-access-tokens/new")
-    log("then set it in the shell: export COPILOT_GITHUB_TOKEN=<token>")
+    log("either use the GitHub CLI's token, after gh auth login: export COPILOT_GITHUB_TOKEN=$(gh auth token)")
+    log("  (it carries every scope gh has, such as repo; the agent's shell does not see it)")
+    log("or create a fine-grained token with only the account permission \"Copilot Requests\" at https://github.com/settings/personal-access-tokens/new")
+    log("  and set it: export COPILOT_GITHUB_TOKEN=<token>")
+    log("either line can go in .env instead: source .env")
   } else {
     $[#local] claude setup-token
     log("now set it in the shell: export CLAUDE_CODE_OAUTH_TOKEN=<token>")
@@ -175,7 +181,7 @@ login(--agent: String = "claude"): Void = do {
 // @param max_hours  Active-time limit for the version, excluding waits for the usage limit.
 // @complete lang ts js
 // @complete agent claude copilot
-// @complete model claude-sonnet-5-5 claude-opus-5-5 claude-sonnet-5.5 claude-opus-5.5 gpt-6.1-sol gpt-6-astra gpt-6-luna gpt-5.3-codex gemini-3.8-flash
+// @complete model claude-sonnet-5-5 claude-opus-5-5 claude-sonnet-5.5 claude-opus-5.5 gpt-6.1-sol gpt-6-astra gpt-6-luna gpt-5.3-codex gemini-3.8-flash auto
 // @example lask run exp-v1 S01 --lang ts --model claude-opus-5-5
 // @example lask run exp-v1 C01 --agent copilot --lang ts --model claude-opus-5.5
 exp_v1(
@@ -575,14 +581,17 @@ internal claude_command(ctx: Ctx, st: State, prompt: String, fresh: Bool): Strin
 }
 
 // GitHub Copilot CLI 1.0.105, set to match claude_command where it can be:
-// - the same effort, and the default context window rather than the long one;
+// - the same effort, and the default context window rather than the long one
+//   (auto takes no effort: Copilot refuses it);
 // - every tool and path allowed, without questions; web_fetch and the built-in
 //   GitHub MCP servers removed, as Claude's WebFetch and WebSearch are;
 // - the session ID chosen by the runner, so a resume names it with the same option;
 // - no turn limit: Copilot has none, so drive checks turns between runs only;
 // - the token kept out of the agent's shell, no telemetry, no update.
-internal copilot_command(ctx: Ctx, prompt: String, session: String): String =
-  "copilot -p #{shell_quote(prompt)} --session-id=#{shell_quote(session)} --model=#{shell_quote(ctx.model)} --reasoning-effort=high --context=default --allow-all-tools --allow-all-paths --no-ask-user --excluded-tools=web_fetch --disable-builtin-mcps --secret-env-vars=COPILOT_GITHUB_TOKEN --disable-client-telemetry --no-auto-update --stream=off --output-format=json"
+internal copilot_command(ctx: Ctx, prompt: String, session: String): String = do {
+  effort = ctx.model == "auto" ? "" : " --reasoning-effort=high"
+  "copilot -p #{shell_quote(prompt)} --session-id=#{shell_quote(session)} --model=#{shell_quote(ctx.model)}#{effort} --context=default --allow-all-tools --allow-all-paths --no-ask-user --excluded-tools=web_fetch --disable-builtin-mcps --secret-env-vars=COPILOT_GITHUB_TOKEN --disable-client-telemetry --no-auto-update --stream=off --output-format=json"
+}
 
 // A new Copilot session's ID, a random UUID from the agent's container.
 internal new_session_id(ctx: Ctx): String = trim(in_repo_ok(ctx.container, "cat /proc/sys/kernel/random/uuid"))
@@ -696,34 +705,52 @@ internal claude_result(path: String): Map<Any> | Null = do {
   }
 }
 
-// The same from a Copilot JSONL log (session events, CLI 1.0.105). The run
-// failed when its last message was a session.error, or when it shut down with
-// an error; a rate_limit error is the usage limit. Turns are the main agent's
-// assistant.turn_start events. Copilot reports no cost in money: usage keeps
-// the session.shutdown metrics, AI credits included.
+// The same from a Copilot JSONL log (CLI 1.0.105, checked against a real run).
+// Prompt mode ends with a result record: sessionId, exitCode, and usage
+// (premium requests, API time, code changes). The run failed when its last
+// main-agent message was a session.error, or when it exited non-zero; a
+// rate_limit error is the usage limit. Turns are the main agent's
+// assistant.turn_start events. Copilot reports no cost in money: usage keeps the
+// result's usage and the last session.usage_checkpoint's AI credits
+// (totalNanoAiu) and premium requests. A session.shutdown, which other modes
+// write, is read the same way when there is no result.
 internal copilot_result(path: String, session: String): Map<Any> | Null = do {
   evs = copilot_events(path)
+  results = filter(evs, \(e: Map<Any>) -> str(e, "type") == "result")
   shutdowns = filter(evs, \(e: Map<Any>) -> str(e, "type") == "session.shutdown")
+  checkpoints = filter(evs, \(e: Map<Any>) -> str(e, "type") == "session.usage_checkpoint")
   outcome = filter(evs, \(e: Map<Any>) -> main_agent(e) && (str(e, "type") == "assistant.message" || str(e, "type") == "session.error"))
-  if (is_empty(shutdowns) && is_empty(outcome)) { null } else {
+  if (is_empty(results) && is_empty(shutdowns) && is_empty(outcome)) { null } else {
+    end: Map<Any> = is_empty(results) ? {} : last(results)
     shut: Map<Any> = is_empty(shutdowns) ? {} : data_of(last(shutdowns))
+    point: Map<Any> = is_empty(checkpoints) ? {} : data_of(last(checkpoints))
     errored = !is_empty(outcome) && str(last(outcome), "type") == "session.error"
     err: Map<Any> = errored ? data_of(last(outcome)) : {}
-    is_error = errored || is_empty(shutdowns) || str(shut, "shutdownType") == "error"
+    exit_code = num(end, "exitCode")
+    failed_exit = is_empty(results)
+      ? is_empty(shutdowns) || str(shut, "shutdownType") == "error"
+      : exit_code != 0
+    is_error = errored || failed_exit
+    text = case {
+      errored -> "#{str(err, "errorType")} #{str(err, "errorCode")}: #{str(err, "message")}"
+      !is_empty(results) && exit_code != 0 -> "exit code #{exit_code}"
+      else -> str(shut, "errorReason")
+    }
     turns = size(filter(evs, \(e: Map<Any>) -> main_agent(e) && str(e, "type") == "assistant.turn_start"))
     {
       subtype: is_error ? "error" : "success",
       is_error: is_error,
-      result: errored ? "#{str(err, "errorType")} #{str(err, "errorCode")}: #{str(err, "message")}" : str(shut, "errorReason"),
+      result: text,
       limit: errored && str(err, "errorType") == "rate_limit",
       error_type: str(err, "errorType"),
       session_id: session,
       num_turns: turns,
       usage: {
-        modelMetrics: get_or(shut, "modelMetrics", null),
-        tokenDetails: get_or(shut, "tokenDetails", null),
-        totalNanoAiu: get_or(shut, "totalNanoAiu", null),
-        totalApiDurationMs: get_or(shut, "totalApiDurationMs", null)
+        exitCode: get_or(end, "exitCode", null),
+        result: get_or(end, "usage", null),
+        totalNanoAiu: get_or(point, "totalNanoAiu", null),
+        totalPremiumRequests: get_or(point, "totalPremiumRequests", null),
+        modelMetrics: get_or(shut, "modelMetrics", null)
       },
       total_cost_usd: 0
     }
@@ -732,9 +759,9 @@ internal copilot_result(path: String, session: String): Map<Any> | Null = do {
 
 // The events of a Copilot log the runner reads, in order. Other lines are not parsed.
 internal copilot_events(path: String): Array<Map<Any>> = do {
-  wanted = ["session.shutdown", "session.error", "assistant.message", "assistant.turn_start"]
+  wanted = ["result", "session.shutdown", "session.usage_checkpoint", "session.error", "assistant.message", "assistant.turn_start"]
   all = if (file_exists(path, files)) { lines(read_file(path, files)) } else { [] }
-  picked = filter(all, \(l: String) -> !is_empty(filter(wanted, \(w: String) -> contains(l, "\"#{w}\""))))
+  picked = filter(all, \(l: String) -> !is_empty(filter(wanted, \(w: String) -> contains(l, "\"type\":\"#{w}\""))))
   evs = flat_map(picked, \(l: String) -> json_line(l))
   filter(evs, \(e: Map<Any>) -> contains_array(wanted, str(e, "type")))
 }

@@ -345,7 +345,11 @@ v0.3.0では、これとは別に実在リポジトリでの比較を行う（�
    export CLAUDE_CODE_OAUTH_TOKEN=<トークン>  # この行を .env に書いて source .env でもよい
    ```
 
-   GitHub Copilot CLI の系列では、代わりに github.com でアカウントの権限「Copilot Requests」を付けた fine-grained のトークンを作り（場所は `lask run login --agent copilot` が表示する）、`COPILOT_GITHUB_TOKEN` に設定する。
+   GitHub Copilot CLI の系列では、代わりに `COPILOT_GITHUB_TOKEN` を設定する（2つのやり方を `lask run login --agent copilot` が表示する）。GitHub CLI のトークンを使うか、github.com でアカウントの権限「Copilot Requests」だけを付けた fine-grained のトークンを作る。GitHub CLI のトークンには、`repo` など `gh` が持つすべての権限が付いているので、本実験では fine-grained のトークンを使う。
+
+   ```sh
+   export COPILOT_GITHUB_TOKEN=$(gh auth token)   # gh auth login の後で。または fine-grained のトークン
+   ```
 
    そのエージェントのトークンが設定されていなければ、試行のタスクは始まらない。トークンはコンテナに名前だけで渡すので、コマンドラインにもログにも出ない。トークンを書いた `.env` はこのマシンの外に出さない（`.gitignore` に入れてある）。
 
@@ -522,7 +526,7 @@ lask run exp-v3 C01
 lask run evaluate C01
 ```
 
-- **モデル：** Copilot 自身のIDを、そのまま `--model` に渡す。`claude-sonnet-5.5`、`claude-opus-5.5`、`gpt-6.1-sol`、`gpt-6-astra`、`gpt-6-luna`、`gpt-5.3-codex`、`gemini-3.8-flash`。モデルの自動選択（`auto`）は使わない。使用上限に当たったときにモデルを切り替える設定も、既定のまま切っておく。
+- **モデル：** Copilot 自身のIDを、そのまま `--model` に渡す。`claude-sonnet-5.5`、`claude-opus-5.5`、`gpt-6.1-sol`、`gpt-6-astra`、`gpt-6-luna`、`gpt-5.3-codex`、`gemini-3.8-flash`。どれを `--model` で指定できるかは、Copilot のプランによる。`auto` も指定できる。その場合、Copilot がセッションごとにモデルを選ぶので、モデルは固定されない。推論の深さも指定できない。無料プランでは、これしか選べない（2026-10-30に確認。`--model` は `claude-sonnet-5.5` も `gpt-6-luna` も受け付けず、`auto` は `gpt-6-luna` を選んだ）。動作の確認には使えるが、比較には使わない。使用上限に当たったときにモデルを切り替える設定は、既定のまま切っておく。
 - **系列の名前：** `<名前>_<言語>_copilot-<モデル>`。`meta.json` と `run.json` に `agent: "copilot"` を記録する。Copilot 対応より前に始めた系列には `agent` がなく、Claude Code の系列として扱う。
 - **イメージと環境：** `images/copilot/Dockerfile`。試行のイメージと同じ土台、git、git の設定を使う。コンテナには `COPILOT_GITHUB_TOKEN` と `HOME` のほかに、`COPILOT_AUTO_UPDATE=false` を渡す。`AGENTS.md` は Claude Code と同じように読まれる。
 - **コマンド：** できる範囲で13.3に合わせる。
@@ -536,10 +540,10 @@ lask run evaluate C01
     > results/<系列>/vN/logs-<k>/run-<n>.jsonl
   ```
 
-  セッションの UUID は、版の始めに試行の実行役が決める。再開では、同じ `--session-id` に決まった文を渡す。Claude Code の Web ツールと同じく、Web ツールと組み込みの GitHub MCP サーバーは外す。`--context=default` で、文脈は長い枠ではなく、モデルの標準の枠にする。メモリーは、プロンプトモードでは既定で切られている。
-- **実行の終わり方：** ログのセッションイベントから読む。メインのエージェントの最後のメッセージが `session.error` だった実行、またはエラーで終了したか `session.shutdown` がない実行は、エラーとする。`errorType` が `rate_limit` なら使用上限、`quota`（月の枠や予算を使い切った）ならタスクを終了コード2で止める。それ以外のエラーは API エラーとする。イベントが1つもなければ、インフラの失敗とする。エラーでなければ、13.3と同じくタグの有無で「完了」と「停止」に分ける。
+  `--model=auto` のときは、`--reasoning-effort` を付けない。セッションの UUID は、版の始めに試行の実行役が決める。再開では、同じ `--session-id` に決まった文を渡す。Claude Code の Web ツールと同じく、Web ツールと組み込みの GitHub MCP サーバーは外す。`--context=default` で、文脈は長い枠ではなく、モデルの標準の枠にする。メモリーは、プロンプトモードでは既定で切られている。
+- **実行の終わり方：** ログから読む。プロンプトモードのログは、最後に `result` の記録で終わる（`sessionId`、`exitCode`、`usage`：プレミアムリクエスト数、API の時間、コードの変更）。メインのエージェントの最後のメッセージが `session.error` だった実行、または `exitCode` が0でない実行は、エラーとする。`errorType` が `rate_limit` なら使用上限、`quota`（月の枠や予算を使い切った）ならタスクを終了コード2で止める。それ以外のエラーは API エラーとする。イベントが1つもなければ、インフラの失敗とする。エラーでなければ、13.3と同じくタグの有無で「完了」と「停止」に分ける。
 - **Claude Code との違い：**
   - Copilot にはターン数の上限のオプションがない。ターン（メインのエージェントの `assistant.turn_start` イベント）は数え、上限は実行と実行の間でだけ確かめる。
-  - Copilot は金額で費用を出さない。代わりに、起動ごとに `session.shutdown` の集計（モデルごとのトークン、リクエスト数、`totalNanoAiu` の AI クレジット）を記録する。`total_cost_usd` は0になる。
+  - Copilot は金額で費用を出さず、プロンプトモードではトークン数も出さない。代わりに、起動ごとに `result` の記録の `usage` と、最後の `session.usage_checkpoint` の AI クレジット（`totalNanoAiu`）とプレミアムリクエスト数を記録する。`total_cost_usd` は0になる。
   - 自動要約は `session.compaction_complete` から数える。
   - 13.4の監査は、`tool.execution_start` イベントから、Copilot の `bash` と `write_bash` のコマンド、Web ツールの呼び出しを読む。

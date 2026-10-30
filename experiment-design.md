@@ -345,7 +345,11 @@ The procedure of chapter 9, written down to the commands actually typed. Every o
    export CLAUDE_CODE_OAUTH_TOKEN=<token>  # or keep this line in .env and: source .env
    ```
 
-   For GitHub Copilot CLI series, create a fine-grained personal access token with the account permission "Copilot Requests" on github.com instead (`lask run login --agent copilot` shows where), and set it as `COPILOT_GITHUB_TOKEN`.
+   For GitHub Copilot CLI series, set `COPILOT_GITHUB_TOKEN` instead (`lask run login --agent copilot` shows both ways). Either use the GitHub CLI's token, or create a fine-grained personal access token with only the account permission "Copilot Requests" on github.com. The GitHub CLI's token carries every scope `gh` has, such as `repo`, so the fine-grained token is preferred for the main runs.
+
+   ```sh
+   export COPILOT_GITHUB_TOKEN=$(gh auth token)   # after gh auth login; or a fine-grained token
+   ```
 
    The trial tasks refuse to start without the token of their agent. The token reaches the containers by name only, so it never appears on a command line or in a log. A `.env` holding it stays on this machine (it is in `.gitignore`).
 
@@ -522,7 +526,7 @@ lask run exp-v3 C01
 lask run evaluate C01
 ```
 
-- **Models:** Copilot's own IDs, passed to `--model` as they are: `claude-sonnet-5.5`, `claude-opus-5.5`, `gpt-6.1-sol`, `gpt-6-astra`, `gpt-6-luna`, `gpt-5.3-codex`, `gemini-3.8-flash`. Auto model selection (`auto`) is not used, and switching models when rate-limited stays off (the default).
+- **Models:** Copilot's own IDs, passed to `--model` as they are: `claude-sonnet-5.5`, `claude-opus-5.5`, `gpt-6.1-sol`, `gpt-6-astra`, `gpt-6-luna`, `gpt-5.3-codex`, `gemini-3.8-flash`. Which of them `--model` accepts depends on the Copilot plan. `auto` is also accepted: Copilot then picks the model per session, so the model is not controlled, and it takes no reasoning effort. On the Free plan it is the only choice (checked on 2026-10-30: `--model` refused `claude-sonnet-5.5` and `gpt-6-luna`, and `auto` chose `gpt-6-luna`); use it for checks, not for the comparison. Switching models when rate-limited stays off (the default).
 - **Series name:** `<name>_<lang>_copilot-<model>`. `meta.json` and `run.json` record `agent: "copilot"`. Series started before Copilot was added have no `agent` and are Claude Code's.
 - **Image and environment:** `images/copilot/Dockerfile`, the same base, git and git settings as the trial image. Besides `COPILOT_GITHUB_TOKEN` and `HOME`, the container gets `COPILOT_AUTO_UPDATE=false`. `AGENTS.md` is read as Claude Code reads it.
 - **Command:** set to match 13.3 where Copilot can.
@@ -536,10 +540,10 @@ lask run evaluate C01
     > results/<series>/vN/logs-<k>/run-<n>.jsonl
   ```
 
-  The trial runner picks the session's UUID at the start of the version; a resume passes the same `--session-id` with the fixed sentence. The web tool and the built-in GitHub MCP servers are removed, as Claude Code's web tools are. `--context=default` keeps the context at the model's standard window rather than the long one. Memory is off in prompt mode by default.
-- **How a run ended:** read from the session events in the log. A run whose last main-agent message is a `session.error`, or that shut down with an error or without a `session.shutdown`, is an error: `errorType` `rate_limit` is the usage limit, `quota` (the monthly allowance or budget is spent) stops the task with exit code 2, and any other error is an API error. With no events at all, it is an infrastructure failure. Otherwise the tag decides between "done" and "stopped", as in 13.3.
+  With `--model=auto`, `--reasoning-effort` is left out. The trial runner picks the session's UUID at the start of the version; a resume passes the same `--session-id` with the fixed sentence. The web tool and the built-in GitHub MCP servers are removed, as Claude Code's web tools are. `--context=default` keeps the context at the model's standard window rather than the long one. Memory is off in prompt mode by default.
+- **How a run ended:** read from the log. In prompt mode the log ends with a `result` record (`sessionId`, `exitCode`, and `usage`: premium requests, API time and code changes). A run whose last main-agent message is a `session.error`, or whose `exitCode` is not 0, is an error: `errorType` `rate_limit` is the usage limit, `quota` (the monthly allowance or budget is spent) stops the task with exit code 2, and any other error is an API error. With no events at all, it is an infrastructure failure. Otherwise the tag decides between "done" and "stopped", as in 13.3.
 - **Differences from Claude Code:**
   - Copilot has no turn limit. Turns (the main agent's `assistant.turn_start` events) are counted, and the cap is checked between runs only.
-  - Copilot reports no cost in money. Each start records the `session.shutdown` metrics instead (tokens per model, requests, AI credits as `totalNanoAiu`); `total_cost_usd` is 0.
+  - Copilot reports no cost in money, and prompt mode reports no token counts. Each start records the `result` record's `usage`, and the AI credits (`totalNanoAiu`) and premium requests of the last `session.usage_checkpoint`; `total_cost_usd` is 0.
   - Auto-compactions are counted from `session.compaction_complete`.
   - The audit of 13.4 reads Copilot's `bash` and `write_bash` commands and its web tools from `tool.execution_start` events.
