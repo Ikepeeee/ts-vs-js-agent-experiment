@@ -31,11 +31,11 @@
 
 ## 使い方
 
-操作はすべて、このフォルダで `lask run <タスク>` を打つだけ。試行には、Claude のトークンを入れた環境変数 `CLAUDE_CODE_OAUTH_TOKEN` も要る（lask 0.13.0 と、動いている Docker が要る）。詳しくは `experiment-design_ja.md` の13章。
+操作はすべて、このフォルダで `lask run <タスク>` を打つだけ。試行には、エージェントのトークンを入れた環境変数も要る。Claude Code なら `CLAUDE_CODE_OAUTH_TOKEN`、GitHub Copilot CLI なら `COPILOT_GITHUB_TOKEN`（lask 0.13.0 と、動いている Docker が要る）。詳しくは `experiment-design_ja.md` の13章。
 
 ```sh
 lask sync                       # lask が動かすイメージを取得・作成する
-lask run build-images           # 試行のイメージを作る
+lask run build-images           # 試行のイメージを作る（Claude Code 用、GitHub Copilot CLI 用）
 lask run validate               # テスト自体を確かめる（約30分）
 lask run freeze                 # 事前登録するハッシュを取る
 lask run login                  # Claude の長期トークンを作る
@@ -44,6 +44,7 @@ lask run exp-v1 S01 --lang ts --model claude-opus-5-5   # 系列を始める：p
 lask run exp-v2 S01             # 同じ条件で v0.2.0 を続ける
 lask run exp-v3 S01             # v0.3.0
 lask run evaluate S01           # 評価する。結果は results/S01_ts_claude-opus-5-5/
+lask run exp-v1 C01 --agent copilot --lang ts --model claude-opus-5.5   # GitHub Copilot CLI の系列（COPILOT_GITHUB_TOKEN が要る）
 lask run --help                 # タスクの一覧
 ```
 

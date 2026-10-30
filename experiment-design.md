@@ -65,7 +65,7 @@ The expected cumulative lines of implementation code, excluding tests. This is n
 
 ## 5. Agent and environment
 
-- **Agent:** Claude Code in non-interactive mode (`claude -p`), within a Claude subscription plan.
+- **Agent:** Claude Code in non-interactive mode (`claude -p`), within a Claude subscription plan. GitHub Copilot CLI can run the same procedure as a separate group of series (13.8); its series are compared with each other, not with Claude Code's.
 - **Models:** both Sonnet and Opus, each pinned to its ID. Both models run both the TypeScript and the JavaScript condition. This checks whether the effect of the language holds regardless of the model; it does not ask which model is better.
   - Sonnet: Sonnet 5.5 (`claude-sonnet-5-5`)
   - Opus: Opus 5.5 (`claude-opus-5-5`)
@@ -291,14 +291,14 @@ None at this point. The concrete cap values are fixed after the pilot, by the fo
 
 ## 13. Run procedure
 
-The procedure of chapter 9, written down to the commands actually typed. Every operation is a `lask run <task>` at the root of the experiment folder; the trials also need the environment variable `CLAUDE_CODE_OAUTH_TOKEN` (lask 0.13.0; each task first checks lask's version and stops if it differs). Lask runs its commands in containers: the Docker CLI, the evaluation, and file access each have one. Only checking lask's version and `claude setup-token` run on the host.
+The procedure of chapter 9, written down to the commands actually typed. Every operation is a `lask run <task>` at the root of the experiment folder; the trials also need the agent's token in an environment variable, `CLAUDE_CODE_OAUTH_TOKEN` for Claude Code or `COPILOT_GITHUB_TOKEN` for GitHub Copilot CLI (lask 0.13.0; each task first checks lask's version and stops if it differs). Lask runs its commands in containers: the Docker CLI, the evaluation, and file access each have one. Only checking lask's version and `claude setup-token` run on the host.
 
 | Task | Role |
 |---|---|
-| `build-images` | Build the trial image, and record its ID in `images.json` |
+| `build-images` | Build the trial images (Claude Code, GitHub Copilot CLI), and record their IDs in `images.json`. Only an image `images.json` does not record yet is built |
 | `validate` | Check the tests themselves, running all of them with the real git on both sides |
 | `freeze` | Take the hashes to pre-register |
-| `login` | Create a long-lived Claude token |
+| `login` | Create a long-lived Claude token (`--agent copilot`: show where to create the Copilot token) |
 | `exp-v1` | Start a series: create its playground and build v0.1.0 unattended, as in 13.3 |
 | `exp-v2`, `exp-v3` | Continue the series with v0.2.0 and v0.3.0, in the same conditions |
 | `stop` | Clean up the container of a series left behind by a failure |
@@ -309,8 +309,9 @@ The procedure of chapter 9, written down to the commands actually typed. Every o
 | `main.lask` | All the tasks above |
 | `lask.json`, `lask.lock.json` | The lask module the tasks use (`tools` v0.6.0), and the pins of the images lask runs: the Docker CLI (`docker:29.5.3-cli`), the evaluation image, and the tools module's `unix` image |
 | `images/trial/Dockerfile` | The trial image (Node.js 24.22.2, git 2.47.3, Claude Code 2.1.302, and the agent's git settings of 13.2) |
+| `images/copilot/Dockerfile` | The image for GitHub Copilot CLI series: the trial image with GitHub Copilot CLI 1.0.105 in place of Claude Code |
 | `images/eval/Dockerfile` | The evaluation image: the trial image's base and git, plus TypeScript 7.0.2 and `@types/node` 24.19.2 for `tsc --checkJs`. They are not in the trial image, so agents in the JavaScript condition cannot use `tsc` |
-| `images.json` | The ID of the trial image. Containers start from this ID, so the contents are pinned |
+| `images.json` | The IDs of the two trial images. Containers start from these IDs, so the contents are pinned |
 | `eval/` | Scripts for evaluation, size, the network and package audit, checking the tests, and freezing |
 | `tests/` | Runner, hidden tests, public tests, generator, real repository. See `tests/README.md` for usage |
 
@@ -320,7 +321,7 @@ The procedure of chapter 9, written down to the commands actually typed. Every o
 
    ```sh
    lask sync                # pull and build the images lask runs, and pin them in lask.lock.json
-   lask run build-images    # build the trial image and record its ID in images.json
+   lask run build-images    # build the trial images and record their IDs in images.json
    ```
 
 2. **Check the tests themselves.** Run every test with the real git on both sides and confirm that all pass (about 30 minutes). The logs are kept in `tests/validation-logs/<time>/`.
@@ -344,7 +345,9 @@ The procedure of chapter 9, written down to the commands actually typed. Every o
    export CLAUDE_CODE_OAUTH_TOKEN=<token>  # or keep this line in .env and: source .env
    ```
 
-   The trial tasks refuse to start without it. The token reaches the containers by name only, so it never appears on a command line or in a log. A `.env` holding it stays on this machine (it is in `.gitignore`).
+   For GitHub Copilot CLI series, create a fine-grained personal access token with the account permission "Copilot Requests" on github.com instead (`lask run login --agent copilot` shows where), and set it as `COPILOT_GITHUB_TOKEN`.
+
+   The trial tasks refuse to start without the token of their agent. The token reaches the containers by name only, so it never appears on a command line or in a log. A `.env` holding it stays on this machine (it is in `.gitignore`).
 
 5. **Decide the series and their order.** A series is named when it starts (`exp-v1 <name>`); the pilot uses P1–P5 and the main experiment S01–S12. The order of the four combinations of language and model in each round is drawn from a seed fixed at pre-registration, and recorded with it.
 
@@ -506,3 +509,37 @@ results/
 ```
 
 When every series has finished, each version's `eval/summary.json` and `run.json` become the input to the analysis code (chapter 7).
+
+### 13.8 GitHub Copilot CLI
+
+The same tasks run a series with GitHub Copilot CLI 1.0.105 in place of Claude Code. Only `exp-v1` takes the agent; the later versions keep it.
+
+```sh
+export COPILOT_GITHUB_TOKEN=<token>
+lask run exp-v1 C01 --agent copilot --lang ts --model claude-opus-5.5   # playground/C01_ts_copilot-claude-opus-5.5/
+lask run exp-v2 C01
+lask run exp-v3 C01
+lask run evaluate C01
+```
+
+- **Models:** Copilot's own IDs, passed to `--model` as they are: `claude-sonnet-5.5`, `claude-opus-5.5`, `gpt-6.1-sol`, `gpt-6-astra`, `gpt-6-luna`, `gpt-5.3-codex`, `gemini-3.8-flash`. Auto model selection (`auto`) is not used, and switching models when rate-limited stays off (the default).
+- **Series name:** `<name>_<lang>_copilot-<model>`. `meta.json` and `run.json` record `agent: "copilot"`. Series started before Copilot was added have no `agent` and are Claude Code's.
+- **Image and environment:** `images/copilot/Dockerfile`, the same base, git and git settings as the trial image. Besides `COPILOT_GITHUB_TOKEN` and `HOME`, the container gets `COPILOT_AUTO_UPDATE=false`. `AGENTS.md` is read as Claude Code reads it.
+- **Command:** set to match 13.3 where Copilot can.
+
+  ```sh
+  docker exec -w /home/node/tgit <container> \
+    copilot -p 'Implement docs/spec-vN.md.' --session-id=<UUID> --model=<model ID> \
+    --reasoning-effort=high --context=default --allow-all-tools --allow-all-paths --no-ask-user \
+    --excluded-tools=web_fetch --disable-builtin-mcps --secret-env-vars=COPILOT_GITHUB_TOKEN \
+    --disable-client-telemetry --no-auto-update --stream=off --output-format=json \
+    > results/<series>/vN/logs-<k>/run-<n>.jsonl
+  ```
+
+  The trial runner picks the session's UUID at the start of the version; a resume passes the same `--session-id` with the fixed sentence. The web tool and the built-in GitHub MCP servers are removed, as Claude Code's web tools are. `--context=default` keeps the context at the model's standard window rather than the long one. Memory is off in prompt mode by default.
+- **How a run ended:** read from the session events in the log. A run whose last main-agent message is a `session.error`, or that shut down with an error or without a `session.shutdown`, is an error: `errorType` `rate_limit` is the usage limit, `quota` (the monthly allowance or budget is spent) stops the task with exit code 2, and any other error is an API error. With no events at all, it is an infrastructure failure. Otherwise the tag decides between "done" and "stopped", as in 13.3.
+- **Differences from Claude Code:**
+  - Copilot has no turn limit. Turns (the main agent's `assistant.turn_start` events) are counted, and the cap is checked between runs only.
+  - Copilot reports no cost in money. Each start records the `session.shutdown` metrics instead (tokens per model, requests, AI credits as `totalNanoAiu`); `total_cost_usd` is 0.
+  - Auto-compactions are counted from `session.compaction_complete`.
+  - The audit of 13.4 reads Copilot's `bash` and `write_bash` commands and its web tools from `tool.execution_start` events.

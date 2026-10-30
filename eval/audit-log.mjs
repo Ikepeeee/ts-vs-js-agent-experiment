@@ -37,12 +37,30 @@ function installed(command) {
   const names = [];
   for (const m of command.matchAll(/\bnpm\s+(?:install|i|add)\b([^;&|\n]*)/g)) {
     for (const word of m[1].trim().split(/\s+/)) {
-      if (!word || word.startsWith("-")) continue;
+      // Options and redirections such as 2>&1 are not packages.
+      if (!word || word.startsWith("-") || /[<>]/.test(word)) continue;
       names.push(word.startsWith("@") ? word.replace(/^(@[^/]+\/[^@]+)@.*$/, "$1") : word.replace(/@.*$/, ""));
     }
   }
   return names;
 }
+
+// The tool calls of one log line as { name, input, shell }: Claude Code's tool_use items (stream-json),
+// or GitHub Copilot CLI's tool.execution_start events (JSONL session events). shell is the command a
+// shell tool ran: Claude's Bash, Copilot's bash and the input it typed into a shell with write_bash.
+function toolCalls(event) {
+  if (event?.type === "tool.execution_start") {
+    const name = String(event.data?.toolName ?? "");
+    const input = event.data?.arguments ?? {};
+    const shell = name === "bash" ? input.command : name === "write_bash" ? input.input : undefined;
+    return [{ name, input, shell }];
+  }
+  return (event?.message?.content ?? [])
+    .filter((item) => item?.type === "tool_use")
+    .map((item) => ({ name: item.name, input: item.input, shell: item.name === "Bash" ? item.input?.command : undefined }));
+}
+
+const WEB_TOOLS = ["WebFetch", "WebSearch", "web_fetch", "web_search"];
 
 const violations = [];
 let commands = 0;
@@ -50,19 +68,18 @@ for (const dir of args) {
   for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".jsonl")).sort()) {
     const lines = fs.readFileSync(path.join(dir, file), "utf8").split("\n");
     lines.forEach((line, index) => {
-      if (!line.includes('"tool_use"')) return;
+      if (!line.includes('"tool_use"') && !line.includes('"tool.execution_start"')) return;
       let event;
       try {
         event = JSON.parse(line);
       } catch {
         return;
       }
-      for (const item of event?.message?.content ?? []) {
-        if (item?.type !== "tool_use") continue;
+      for (const item of toolCalls(event)) {
         const where = { log: path.join(path.basename(dir), file), line: index + 1, tool: item.name };
-        if (item.name === "WebFetch" || item.name === "WebSearch") violations.push({ ...where, rule: "web-tool", command: JSON.stringify(item.input).slice(0, 300) });
-        if (item.name !== "Bash") continue;
-        const command = String(item.input?.command ?? "");
+        if (WEB_TOOLS.includes(item.name)) violations.push({ ...where, rule: "web-tool", command: JSON.stringify(item.input).slice(0, 300) });
+        if (item.shell === undefined) continue;
+        const command = String(item.shell ?? "");
         commands++;
         for (const [rule, pattern] of RULES) if (pattern.test(command)) violations.push({ ...where, rule, command: command.slice(0, 300) });
         for (const name of installed(command)) if (!allowed.has(name)) violations.push({ ...where, rule: "disallowed-install", package: name, command: command.slice(0, 300) });

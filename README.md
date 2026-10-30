@@ -31,11 +31,11 @@ The design of the controlled experiment is `experiment-design.md`.
 
 ## Usage
 
-Every operation is a `lask run <task>` typed in this folder. The trials also need the Claude token in the environment variable `CLAUDE_CODE_OAUTH_TOKEN`. You need lask 0.13.0 and a running Docker. See chapter 13 of `experiment-design.md` for details.
+Every operation is a `lask run <task>` typed in this folder. The trials also need the agent's token in an environment variable: `CLAUDE_CODE_OAUTH_TOKEN` for Claude Code, or `COPILOT_GITHUB_TOKEN` for GitHub Copilot CLI. You need lask 0.13.0 and a running Docker. See chapter 13 of `experiment-design.md` for details.
 
 ```sh
 lask sync                       # pull and build the images lask runs
-lask run build-images           # build the trial image
+lask run build-images           # build the trial images (Claude Code, GitHub Copilot CLI)
 lask run validate               # confirm the tests themselves (about 30 minutes)
 lask run freeze                 # take the hashes to pre-register
 lask run login                  # create a long-lived Claude token
@@ -44,6 +44,7 @@ lask run exp-v1 S01 --lang ts --model claude-opus-5-5   # start a series: v0.1.0
 lask run exp-v2 S01             # continue with v0.2.0, same conditions
 lask run exp-v3 S01             # and v0.3.0
 lask run evaluate S01           # evaluate it; results are in results/S01_ts_claude-opus-5-5/
+lask run exp-v1 C01 --agent copilot --lang ts --model claude-opus-5.5   # a series with GitHub Copilot CLI (needs COPILOT_GITHUB_TOKEN)
 lask run --help                 # list the tasks
 ```
 

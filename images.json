@@ -1,4 +1,5 @@
 {
+    "copilot": "sha256:7f26e41287df838c0e12c1e3ca3e0c01fe4e355b38a50b87ec18289e9699a9e5",
     "docker": "29.5.3 linux/arm64",
     "trial": "sha256:9eed860c620a6b1e8e91bf858c108d977280e90dc05e18cf9f04e3aa4c742625"
 }

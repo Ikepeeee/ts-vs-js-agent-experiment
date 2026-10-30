@@ -1,11 +1,13 @@
 // TypeScript and JavaScript experiment: every step of experiment-design.md chapter 13 as a lask task.
 //
-// The trials need one environment variable, the Claude token (lask run login):
+// The agent is Claude Code (the default) or GitHub Copilot CLI. The trials need
+// one environment variable, the agent's token (lask run login):
 //
-//   export CLAUDE_CODE_OAUTH_TOKEN=...                 # or keep the line in .env and: source .env
+//   export CLAUDE_CODE_OAUTH_TOKEN=...                 # Claude Code; or keep the line in .env and: source .env
+//   export COPILOT_GITHUB_TOKEN=...                    # GitHub Copilot CLI
 //
 //   lask sync                                          # build and pull the images lask runs
-//   lask run build-images                              # build the trial image, record its ID
+//   lask run build-images                              # build the trial images, record their IDs
 //   lask run validate                                  # confirm the tests against the real git
 //   lask run freeze                                    # take the hashes to pre-register
 //   lask run login                                     # create the Claude token
@@ -13,10 +15,12 @@
 //   lask run exp-v2 S01                                # continue with v0.2.0, same conditions
 //   lask run exp-v3 S01                                # and v0.3.0
 //   lask run evaluate S01
+//   lask run exp-v1 C01 --agent copilot --lang ts --model claude-opus-5.5
 //
 // An experiment named S01 in the TypeScript condition with Opus works in
 // playground/S01_ts_claude-opus-5-5/, the agent's home, and writes its records
-// to results/S01_ts_claude-opus-5-5/.
+// to results/S01_ts_claude-opus-5-5/. With Copilot, the model is prefixed:
+// playground/C01_ts_copilot-claude-opus-5.5/.
 //
 // Every task checks that it runs on lask 0.13.0.
 
@@ -42,7 +46,12 @@ command { "node" } on evaluation
 required_lask = "lask 0.13.0"
 versions: Array<String> = ["v1", "v2", "v3"]
 langs: Array<String> = ["ts", "js"]
-models: Array<String> = ["claude-sonnet-5-5", "claude-opus-5-5"]
+agents: Array<String> = ["claude", "copilot"]
+claude_models: Array<String> = ["claude-sonnet-5-5", "claude-opus-5-5"]
+// Copilot's model IDs (copilot help, CLI 1.0.105), without the lightweight ones.
+copilot_models: Array<String> = [
+  "claude-sonnet-5.5", "claude-opus-5.5", "gpt-6.1-sol", "gpt-6-astra", "gpt-6-luna", "gpt-5.3-codex", "gemini-3.8-flash"
+]
 fixed_resume = "Continue with your best judgment, following AGENTS.md and the specification."
 
 // Settings every trial's Claude Code runs with (experiment-design.md 13.2), besides the token.
@@ -53,7 +62,13 @@ claude_settings: Map<String> = {
   "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
 }
 
-// The trial image's ID, recorded by build-images. Running it by ID pins it by content.
+// Settings every trial's Copilot CLI runs with, besides the token. The rest are
+// command-line options (copilot_command). Memory is off in prompt mode by default.
+copilot_settings: Map<String> = {
+  "COPILOT_AUTO_UPDATE": "false"
+}
+
+// The trial images' IDs, recorded by build-images. Running them by ID pins them by content.
 images_file = "images.json"
 
 // How long to wait after the plan's usage limit, and after other API errors.
@@ -69,22 +84,32 @@ infra_code = 75
 
 // ------------------------------------------------------------------ Images
 
-// Build the trial image and record its ID in images.json.
+// Build the trial images and record their IDs in images.json: trial for Claude
+// Code (images/trial), copilot for GitHub Copilot CLI (images/copilot).
 //
-// The ID is pre-registered with the other hashes (lask run freeze), so after
-// freezing, the image is not rebuilt. The evaluation image is a lask recipe,
-// built by `lask sync` and pinned in lask.lock.json.
+// The IDs are pre-registered with the other hashes (lask run freeze), so after
+// freezing, an image is not rebuilt: only an image missing from images.json is
+// built. The evaluation image is a lask recipe, built by `lask sync` and pinned
+// in lask.lock.json.
 //
-// @param force  Rebuild although images.json exists.
+// @param force  Rebuild every image although images.json records it.
 build_images(--force: Bool = false): Void = do {
   require_lask()
-  if (file_exists(images_file, files) && !force) {
-    fail(error(2, "#{images_file} exists; the image may already be frozen. Use --force to rebuild it."))
+  old: Map<Any> = if (file_exists(images_file, files) && !force) { read_json(images_file) } else { {} }
+  if (str(old, "trial") != "" && str(old, "copilot") != "") {
+    fail(error(2, "#{images_file} records both images; they may already be frozen. Use --force to rebuild them."))
   }
-  trial = $ docker build -q -t tgit-trial images/trial
+  trial = str(old, "trial") == "" ? build_image("trial") : str(old, "trial")
+  copilot = str(old, "copilot") == "" ? build_image("copilot") : str(old, "copilot")
   server = $ docker version --format '{{.Server.Version}} {{.Server.Os}}/{{.Server.Arch}}'
-  write_file(images_file, encode({ trial: trim(trial), docker: trim(server) }, "pretty-json"), files)
-  log("trial image #{trim(trial)}")
+  write_file(images_file, encode({ trial: trial, copilot: copilot, docker: trim(server) }, "pretty-json"), files)
+  log("trial image #{trial}, copilot image #{copilot}")
+}
+
+internal build_image(kind: String): String = do {
+  id = $ docker build -q -t tgit-#{kind} images/#{kind}
+  log("built #{kind}: #{trim(id)}")
+  trim(id)
 }
 
 // ------------------------------------------------------------------ Tests and freezing
@@ -111,14 +136,24 @@ freeze(): Void = do {
 
 // ------------------------------------------------------------------ Credentials
 
-// Create a long-lived token for the trials with `claude setup-token`.
+// Create a long-lived token for the trials.
 //
-// Runs Claude Code on this machine, interactively. Set the token it prints as
-// CLAUDE_CODE_OAUTH_TOKEN in the shell that runs the trials.
-login(): Void = do {
+// Claude Code: runs `claude setup-token` on this machine, interactively. Set the
+// token it prints as CLAUDE_CODE_OAUTH_TOKEN in the shell that runs the trials.
+// GitHub Copilot CLI takes a fine-grained personal access token with the
+// "Copilot Requests" permission, made on github.com; this prints where.
+//
+// @param agent  claude or copilot.
+// @complete agent claude copilot
+login(--agent: String = "claude"): Void = do {
   require_lask()
-  $[#local] claude setup-token
-  log("now set it in the shell: export CLAUDE_CODE_OAUTH_TOKEN=<token>")
+  if (agent == "copilot") {
+    log("create a fine-grained token with the account permission \"Copilot Requests\" at https://github.com/settings/personal-access-tokens/new")
+    log("then set it in the shell: export COPILOT_GITHUB_TOKEN=<token>")
+  } else {
+    $[#local] claude setup-token
+    log("now set it in the shell: export CLAUDE_CODE_OAUTH_TOKEN=<token>")
+  }
 }
 
 // ------------------------------------------------------------------ Experiments
@@ -127,41 +162,49 @@ login(): Void = do {
 //
 // Creates playground/<test_name>_<lang>_<model>/ with what v0.1.0 needs, the
 // agent's home, and has the agent implement docs/spec-v1.md there. Records go
-// to results/<test_name>_<lang>_<model>/. Run it again after the runner
-// stopped, and v0.1.0 starts over from its start snapshot.
+// to results/<test_name>_<lang>_<model>/. With --agent copilot the model part
+// is copilot-<model>. Run it again after the runner stopped, and v0.1.0 starts
+// over from its start snapshot.
 //
 // @param test_name  Name of the experiment, such as P1 or S01: letters, digits, . and -.
 // @param lang       ts or js: which AGENTS.md the repository gets.
 // @param model      The model ID, passed to --model as it is.
+// @param agent      claude (Claude Code) or copilot (GitHub Copilot CLI).
 // @param max_turns  Turn limit for the version (experiment-design.md chapter 5).
+//                   Copilot has no such option; its turns are checked between runs only.
 // @param max_hours  Active-time limit for the version, excluding waits for the usage limit.
 // @complete lang ts js
-// @complete model claude-sonnet-5-5 claude-opus-5-5
+// @complete agent claude copilot
+// @complete model claude-sonnet-5-5 claude-opus-5-5 claude-sonnet-5.5 claude-opus-5.5 gpt-6.1-sol gpt-6-astra gpt-6-luna gpt-5.3-codex gemini-3.8-flash
 // @example lask run exp-v1 S01 --lang ts --model claude-opus-5-5
+// @example lask run exp-v1 C01 --agent copilot --lang ts --model claude-opus-5.5
 exp_v1(
   test_name: String,
   --lang: String = "",
   --model: String = "",
+  --agent: String = "claude",
   --max_turns: Number = 3000,
   --max_hours: Number = 24
 ): Void = do {
   require_lask()
-  check_claude_env()
+  if (!contains_array(agents, agent)) { fail(error(2, "--agent must be claude or copilot")) }
+  check_agent_env(agent)
   if (!regex_test(test_name, "^[A-Za-z0-9][A-Za-z0-9.-]*$")) {
     fail(error(2, "the test name may hold only letters, digits, . and -, starting with a letter or digit"))
   }
   if (!contains_array(langs, lang)) { fail(error(2, "--lang must be ts or js")) }
-  if (!contains_array(models, model)) { fail(error(2, "--model must be one of #{join(models, ", ")}")) }
-  dir = "#{test_name}_#{lang}_#{model}"
+  ms = models_of(agent)
+  if (!contains_array(ms, model)) { fail(error(2, "--model for #{agent} must be one of #{join(ms, ", ")}")) }
+  dir = dir_name(test_name, lang, agent, model)
   used = filter(experiment_dirs(test_name), \(d: String) -> d != dir)
   if (!is_empty(used)) { fail(error(2, "#{test_name} is already used by results/#{first(used)}")) }
   if (!file_exists("results/#{dir}/meta.json", files)) {
     if (file_exists("playground/#{dir}", files)) {
       fail(error(2, "playground/#{dir} exists without results/#{dir}/meta.json; remove it to start again"))
     }
-    setup_experiment(test_name, dir, lang, model)
+    setup_experiment(test_name, dir, lang, agent, model)
   }
-  run_version(dir, "v1", lang, model, max_turns, max_hours * 3600)
+  run_version(dir, "v1", lang, agent, model, max_turns, max_hours * 3600)
 }
 
 // Continue an experiment with v0.2.0, in the same conditions (13.3).
@@ -227,19 +270,30 @@ internal require_lask(): Void = do {
   if (trim(v) != required_lask) { fail(error(2, "this experiment runs on #{required_lask}, not #{trim(v)}")) }
 }
 
+internal models_of(agent: String): Array<String> = agent == "copilot" ? copilot_models : claude_models
+
+internal settings_of(agent: String): Map<String> = agent == "copilot" ? copilot_settings : claude_settings
+
+internal token_var(agent: String): String = agent == "copilot" ? "COPILOT_GITHUB_TOKEN" : "CLAUDE_CODE_OAUTH_TOKEN"
+
+// The image each agent works in, by its key in images.json.
+internal image_kind(agent: String): String = agent == "copilot" ? "copilot" : "trial"
+
 // The token must be in the environment before a trial starts.
-internal check_claude_env(): Void = do {
-  token!! = find_env("CLAUDE_CODE_OAUTH_TOKEN")
+internal check_agent_env(agent: String): Void = do {
+  name = token_var(agent)
+  token!! = find_env(name)
   if (token == null || token == "") {
-    fail(error(2, "CLAUDE_CODE_OAUTH_TOKEN is not set; create one with lask run login and export it"))
+    fail(error(2, "#{name} is not set; see lask run login --agent #{agent}, and export it"))
   }
 }
 
 // The Docker CLI with the variables the agent's container gets. They reach the
 // container by name, so the token appears on no command line.
-internal trial_launcher(): Runnable = do {
-  token!! = get_env("CLAUDE_CODE_OAUTH_TOKEN")
-  vars = merge(claude_settings, { "CLAUDE_CODE_OAUTH_TOKEN": token, "HOME": "/home/node" })
+internal trial_launcher(agent: String): Runnable = do {
+  token!! = get_env(token_var(agent))
+  secret: Map<String> = agent == "copilot" ? { "COPILOT_GITHUB_TOKEN": token } : { "CLAUDE_CODE_OAUTH_TOKEN": token }
+  vars = merge(settings_of(agent), merge(secret, { "HOME": "/home/node" }))
   runnable(#docker:29.5.3-cli, env = merge(dockerd.env, vars), volumes = dockerd.volumes)
 }
 
@@ -265,11 +319,19 @@ internal read_json(path: String): Map<Any> = cast(from_json(read_file(path, file
 
 // ------------------------------------------------------------------ Helpers: an experiment
 
-// The directories named <test_name>_<lang>_<model> that have records.
+// <test_name>_<lang>_<model>, and <test_name>_<lang>_copilot-<model> for Copilot.
+internal dir_name(test_name: String, lang: String, agent: String, model: String): String =
+  agent == "copilot" ? "#{test_name}_#{lang}_copilot-#{model}" : "#{test_name}_#{lang}_#{model}"
+
+// The experiment directories of a test name that have records.
 internal experiment_dirs(test_name: String): Array<String> = do {
-  all = flat_map(langs, \(l: String) -> map(models, \(m: String) -> "#{test_name}_#{l}_#{m}"))
+  all = flat_map(langs, \(l: String) -> flat_map(agents, \(a: String) ->
+    map(models_of(a), \(m: String) -> dir_name(test_name, l, a, m))))
   filter(all, \(d: String) -> file_exists("results/#{d}/meta.json", files))
 }
+
+// Experiments started before Copilot was added have no agent in meta.json: Claude Code.
+internal agent_of(meta: Map<Any>): String = str(meta, "agent") == "" ? "claude" : str(meta, "agent")
 
 internal experiment_dir(test_name: String): String = do {
   found = experiment_dirs(test_name)
@@ -279,18 +341,19 @@ internal experiment_dir(test_name: String): String = do {
 
 internal continue_experiment(test_name: String, v: String, max_turns: Number, max_hours: Number): Void = do {
   require_lask()
-  check_claude_env()
   dir = experiment_dir(test_name)
   meta = read_json("results/#{dir}/meta.json")
+  agent = agent_of(meta)
+  check_agent_env(agent)
   prev = versions[index_of_array(versions, v) - 1]
   if (!file_exists("results/#{dir}/#{prev}/run.json", files)) {
     fail(error(2, "#{dir} has not finished #{prev}; run lask run exp-#{prev} #{test_name}"))
   }
-  run_version(dir, v, str(meta, "lang"), str(meta, "model"), max_turns, max_hours * 3600)
+  run_version(dir, v, str(meta, "lang"), agent, str(meta, "model"), max_turns, max_hours * 3600)
 }
 
 // A new experiment: its empty home, and meta.json.
-internal setup_experiment(test_name: String, dir: String, lang: String, model: String): Void = do {
+internal setup_experiment(test_name: String, dir: String, lang: String, agent: String, model: String): Void = do {
   // The home starts empty; the container writes the repository into it (prepare_version).
   home = "playground/#{dir}"
   make_dir(home, files)
@@ -300,11 +363,12 @@ internal setup_experiment(test_name: String, dir: String, lang: String, model: S
   write_file("results/#{dir}/meta.json", encode({
     test_name: test_name,
     lang: lang,
+    agent: agent,
     model: model,
     started: now(),
     lask_version: trim(lask_version),
     images: read_json(images_file),
-    claude_settings: claude_settings,
+    agent_settings: settings_of(agent),
     agents_md_sha256: sha256(agents)
   }, "pretty-json"), files)
   log("set up #{home}")
@@ -331,12 +395,12 @@ internal pipe_ok(cmd: String): Void = do {
 
 // One container per version run (13.2). Only the experiment's playground is
 // mounted, as the home. A container left over from an interrupted run is replaced.
-internal start_container(dir: String): String = do {
+internal start_container(dir: String, agent: String): String = do {
   c = container_name(dir)
   docker("rm -f #{c}")
-  names = join(map(concat_array(keys(claude_settings), ["CLAUDE_CODE_OAUTH_TOKEN", "HOME"]), \(n: String) -> "-e #{n}"), " ")
+  names = join(map(concat_array(keys(settings_of(agent)), [token_var(agent), "HOME"]), \(n: String) -> "-e #{n}"), " ")
   home = "#{host_root()}/playground/#{dir}"
-  r = run(trial_launcher(), "docker run -d --init --name #{c} --label tgit-experiment=#{shell_quote(dir)} #{names} -v #{shell_quote("#{home}:/home/node")} -w /home/node #{image_id("trial")} sleep infinity")
+  r = run(trial_launcher(agent), "docker run -d --init --name #{c} --label tgit-experiment=#{shell_quote(dir)} #{names} -v #{shell_quote("#{home}:/home/node")} -w /home/node #{image_id(image_kind(agent))} sleep infinity")
   if (r.code != 0) { fail(error(infra_code, "the agent's container did not start: #{r.stderr}")) }
   log("started #{c}")
   c
@@ -422,6 +486,7 @@ type State = Record<
 type Ctx = Record<
   dir: String,
   version: String,
+  agent: String,
   model: String,
   vdir: String,
   logs: String,
@@ -433,12 +498,12 @@ type Ctx = Record<
 // Build one version in a fresh container (13.3). A version whose start snapshot
 // exists but that has no run.json was interrupted, and starts over from the
 // snapshot (13.6).
-internal run_version(dir: String, v: String, lang: String, model: String, max_turns: Number, max_seconds: Number): Void = do {
+internal run_version(dir: String, v: String, lang: String, agent: String, model: String, max_turns: Number, max_seconds: Number): Void = do {
   vdir = "results/#{dir}/#{v}"
   snapshot = "#{vdir}/start.tar"
   if (file_exists("#{vdir}/run.json", files)) { fail(error(2, "#{dir} has already finished #{v}")) }
   attempts = size(glob("#{vdir}/logs-*", files))
-  c = start_container(dir)
+  c = start_container(dir, agent)
   try {
     if (file_exists(snapshot, files)) {
       if (attempts > 0) {
@@ -454,7 +519,8 @@ internal run_version(dir: String, v: String, lang: String, model: String, max_tu
       prepare_version(v, lang, c)
       save_snapshot(c, snapshot)
     }
-    attempt_version(dir, v, model, vdir, snapshot, c, max_turns, max_seconds, attempts, attempts)
+    ctx: Ctx = { dir: dir, version: v, agent: agent, model: model, vdir: vdir, logs: "", container: c, max_turns: max_turns, max_seconds: max_seconds }
+    attempt_version(ctx, snapshot, attempts, attempts)
     docker_ok("rm -f #{c}")
     log("#{dir} finished #{v}")
   } catch (e) {
@@ -473,58 +539,77 @@ internal check_head(dir: String, v: String, c: String): Void = do {
   }
 }
 
-internal attempt_version(
-  dir: String, v: String, model: String, vdir: String, snapshot: String,
-  c: String, max_turns: Number, max_seconds: Number, attempt: Number, first_attempt: Number
-): Void = try {
-  logs = "#{vdir}/logs-#{attempt}"
+internal attempt_version(base: Ctx, snapshot: String, attempt: Number, first_attempt: Number): Void = try {
+  logs = "#{base.vdir}/logs-#{attempt}"
   make_dir(logs, files)
-  ctx: Ctx = { dir: dir, version: v, model: model, vdir: vdir, logs: logs, container: c, max_turns: max_turns, max_seconds: max_seconds }
-  given_start = given_hash(c)
+  ctx: Ctx = {
+    dir: base.dir, version: base.version, agent: base.agent, model: base.model, vdir: base.vdir,
+    logs: logs, container: base.container, max_turns: base.max_turns, max_seconds: base.max_seconds
+  }
+  given_start = given_hash(ctx.container)
   start: State = { runs: [], turns: 0, active_seconds: 0, usage_waits: 0, usage_wait_seconds: 0, api_error_waits: 0, session: "", mode: "start", ending: "" }
   st = drive(ctx, start)
   finish_version(ctx, st, given_start, attempt)
 } catch (e) {
   if (e.code != infra_code || attempt - first_attempt >= max_restarts) { fail(e) }
-  log("#{dir} #{v}: infrastructure failure, restarting from the start snapshot: #{e.message}")
-  write_file("#{vdir}/restart-#{attempt}.txt", e.message, files)
-  docker("restart -t 5 #{c}")
-  restore(c, snapshot)
-  attempt_version(dir, v, model, vdir, snapshot, c, max_turns, max_seconds, attempt + 1, first_attempt)
+  log("#{base.dir} #{base.version}: infrastructure failure, restarting from the start snapshot: #{e.message}")
+  write_file("#{base.vdir}/restart-#{attempt}.txt", e.message, files)
+  docker("restart -t 5 #{base.container}")
+  restore(base.container, snapshot)
+  attempt_version(base, snapshot, attempt + 1, first_attempt)
 }
 
-// The claude command line for one run (13.3). A resume continues the version's
+// The agent's command line for one run (13.3). A resume continues the version's
 // conversation; a new version always starts a new one. The output is written to
 // this directory, so the agent never sees its own logs.
-internal claude_command(ctx: Ctx, st: State, n: Number): String = do {
-  // A run that failed before a conversation existed starts over rather than resuming.
-  fresh = st.mode == "start" || st.session == ""
+internal agent_command(ctx: Ctx, st: State, n: Number, fresh: Bool, session: String): String = do {
   prompt = fresh ? "Implement docs/spec-#{ctx.version}.md." : fixed_resume
-  resume = fresh ? "" : "--resume #{shell_quote(st.session)} "
-  remaining = ctx.max_turns - st.turns
-  claude = "claude -p #{resume}#{shell_quote(prompt)} --model #{shell_quote(ctx.model)} --effort high --max-turns #{remaining} --dangerously-skip-permissions --disallowedTools WebFetch,WebSearch --output-format stream-json --verbose"
-  "docker exec -w /home/node/tgit #{ctx.container} #{claude} > #{shell_quote("#{ctx.logs}/run-#{n}.jsonl")} 2> #{shell_quote("#{ctx.logs}/run-#{n}.stderr")}"
+  cli = ctx.agent == "copilot" ? copilot_command(ctx, prompt, session) : claude_command(ctx, st, prompt, fresh)
+  "docker exec -w /home/node/tgit #{ctx.container} #{cli} > #{shell_quote("#{ctx.logs}/run-#{n}.jsonl")} 2> #{shell_quote("#{ctx.logs}/run-#{n}.stderr")}"
 }
 
-// Run claude until the version ends one of the ways 13.3 lists.
+internal claude_command(ctx: Ctx, st: State, prompt: String, fresh: Bool): String = do {
+  resume = fresh ? "" : "--resume #{shell_quote(st.session)} "
+  remaining = ctx.max_turns - st.turns
+  "claude -p #{resume}#{shell_quote(prompt)} --model #{shell_quote(ctx.model)} --effort high --max-turns #{remaining} --dangerously-skip-permissions --disallowedTools WebFetch,WebSearch --output-format stream-json --verbose"
+}
+
+// GitHub Copilot CLI 1.0.105, set to match claude_command where it can be:
+// - the same effort, and the default context window rather than the long one;
+// - every tool and path allowed, without questions; web_fetch and the built-in
+//   GitHub MCP servers removed, as Claude's WebFetch and WebSearch are;
+// - the session ID chosen by the runner, so a resume names it with the same option;
+// - no turn limit: Copilot has none, so drive checks turns between runs only;
+// - the token kept out of the agent's shell, no telemetry, no update.
+internal copilot_command(ctx: Ctx, prompt: String, session: String): String =
+  "copilot -p #{shell_quote(prompt)} --session-id=#{shell_quote(session)} --model=#{shell_quote(ctx.model)} --reasoning-effort=high --context=default --allow-all-tools --allow-all-paths --no-ask-user --excluded-tools=web_fetch --disable-builtin-mcps --secret-env-vars=COPILOT_GITHUB_TOKEN --disable-client-telemetry --no-auto-update --stream=off --output-format=json"
+
+// A new Copilot session's ID, a random UUID from the agent's container.
+internal new_session_id(ctx: Ctx): String = trim(in_repo_ok(ctx.container, "cat /proc/sys/kernel/random/uuid"))
+
+// Run the agent until the version ends one of the ways 13.3 lists.
 internal drive(ctx: Ctx, st: State): State = case {
   st.turns >= ctx.max_turns -> with_ending(st, "turn_cap")
   st.active_seconds >= ctx.max_seconds -> with_ending(st, "time_cap")
   else -> do {
     n = size(st.runs) + 1
-    cmd = claude_command(ctx, st, n)
+    // A run that failed before a conversation existed starts over rather than resuming.
+    fresh = st.mode == "start" || st.session == ""
+    session = ctx.agent == "copilot" && fresh ? new_session_id(ctx) : st.session
+    cmd = agent_command(ctx, st, n, fresh, session)
     t0 = now()
     timed_out = try {
       timeout(ctx.max_seconds - st.active_seconds, \() -> run(docker_cli, cmd))
       false
     } catch (e) {
-      if (e.code != 124) { fail(error(infra_code, "claude could not be run: #{e.message}")) }
-      // Stopping docker exec leaves claude running in the agent's container.
+      if (e.code != 124) { fail(error(infra_code, "#{ctx.agent} could not be run: #{e.message}")) }
+      // Stopping docker exec leaves the agent running in its container.
       docker("restart -t 5 #{ctx.container}")
       true
     }
     seconds = now() - t0
-    res = last_result("#{ctx.logs}/run-#{n}.jsonl")
+    path = "#{ctx.logs}/run-#{n}.jsonl"
+    res = ctx.agent == "copilot" ? copilot_result(path, session) : claude_result(path)
     base = {
       runs: st.runs, turns: st.turns, active_seconds: st.active_seconds + seconds,
       usage_waits: st.usage_waits, usage_wait_seconds: st.usage_wait_seconds,
@@ -550,7 +635,10 @@ internal classify(ctx: Ctx, st: State, n: Number, mode: String, res: Map<Any> | 
     case {
       subtype == "error_max_turns" ->
         with_run(st2, run_record(n, mode, "turn_cap", res, seconds), "turn_cap")
-      is_error && (contains(text, "usage limit") || contains(text, "limit reached") || contains(text, "resets")) -> do {
+      // Copilot's monthly allowance or budget is spent: waiting does not help.
+      str(res, "error_type") == "quota" ->
+        fail(error(2, "#{ctx.dir} #{ctx.version}: the Copilot quota is spent (#{text}); run the task again when it is renewed, and the version starts over"))
+      flag(res, "limit") -> do {
         if (st2.usage_waits >= max_usage_waits) { fail(error(infra_code, "usage limit hit #{st2.usage_waits} times")) }
         log("#{ctx.dir} #{ctx.version}: usage limit, waiting #{usage_wait_seconds}s")
         $ sleep #{usage_wait_seconds}
@@ -591,6 +679,80 @@ internal last_result(path: String): Map<Any> | Null = do {
   if (is_empty(found)) { null } else {
     m: Map<Any> = cast(from_json(last(found)))
     m
+  }
+}
+
+// What a run ended with, in the shape of Claude's result event, which classify
+// reads, plus limit (the plan's usage limit) and error_type.
+internal claude_result(path: String): Map<Any> | Null = do {
+  res = last_result(path)
+  case (res) {
+    Null -> null
+    else -> do {
+      text = to_lower(str(res, "result"))
+      limit = flag(res, "is_error") && (contains(text, "usage limit") || contains(text, "limit reached") || contains(text, "resets"))
+      merge(res, { limit: limit, error_type: "" })
+    }
+  }
+}
+
+// The same from a Copilot JSONL log (session events, CLI 1.0.105). The run
+// failed when its last message was a session.error, or when it shut down with
+// an error; a rate_limit error is the usage limit. Turns are the main agent's
+// assistant.turn_start events. Copilot reports no cost in money: usage keeps
+// the session.shutdown metrics, AI credits included.
+internal copilot_result(path: String, session: String): Map<Any> | Null = do {
+  evs = copilot_events(path)
+  shutdowns = filter(evs, \(e: Map<Any>) -> str(e, "type") == "session.shutdown")
+  outcome = filter(evs, \(e: Map<Any>) -> main_agent(e) && (str(e, "type") == "assistant.message" || str(e, "type") == "session.error"))
+  if (is_empty(shutdowns) && is_empty(outcome)) { null } else {
+    shut: Map<Any> = is_empty(shutdowns) ? {} : data_of(last(shutdowns))
+    errored = !is_empty(outcome) && str(last(outcome), "type") == "session.error"
+    err: Map<Any> = errored ? data_of(last(outcome)) : {}
+    is_error = errored || is_empty(shutdowns) || str(shut, "shutdownType") == "error"
+    turns = size(filter(evs, \(e: Map<Any>) -> main_agent(e) && str(e, "type") == "assistant.turn_start"))
+    {
+      subtype: is_error ? "error" : "success",
+      is_error: is_error,
+      result: errored ? "#{str(err, "errorType")} #{str(err, "errorCode")}: #{str(err, "message")}" : str(shut, "errorReason"),
+      limit: errored && str(err, "errorType") == "rate_limit",
+      error_type: str(err, "errorType"),
+      session_id: session,
+      num_turns: turns,
+      usage: {
+        modelMetrics: get_or(shut, "modelMetrics", null),
+        tokenDetails: get_or(shut, "tokenDetails", null),
+        totalNanoAiu: get_or(shut, "totalNanoAiu", null),
+        totalApiDurationMs: get_or(shut, "totalApiDurationMs", null)
+      },
+      total_cost_usd: 0
+    }
+  }
+}
+
+// The events of a Copilot log the runner reads, in order. Other lines are not parsed.
+internal copilot_events(path: String): Array<Map<Any>> = do {
+  wanted = ["session.shutdown", "session.error", "assistant.message", "assistant.turn_start"]
+  all = if (file_exists(path, files)) { lines(read_file(path, files)) } else { [] }
+  picked = filter(all, \(l: String) -> !is_empty(filter(wanted, \(w: String) -> contains(l, "\"#{w}\""))))
+  evs = flat_map(picked, \(l: String) -> json_line(l))
+  filter(evs, \(e: Map<Any>) -> contains_array(wanted, str(e, "type")))
+}
+
+// A line that is a JSON object, or nothing (a line cut off when the run was stopped).
+internal json_line(l: String): Array<Map<Any>> = try {
+  m: Map<Any> = cast(from_json(l))
+  [m]
+} catch (e) { [] }
+
+// Subagents' events carry their agentId.
+internal main_agent(e: Map<Any>): Bool = str(e, "agentId") == ""
+
+internal data_of(e: Map<Any>): Map<Any> = do {
+  d = get_or(e, "data", null)
+  case (d) {
+    Map<Any> -> d
+    else -> {}
   }
 }
 
@@ -669,11 +831,13 @@ internal resumed(st: State, kind: String): State = {
 internal given_hash(c: String): String =
   trim(in_repo_ok(c, "find test/difftest/scenarios/given -type f | LC_ALL=C sort | xargs sha256sum | sha256sum"))
 
-// The number of auto-compactions in a version's logs.
+// The number of auto-compactions in a version's logs: Claude's compact_boundary,
+// Copilot's session.compaction_complete.
 internal compactions(logs: String): Number = do {
   logs_of = filter(list_dir(logs, files), \(f: String) -> ends_with(f, ".jsonl"))
   reduce(logs_of, 0, \(acc: Number, f: String) ->
-    acc + size(filter(lines(read_file("#{logs}/#{f}", files)), \(l: String) -> contains(l, "compact_boundary"))))
+    acc + size(filter(lines(read_file("#{logs}/#{f}", files)), \(l: String) ->
+      contains(l, "compact_boundary") || contains(l, "\"session.compaction_complete\""))))
 }
 
 // Save the repository and what happened (13.3 step 5).
@@ -683,6 +847,7 @@ internal finish_version(ctx: Ctx, st: State, given_start: String, restarts: Numb
   write_file("#{ctx.vdir}/run.json", encode({
     experiment: ctx.dir,
     version: ctx.version,
+    agent: ctx.agent,
     model: ctx.model,
     max_turns: ctx.max_turns,
     max_seconds: ctx.max_seconds,

@@ -65,7 +65,7 @@ RQ3は「コードがコンテキストに収まらなくなると型が効い�
 
 ## 5. エージェントと実行環境
 
-- **エージェント：** Claude Codeを非対話モード（`claude -p`）で使う。Claudeの定額プランの範囲で動かす。
+- **エージェント：** Claude Codeを非対話モード（`claude -p`）で使う。Claudeの定額プランの範囲で動かす。GitHub Copilot CLI でも、同じ手順を別の系列群として動かせる（13.8）。その系列どうしは比べるが、Claude Code の系列とは比べない。
 - **モデル：** SonnetとOpusの両方を使い、それぞれIDまで固定する。どちらのモデルでも、TypeScriptとJavaScriptの両条件を回す。言語の効果がモデルによらず出るかを確かめるためで、モデル同士の優劣は問わない。
   - Sonnet：Sonnet 5.5（`claude-sonnet-5-5`）
   - Opus：Opus 5.5（`claude-opus-5-5`）
@@ -291,14 +291,14 @@ v0.3.0では、これとは別に実在リポジトリでの比較を行う（�
 
 ## 13. 実行手順
 
-9章の手順を、実際に打つコマンドの単位まで書き下したもの。操作はすべて、実験フォルダーの直下で `lask run <タスク>` を打つだけで行う。試行には、環境変数 `CLAUDE_CODE_OAUTH_TOKEN` も要る（lask 0.13.0。各タスクは最初に lask のバージョンを確かめ、違えば止まる）。lask はコマンドをコンテナの中で動かす。Docker の操作、評価、ファイルの読み書きに、それぞれのコンテナがある。ホストで動くのは、lask のバージョンの確認と `claude setup-token` だけである。
+9章の手順を、実際に打つコマンドの単位まで書き下したもの。操作はすべて、実験フォルダーの直下で `lask run <タスク>` を打つだけで行う。試行には、エージェントのトークンを入れた環境変数も要る。Claude Code なら `CLAUDE_CODE_OAUTH_TOKEN`、GitHub Copilot CLI なら `COPILOT_GITHUB_TOKEN`（lask 0.13.0。各タスクは最初に lask のバージョンを確かめ、違えば止まる）。lask はコマンドをコンテナの中で動かす。Docker の操作、評価、ファイルの読み書きに、それぞれのコンテナがある。ホストで動くのは、lask のバージョンの確認と `claude setup-token` だけである。
 
 | タスク | 役割 |
 |---|---|
-| `build-images` | 試行のイメージを作り、そのIDを `images.json` に記録する |
+| `build-images` | 試行のイメージ（Claude Code 用、GitHub Copilot CLI 用）を作り、そのIDを `images.json` に記録する。`images.json` にまだ記録のないイメージだけを作る |
 | `validate` | テスト自体の確認。本物のgit同士で全件を流す |
 | `freeze` | 事前登録するハッシュを取る |
-| `login` | Claude の長期トークンを作る |
+| `login` | Claude の長期トークンを作る（`--agent copilot`：Copilot のトークンを作る場所を表示する） |
 | `exp-v1` | 系列を始める。作業場所を作り、v0.1.0 を13.3の通りに無人で作らせる |
 | `exp-v2`、`exp-v3` | 同じ条件で、その系列の v0.2.0、v0.3.0 を続ける |
 | `stop` | 失敗して残った系列のコンテナを片付ける |
@@ -309,8 +309,9 @@ v0.3.0では、これとは別に実在リポジトリでの比較を行う（�
 | `main.lask` | 上のタスクすべて |
 | `lask.json`、`lask.lock.json` | タスクが使う lask のモジュール（`tools` v0.6.0）と、lask が動かすイメージの固定。Docker CLI（`docker:29.5.3-cli`）、評価のイメージ、tools モジュールの `unix` イメージ |
 | `images/trial/Dockerfile` | 試行のイメージ（Node.js 24.22.2、git 2.47.3、Claude Code 2.1.302、13.2のエージェント用の git の設定） |
+| `images/copilot/Dockerfile` | GitHub Copilot CLI の系列のイメージ。試行のイメージの Claude Code を GitHub Copilot CLI 1.0.105 に替えたもの |
 | `images/eval/Dockerfile` | 評価のイメージ。試行と同じ土台と git に、`tsc --checkJs` 用の TypeScript 7.0.2 と `@types/node` 24.19.2 を足したもの。JavaScript条件のエージェントが `tsc` を使えないよう、試行のイメージには入れない |
-| `images.json` | 試行のイメージのID。コンテナはこのIDで起動するので、中身で固定される |
+| `images.json` | 2つの試行のイメージのID。コンテナはこのIDで起動するので、中身で固定される |
 | `eval/` | 評価、規模、通信とパッケージの検査、テストの確認、凍結のスクリプト |
 | `tests/` | ランナー、隠しテスト、公開テスト、生成器、実在リポジトリ。使い方は `tests/README_ja.md` |
 
@@ -344,7 +345,9 @@ v0.3.0では、これとは別に実在リポジトリでの比較を行う（�
    export CLAUDE_CODE_OAUTH_TOKEN=<トークン>  # この行を .env に書いて source .env でもよい
    ```
 
-   設定されていなければ、試行のタスクは始まらない。トークンはコンテナに名前だけで渡すので、コマンドラインにもログにも出ない。トークンを書いた `.env` はこのマシンの外に出さない（`.gitignore` に入れてある）。
+   GitHub Copilot CLI の系列では、代わりに github.com でアカウントの権限「Copilot Requests」を付けた fine-grained のトークンを作り（場所は `lask run login --agent copilot` が表示する）、`COPILOT_GITHUB_TOKEN` に設定する。
+
+   そのエージェントのトークンが設定されていなければ、試行のタスクは始まらない。トークンはコンテナに名前だけで渡すので、コマンドラインにもログにも出ない。トークンを書いた `.env` はこのマシンの外に出さない（`.gitignore` に入れてある）。
 
 5. **系列の名前と実行順を決める。** 系列の名前は始めるときに付ける（`exp-v1 <名前>`）。パイロットは P1〜P5、本実験は S01〜S12 とする。巡ごとの言語とモデルの4つの組み合わせの並びは、事前登録の時点で固定した種から決め、一緒に記録する。
 
@@ -506,3 +509,37 @@ results/
 ```
 
 すべての系列が終わったら、各版の `eval/summary.json` と `run.json` を解析コードの入力にする（7章）。
+
+### 13.8 GitHub Copilot CLI
+
+同じタスクで、Claude Code の代わりに GitHub Copilot CLI 1.0.105 で系列を動かせる。エージェントを指定するのは `exp-v1` だけで、後の版はそれを引き継ぐ。
+
+```sh
+export COPILOT_GITHUB_TOKEN=<トークン>
+lask run exp-v1 C01 --agent copilot --lang ts --model claude-opus-5.5   # playground/C01_ts_copilot-claude-opus-5.5/
+lask run exp-v2 C01
+lask run exp-v3 C01
+lask run evaluate C01
+```
+
+- **モデル：** Copilot 自身のIDを、そのまま `--model` に渡す。`claude-sonnet-5.5`、`claude-opus-5.5`、`gpt-6.1-sol`、`gpt-6-astra`、`gpt-6-luna`、`gpt-5.3-codex`、`gemini-3.8-flash`。モデルの自動選択（`auto`）は使わない。使用上限に当たったときにモデルを切り替える設定も、既定のまま切っておく。
+- **系列の名前：** `<名前>_<言語>_copilot-<モデル>`。`meta.json` と `run.json` に `agent: "copilot"` を記録する。Copilot 対応より前に始めた系列には `agent` がなく、Claude Code の系列として扱う。
+- **イメージと環境：** `images/copilot/Dockerfile`。試行のイメージと同じ土台、git、git の設定を使う。コンテナには `COPILOT_GITHUB_TOKEN` と `HOME` のほかに、`COPILOT_AUTO_UPDATE=false` を渡す。`AGENTS.md` は Claude Code と同じように読まれる。
+- **コマンド：** できる範囲で13.3に合わせる。
+
+  ```sh
+  docker exec -w /home/node/tgit <コンテナ> \
+    copilot -p 'Implement docs/spec-vN.md.' --session-id=<UUID> --model=<モデルID> \
+    --reasoning-effort=high --context=default --allow-all-tools --allow-all-paths --no-ask-user \
+    --excluded-tools=web_fetch --disable-builtin-mcps --secret-env-vars=COPILOT_GITHUB_TOKEN \
+    --disable-client-telemetry --no-auto-update --stream=off --output-format=json \
+    > results/<系列>/vN/logs-<k>/run-<n>.jsonl
+  ```
+
+  セッションの UUID は、版の始めに試行の実行役が決める。再開では、同じ `--session-id` に決まった文を渡す。Claude Code の Web ツールと同じく、Web ツールと組み込みの GitHub MCP サーバーは外す。`--context=default` で、文脈は長い枠ではなく、モデルの標準の枠にする。メモリーは、プロンプトモードでは既定で切られている。
+- **実行の終わり方：** ログのセッションイベントから読む。メインのエージェントの最後のメッセージが `session.error` だった実行、またはエラーで終了したか `session.shutdown` がない実行は、エラーとする。`errorType` が `rate_limit` なら使用上限、`quota`（月の枠や予算を使い切った）ならタスクを終了コード2で止める。それ以外のエラーは API エラーとする。イベントが1つもなければ、インフラの失敗とする。エラーでなければ、13.3と同じくタグの有無で「完了」と「停止」に分ける。
+- **Claude Code との違い：**
+  - Copilot にはターン数の上限のオプションがない。ターン（メインのエージェントの `assistant.turn_start` イベント）は数え、上限は実行と実行の間でだけ確かめる。
+  - Copilot は金額で費用を出さない。代わりに、起動ごとに `session.shutdown` の集計（モデルごとのトークン、リクエスト数、`totalNanoAiu` の AI クレジット）を記録する。`total_cost_usd` は0になる。
+  - 自動要約は `session.compaction_complete` から数える。
+  - 13.4の監査は、`tool.execution_start` イベントから、Copilot の `bash` と `write_bash` のコマンド、Web ツールの呼び出しを読む。
