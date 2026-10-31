@@ -13,9 +13,6 @@ Japanese version: `README-reference-implementation_ja.md`. This English version 
 | `for-humans/tgit-prompts.md` | The prompt and test requirements for each step of the tgit implementation (English) | Humans, who give the AI one step at a time |
 | `for-humans/tgit-verification.md` | Procedure for checking by hand that each step is complete (Japanese: `tgit-verification_ja.md`) | Humans |
 
-Experiment plan (a Claude document): https://claude.ai/artifact/5cvSGJp8F3pThZJHPbLJ6n
-(The plan does not yet reflect the change of the task to the Git-compatible CLI "tgit".)
-
 ## Usage
 
 1. Create the tgit repository **outside this folder** (for example, `~/workspace/tgit`).

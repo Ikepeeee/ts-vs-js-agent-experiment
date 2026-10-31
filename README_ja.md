@@ -26,7 +26,7 @@
 `ts/AGENTS.md` と `js/AGENTS.md` の違いは、言語・型検査・実行ファイルの拡張子・開発用の依存・`typecheck` の有無だけ。
 それ以外は一字一句同じ。確認するには `diff ts/AGENTS.md js/AGENTS.md`。
 
-切り替え前の実験設計は `archive/experiment-design_ja.md`（Claudeのドキュメントから書き出したもの。元：https://claude.ai/artifact/5cvSGJp8F3pThZJHPbLJ6n）。
+切り替え前の実験設計は `archive/experiment-design_ja.md`（Claudeのドキュメントから書き出したもの）。
 対照実験の実験設計は `experiment-design_ja.md`。
 
 ## 使い方

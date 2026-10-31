@@ -13,9 +13,6 @@ AIエージェントが書いたコードに「検証ループを通過した後
 | `for-humans/tgit-prompts.md` | tgit実装の各ステップの指示文とテスト要件（英語） | 人間が1ステップずつAIに渡す |
 | `for-humans/tgit-verification_ja.md` | 各ステップの完了を自分で確かめる検証手順（日本語） | 人間 |
 
-実験計画書（Claudeのドキュメント）：https://claude.ai/artifact/5cvSGJp8F3pThZJHPbLJ6n
-（課題をGit互換CLI「tgit」に変更した点は、計画書にはまだ反映していない）
-
 ## 使い方
 
 1. tgitのリポジトリは、**このフォルダの外**に作る（例：`~/workspace/tgit`）。

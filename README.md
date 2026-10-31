@@ -26,7 +26,7 @@ Japanese version: `README_ja.md`. This English version is canonical; where the t
 `ts/AGENTS.md` and `js/AGENTS.md` differ only in the language, the type checking, the file extension, the dev dependencies, and whether `typecheck` exists.
 Everything else is identical, word for word. To check, run `diff ts/AGENTS.md js/AGENTS.md`.
 
-The design from before the switch is `archive/experiment-design.md`. It was exported from a Claude document; the original is https://claude.ai/artifact/5cvSGJp8F3pThZJHPbLJ6n.
+The design from before the switch is `archive/experiment-design.md`. It was exported from a Claude document.
 The design of the controlled experiment is `experiment-design.md`.
 
 ## Usage
