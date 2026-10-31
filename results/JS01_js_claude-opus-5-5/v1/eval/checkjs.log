@@ -1,0 +1,452 @@
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(10,15): error TS7006: Parameter 'message' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(10,24): error TS7006: Parameter 'usage' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(18,30): error TS7006: Parameter 'argv' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(18,36): error TS7006: Parameter 'specs' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(18,43): error TS7006: Parameter 'usage' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(21,16): error TS7006: Parameter 'spec' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(21,22): error TS7006: Parameter 'value' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(22,23): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(23,10): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(33,32): error TS7006: Parameter 's' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(46,34): error TS7006: Parameter 's' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(64,20): error TS7006: Parameter 'text' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/options.js(64,26): error TS7006: Parameter 'separator' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/quote.js(7,22): error TS7006: Parameter 'byte' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/quote.js(11,27): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/quote.js(16,9): error TS7053: Element implicitly has an 'any' type because expression of type 'number' can't be used to index type '{ 7: string; 8: string; 9: string; 10: string; 11: string; 12: string; 13: string; 34: string; 92: string; }'.
+  No index signature with a parameter of type 'number' was found on type '{ 7: string; 8: string; 9: string; 10: string; 11: string; 12: string; 13: string; 34: string; 92: string; }'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/quote.js(16,34): error TS7053: Element implicitly has an 'any' type because expression of type 'number' can't be used to index type '{ 7: string; 8: string; 9: string; 10: string; 11: string; 12: string; 13: string; 34: string; 92: string; }'.
+  No index signature with a parameter of type 'number' was found on type '{ 7: string; 8: string; 9: string; 10: string; 11: string; 12: string; 13: string; 34: string; 92: string; }'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/report.js(8,29): error TS7006: Parameter 'error' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/cli/report.js(8,36): error TS7006: Parameter 'stderr' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/add.js(15,20): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/add.js(15,26): error TS7006: Parameter 'index' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/add.js(15,33): error TS7006: Parameter 'ignore' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/add.js(15,41): error TS7006: Parameter 'pathspec' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/add.js(23,14): error TS7006: Parameter 'argv' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/add.js(23,22): error TS7031: Binding element 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/add.js(23,27): error TS7031: Binding element 'stderr' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/add.js(26,37): error TS2339: Property 'all' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(13,15): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(13,21): error TS7006: Parameter 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(20,17): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(20,23): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(20,29): error TS7006: Parameter 'startPoint' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(34,17): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(34,23): error TS7006: Parameter 'names' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(34,32): error TS7031: Binding element 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(34,40): error TS7031: Binding element 'stderr' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(37,17): error TS7006: Parameter 'message' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(62,14): error TS7006: Parameter 'argv' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(62,20): error TS7006: Parameter 'context' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/branch.js(65,15): error TS2339: Property 'delete' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/cat-file.js(18,20): error TS7006: Parameter 'mode' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/cat-file.js(24,21): error TS7006: Parameter 'content' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/cat-file.js(30,14): error TS7006: Parameter 'argv' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/cat-file.js(30,22): error TS7031: Binding element 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/cat-file.js(30,27): error TS7031: Binding element 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/cat-file.js(33,39): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/cat-file.js(40,15): error TS2339: Property 'type' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/cat-file.js(41,20): error TS2339: Property 'size' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(21,25): error TS7006: Parameter 'text' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(23,44): error TS7006: Parameter 'l' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(31,14): error TS7006: Parameter 'argv' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(31,22): error TS7031: Binding element 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(31,27): error TS7031: Binding element 'env' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(31,32): error TS7031: Binding element 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(31,40): error TS7031: Binding element 'stderr' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(35,15): error TS2339: Property 'all' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(42,16): error TS2339: Property 'all' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(44,33): error TS2531: Object is possibly 'null'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(49,43): error TS2339: Property 'message' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/commit.js(66,15): error TS2339: Property 'all' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/hash-object.js(11,19): error TS7006: Parameter 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/hash-object.js(11,24): error TS7006: Parameter 'file' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/hash-object.js(15,9): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/hash-object.js(16,9): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/hash-object.js(21,14): error TS7006: Parameter 'argv' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/hash-object.js(21,22): error TS7031: Binding element 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/hash-object.js(21,27): error TS7031: Binding element 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/hash-object.js(24,24): error TS2339: Property 'write' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(24,25): error TS7006: Parameter 'dir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(24,30): error TS7006: Parameter 'shownName' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(28,9): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(28,32): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(33,14): error TS7006: Parameter 'argv' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(33,22): error TS7031: Binding element 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(33,27): error TS7031: Binding element 'env' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(33,32): error TS7031: Binding element 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(33,40): error TS7031: Binding element 'stderr' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(45,17): error TS2339: Property 'initialBranch' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(45,113): error TS2339: Property 'initialBranch' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(47,28): error TS2339: Property 'initialBranch' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/init.js(53,16): error TS2339: Property 'quiet' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(14,20): error TS7006: Parameter 'args' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(16,21): error TS7006: Parameter 'text' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(33,23): error TS7031: Binding element 'timestamp' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(33,34): error TS7031: Binding element 'timezone' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(42,20): error TS7006: Parameter 'char' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(51,21): error TS7006: Parameter 'line' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(67,23): error TS7006: Parameter 'message' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(68,42): error TS7006: Parameter 'line' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(75,18): error TS7006: Parameter 'message' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(81,23): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(81,31): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(81,36): error TS7006: Parameter 'commit' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(83,50): error TS7006: Parameter 'line' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(84,75): error TS7006: Parameter 'p' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(88,14): error TS7006: Parameter 'args' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(88,22): error TS7031: Binding element 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/log.js(88,27): error TS7031: Binding element 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/ls-files.js(11,14): error TS7006: Parameter 'argv' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/ls-files.js(11,22): error TS7031: Binding element 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/ls-files.js(11,27): error TS7031: Binding element 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/ls-files.js(18,17): error TS2339: Property 'stage' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/rev-parse.js(10,14): error TS7006: Parameter 'args' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/rev-parse.js(10,22): error TS7031: Binding element 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/rev-parse.js(10,27): error TS7031: Binding element 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/rev-parse.js(12,23): error TS7006: Parameter 'arg' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/status.js(19,21): error TS7006: Parameter 'from' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/status.js(19,27): error TS7006: Parameter 'to' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/status.js(27,20): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/status.js(29,36): error TS2531: Object is possibly 'null'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/status.js(32,14): error TS7006: Parameter 'argv' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/status.js(32,22): error TS7031: Binding element 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/status.js(32,27): error TS7031: Binding element 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/status.js(35,16): error TS2339: Property 'porcelain' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/status.js(45,18): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(29,15): error TS7006: Parameter 'a' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(29,18): error TS7006: Parameter 'b' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(34,22): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(34,30): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(35,36): error TS2531: Object is possibly 'null'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(42,22): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(42,28): error TS7006: Parameter 'index' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(42,35): error TS7006: Parameter 'oldOid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(42,43): error TS7006: Parameter 'newOid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(47,19): error TS7006: Parameter 'kind' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(47,25): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(47,35): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(52,21): error TS7006: Parameter 'entry' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(56,26): error TS7006: Parameter 'entry' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(61,19): error TS7006: Parameter 'entry' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(93,24): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(93,30): error TS7006: Parameter 'stat' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(93,36): error TS7006: Parameter 'kind' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(96,54): error TS7006: Parameter 'e' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(131,25): error TS7006: Parameter 'problems' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(131,35): error TS7006: Parameter 'stderr' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(140,27): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(140,33): error TS7006: Parameter 'index' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(140,40): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(140,45): error TS7006: Parameter 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(155,14): error TS7006: Parameter 'argv' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(155,22): error TS7031: Binding element 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(155,27): error TS7031: Binding element 'stdout' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(155,35): error TS7031: Binding element 'stderr' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/commands/switch.js(159,29): error TS2339: Property 'create' does not exist on type '{}'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(19,19): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(24,24): error TS7006: Parameter 'a' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(24,27): error TS7006: Parameter 'b' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(30,21): error TS7006: Parameter 'data' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(56,15): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(56,25): error TS7031: Binding element 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(56,31): error TS7031: Binding element 'mode' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(56,37): error TS7031: Binding element 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(61,10): error TS2339: Property 'data' does not exist on type 'Candidate'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(61,19): error TS2531: Object is possibly 'null'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(61,35): error TS2339: Property 'gitDir' does not exist on type 'Candidate'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(61,48): error TS2339: Property 'oid' does not exist on type 'Candidate'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(62,17): error TS2339: Property 'data' does not exist on type 'Candidate'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(66,10): error TS2339: Property 'spanData' does not exist on type 'Candidate'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(67,17): error TS2339: Property 'spanData' does not exist on type 'Candidate'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(73,21): error TS7006: Parameter 'source' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(73,29): error TS7006: Parameter 'destination' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(73,42): error TS7006: Parameter 'minimumScore' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(85,23): error TS7006: Parameter 'source' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(85,31): error TS7006: Parameter 'destination' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(90,31): error TS7006: Parameter 'sources' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(90,40): error TS7006: Parameter 'destinations' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(112,26): error TS7006: Parameter 'candidates' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(121,30): error TS7006: Parameter 'sources' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(121,39): error TS7006: Parameter 'destinations' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(123,67): error TS7006: Parameter 'd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(134,23): error TS7006: Parameter 'a' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(134,26): error TS7006: Parameter 'b' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(142,25): error TS7006: Parameter 'slots' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(142,32): error TS7006: Parameter 'pair' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(150,29): error TS7006: Parameter 'sources' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(150,38): error TS7006: Parameter 'destinations' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(152,50): error TS7006: Parameter 'd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(161,16): error TS2339: Property 'source' does not exist on type '{ destination: null; }'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(161,37): error TS2339: Property 'score' does not exist on type '{ destination: null; }'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(163,21): error TS2339: Property 'source' does not exist on type 'never'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(170,31): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(170,39): error TS7006: Parameter 'deleted' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(170,48): error TS7006: Parameter 'added' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(171,35): error TS7006: Parameter 'file' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(172,30): error TS7006: Parameter 'file' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(174,29): error TS7006: Parameter 'source' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(176,29): error TS7006: Parameter 'source' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(178,39): error TS7006: Parameter 'd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/diff/renames.js(178,60): error TS7006: Parameter 'd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/errors.js(4,15): error TS7006: Parameter 'message' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/history/walk.js(7,30): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/history/walk.js(7,38): error TS7006: Parameter 'starts' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/history/walk.js(8,9): error TS7034: Variable 'queue' implicitly has type 'any[]' in some locations where its type cannot be determined.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/history/walk.js(11,16): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/history/walk.js(22,17): error TS7005: Variable 'queue' implicitly has an 'any[]' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/history/walk.js(23,17): error TS7005: Variable 'queue' implicitly has an 'any[]' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/history/walk.js(26,20): error TS7005: Variable 'queue' implicitly has an 'any[]' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/history/walk.js(33,28): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/history/walk.js(33,36): error TS7006: Parameter 'ancestor' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/history/walk.js(33,46): error TS7006: Parameter 'descendant' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(10,26): error TS7006: Parameter 'a' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(10,29): error TS7006: Parameter 'b' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(20,33): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(20,41): error TS7006: Parameter 'entries' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(21,19): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(21,25): error TS7006: Parameter 'dirEntries' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(21,37): error TS7006: Parameter 'prefixLength' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(21,51): error TS7006: Parameter 'old' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(39,100): error TS7006: Parameter 's' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(40,26): error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(48,9): error TS2322: Type 'string' is not assignable to type 'null'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(51,40): error TS2322: Type 'string' is not assignable to type 'null'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(61,41): error TS7006: Parameter 'root' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(61,47): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(67,45): error TS7006: Parameter 'subtree' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(70,32): error TS7006: Parameter 'subtree' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(76,32): error TS7006: Parameter 'data' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(88,63): error TS2345: Argument of type '{ name: any; entryCount: any; oid: null; subtrees: never[]; }' is not assignable to parameter of type 'never'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(94,36): error TS7006: Parameter 'root' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(95,9): error TS7034: Variable 'parts' implicitly has type 'any[]' in some locations where its type cannot be determined.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(96,18): error TS7006: Parameter 'node' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/cache-tree.js(102,24): error TS7005: Variable 'parts' implicitly has an 'any[]' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(22,26): error TS7006: Parameter 'stat' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(23,18): error TS7006: Parameter 'n' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(37,32): error TS7006: Parameter 'a' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(37,35): error TS7006: Parameter 'b' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(41,28): error TS7006: Parameter 'data' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(73,32): error TS7006: Parameter 'entries' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(73,41): error TS7006: Parameter 'extensions' implicitly has an 'any[]' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(101,20): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(106,27): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(111,9): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(117,28): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(117,36): error TS7006: Parameter 'entries' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index-file.js(117,45): error TS7006: Parameter 'extensions' implicitly has an 'any[]' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index.js(9,15): error TS7006: Parameter 'entries' implicitly has an 'any[]' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index.js(14,5): error TS7008: Member 'cacheTree' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index.js(17,15): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index.js(20,31): error TS2345: Argument of type '{ name: any; entryCount: any; oid: null; subtrees: never[]; } | null' is not assignable to parameter of type 'null | undefined'.
+  Type '{ name: any; entryCount: any; oid: null; subtrees: never[]; }' is not assignable to type 'null | undefined'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index.js(23,9): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index.js(32,7): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index.js(36,7): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index.js(42,7): error TS7006: Parameter 'entry' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index.js(60,10): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index.js(67,23): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/index.js(77,20): error TS7006: Parameter 'dir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/stage.js(6,37): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/index/stage.js(6,43): error TS7006: Parameter 'index' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/commit.js(4,29): error TS7006: Parameter 'content' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/commit.js(14,52): error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/commit.js(21,35): error TS7031: Binding element 'tree' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/commit.js(21,41): error TS7031: Binding element 'parents' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/commit.js(21,50): error TS7031: Binding element 'author' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/commit.js(21,58): error TS7031: Binding element 'committer' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/commit.js(21,69): error TS7031: Binding element 'message' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/commit.js(22,50): error TS7006: Parameter 'p' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/commit.js(27,28): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/commit.js(27,36): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/identity.js(4,31): error TS7006: Parameter 'line' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/identity.js(10,24): error TS7006: Parameter 'date' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/identity.js(17,20): error TS7006: Parameter 'text' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/identity.js(17,26): error TS7006: Parameter 'variable' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/identity.js(28,33): error TS7006: Parameter 'kind' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/identity.js(28,39): error TS7006: Parameter 'env' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/modes.js(9,28): error TS7006: Parameter 'mode' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/modes.js(14,26): error TS7006: Parameter 'a' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/modes.js(14,29): error TS7006: Parameter 'b' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/modes.js(19,30): error TS7006: Parameter 'stat' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/modes.js(25,31): error TS7006: Parameter 'mode' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(14,27): error TS7006: Parameter 'text' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(18,16): error TS7006: Parameter 'type' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(18,22): error TS7006: Parameter 'content' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(22,28): error TS7006: Parameter 'type' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(22,34): error TS7006: Parameter 'content' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(26,21): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(26,29): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(30,30): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(30,38): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(35,29): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(35,37): error TS7006: Parameter 'type' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(35,43): error TS7006: Parameter 'content' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(48,28): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(48,36): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(53,9): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(67,37): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(67,45): error TS7006: Parameter 'prefix' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(72,9): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(72,32): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(83,28): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/store.js(83,36): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/tree.js(7,27): error TS7006: Parameter 'content' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/tree.js(23,22): error TS7006: Parameter 'entry' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/tree.js(27,31): error TS7006: Parameter 'entries' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/tree.js(34,26): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/tree.js(34,34): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/tree.js(41,29): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/objects/tree.js(41,37): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/paths.js(4,30): error TS7006: Parameter 'a' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/paths.js(4,33): error TS7006: Parameter 'b' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/paths.js(8,26): error TS7006: Parameter 'dir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/paths.js(8,31): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/paths.js(12,26): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/paths.js(12,32): error TS7006: Parameter 'dir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/paths.js(17,36): error TS7006: Parameter 'path' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/paths.js(19,34): error TS7006: Parameter '_' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/paths.js(19,37): error TS7006: Parameter 'i' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refname.js(2,32): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refname.js(7,33): error TS7006: Parameter 'part' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refname.js(10,35): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(13,18): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(13,26): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(17,22): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(17,30): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(23,9): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(23,32): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(30,28): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(30,36): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(42,26): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(51,28): error TS7006: Parameter 'refName' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(55,26): error TS7006: Parameter 'file' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(55,32): error TS7006: Parameter 'content' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(62,10): error TS7023: 'firstRefInside' implicitly has return type 'any' because it does not have a return type annotation and is referenced directly or indirectly in one of its return expressions.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(62,25): error TS7006: Parameter 'dir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(62,30): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(67,13): error TS7022: 'found' implicitly has type 'any' because it does not have a type annotation and is referenced directly or indirectly in its own initializer.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(75,29): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(75,37): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(76,21): error TS7006: Parameter 'existing' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(89,27): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(89,35): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(89,41): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(95,27): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(95,35): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(105,32): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(105,40): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(105,46): error TS7006: Parameter 'target' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(110,30): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(111,9): error TS7034: Variable 'branches' implicitly has type 'any[]' in some locations where its type cannot be determined.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(112,17): error TS7006: Parameter 'dir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(112,22): error TS7006: Parameter 'prefix' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(117,11): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/refs/refs.js(130,10): error TS7005: Variable 'branches' implicitly has an 'any[]' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(8,21): error TS7006: Parameter 'text' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(8,27): error TS7006: Parameter 'pos' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(31,27): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ n: string; t: string; b: string; '"': string; "\\": string; }'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(45,29): error TS7006: Parameter 'text' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(87,32): error TS7006: Parameter 'file' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(91,9): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(97,28): error TS7006: Parameter 'env' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(102,29): error TS7006: Parameter 'entries' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(102,38): error TS7006: Parameter 'key' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(106,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(111,32): error TS7006: Parameter 'file' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(111,38): error TS7006: Parameter 'section' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(111,47): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/config.js(111,53): error TS7006: Parameter 'value' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/repository.js(8,19): error TS7006: Parameter 'dir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/repository.js(20,18): error TS7006: Parameter 'p' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/repository.js(25,32): error TS7006: Parameter 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/repository.js(33,35): error TS7006: Parameter 'cwd' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/repository.js(40,28): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/repository.js(40,34): error TS7006: Parameter 'arg' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/repository.js(49,27): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/repository.js(49,33): error TS7006: Parameter 'repoPath' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/repository.js(53,30): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/repo/repository.js(53,36): error TS7006: Parameter 'repoPath' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(8,4): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(9,4): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(10,4): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(11,4): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(12,4): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(13,4): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(17,26): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(21,22): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(21,30): error TS7006: Parameter 'name' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(37,17): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(37,25): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(37,30): error TS7006: Parameter 'n' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(47,33): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(47,41): error TS7006: Parameter 'spec' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(61,31): error TS7006: Parameter 'gitDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/revisions/resolve.js(61,39): error TS7006: Parameter 'spec' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(9,29): error TS7006: Parameter 'file' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(13,9): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(13,32): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(20,34): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(20,40): error TS7006: Parameter 'repoPath' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(30,34): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(30,40): error TS7006: Parameter 'repoPath' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(36,35): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(36,41): error TS7006: Parameter 'repoPath' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(44,33): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(44,39): error TS7006: Parameter 'entry' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(50,20): error TS7006: Parameter 'file' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(57,30): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(57,36): error TS7006: Parameter 'repoPath' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(57,46): error TS7006: Parameter 'mode' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(57,52): error TS7006: Parameter 'oid' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(75,36): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/files.js(75,42): error TS7006: Parameter 'repoPath' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(9,29): error TS7006: Parameter 'line' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(20,30): error TS7006: Parameter 'line' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(39,33): error TS7006: Parameter 'content' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(43,11): error TS7006: Parameter 'line' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(47,18): error TS7006: Parameter 'pattern' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(47,27): error TS7006: Parameter 'repoPath' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(47,37): error TS7006: Parameter 'isDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(54,15): error TS7006: Parameter 'patterns' implicitly has an 'any[]' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(58,15): error TS7006: Parameter 'workTree' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(63,11): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(63,34): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(63,58): error TS18046: 'e' is of type 'unknown'.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(70,17): error TS7006: Parameter 'repoPath' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(70,27): error TS7006: Parameter 'isDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(79,17): error TS7006: Parameter 'repoPath' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(80,47): error TS7006: Parameter 'dir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(83,13): error TS7006: Parameter 'repoPath' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/ignore.js(83,23): error TS7006: Parameter 'isDir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(5,24): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(5,30): error TS7006: Parameter 'dir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(10,21): error TS7006: Parameter 'entry' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(15,10): error TS7023: 'hasUntrackedFile' implicitly has return type 'any' because it does not have a return type annotation and is referenced directly or indirectly in one of its return expressions.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(15,27): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(15,33): error TS7006: Parameter 'index' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(15,40): error TS7006: Parameter 'ignore' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(15,48): error TS7006: Parameter 'dir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(16,40): error TS7024: Function implicitly has return type 'any' because it does not have a return type annotation and is referenced directly or indirectly in one of its return expressions.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(26,31): error TS7006: Parameter 'repo' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(26,37): error TS7006: Parameter 'index' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(26,44): error TS7006: Parameter 'ignore' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(27,9): error TS7034: Variable 'result' implicitly has type 'any[]' in some locations where its type cannot be determined.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(28,18): error TS7006: Parameter 'dir' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/untracked.js(44,10): error TS7005: Variable 'result' implicitly has an 'any[]' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(17,24): error TS7006: Parameter 'c' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(22,21): error TS7006: Parameter 'p' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(22,24): error TS7006: Parameter 'pi' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(22,28): error TS7006: Parameter 't' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(54,10): error TS7023: 'dowild' implicitly has return type 'any' because it does not have a return type annotation and is referenced directly or indirectly in one of its return expressions.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(54,17): error TS7006: Parameter 'p' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(54,20): error TS7006: Parameter 'pi' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(54,24): error TS7006: Parameter 't' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(54,27): error TS7006: Parameter 'ti' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(54,31): error TS7006: Parameter 'pathname' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(101,17): error TS7022: 'result' implicitly has type 'any' because it does not have a type annotation and is referenced directly or indirectly in its own initializer.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(126,27): error TS7006: Parameter 'pattern' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/core/worktree/wildmatch.js(126,36): error TS7006: Parameter 'text' implicitly has an 'any' type.
+results/JS01_js_claude-opus-5-5/v1/eval/tgit/src/main.js(8,15): error TS7006: Parameter 'argv' implicitly has an 'any' type.

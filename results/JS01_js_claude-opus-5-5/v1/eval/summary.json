@@ -1,0 +1,37 @@
+{
+  "dir": "results/JS01_js_claude-opus-5-5/v1",
+  "lang": "js",
+  "version": "v1",
+  "hidden": {
+    "passed": 82,
+    "total": 82,
+    "retried": 0
+  },
+  "public": {
+    "passed": 16,
+    "total": 16,
+    "retried": 0
+  },
+  "random": {
+    "passed": 2000,
+    "total": 2000,
+    "retried": 0,
+    "failures_by_command": {}
+  },
+  "size": {
+    "implementation": {
+      "files": 39,
+      "lines": 2071
+    },
+    "tests": {
+      "files": 10,
+      "lines": 256
+    },
+    "scenarios_written": 57
+  },
+  "audit": {
+    "violations": 0,
+    "extra_dependencies": []
+  },
+  "checkjs_errors": 448
+}

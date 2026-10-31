@@ -1,0 +1,13 @@
+{
+  "lang": "js",
+  "bash_commands": 172,
+  "violations": [],
+  "package_json": {
+    "dependencies": [],
+    "devDependencies": [
+      "@eslint/js",
+      "eslint"
+    ],
+    "extra": []
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "tsc",
+    "--allowJs",
+    "--checkJs",
+    "--noEmit",
+    "--skipLibCheck",
+    "--module",
+    "nodenext",
+    "--target",
+    "es2024",
+    "--typeRoots",
+    "/usr/local/lib/node_modules/@types",
+    "--types",
+    "node",
+    "<src files>"
+  ],
+  "files": 38,
+  "errors": 448
+}

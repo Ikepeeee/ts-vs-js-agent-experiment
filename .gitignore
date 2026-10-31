@@ -1,3 +1,7 @@
 .env
 .lask/
 playground/
+
+# Large per-run files: the starting state (home and npm cache) and the evaluation copy with node_modules
+results/*/v*/start.tar
+results/*/v*/eval/tgit/

@@ -1,0 +1,11 @@
+{
+  "implementation": {
+    "files": 39,
+    "lines": 2071
+  },
+  "tests": {
+    "files": 10,
+    "lines": 256
+  },
+  "scenarios_written": 57
+}

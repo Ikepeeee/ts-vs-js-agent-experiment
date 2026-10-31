@@ -1,0 +1,16 @@
+{
+  "lang": "ts",
+  "bash_commands": 207,
+  "violations": [],
+  "package_json": {
+    "dependencies": [],
+    "devDependencies": [
+      "@eslint/js",
+      "@types/node",
+      "eslint",
+      "typescript",
+      "typescript-eslint"
+    ],
+    "extra": []
+  }
+}

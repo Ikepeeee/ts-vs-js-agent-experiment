@@ -1,0 +1,412 @@
+[
+  {
+    "name": "v1-02-dispatch-01: unknown command fails",
+    "file": "tests/hidden/v1/v1-02-dispatch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-02-dispatch-02: status outside a repository fails",
+    "file": "tests/hidden/v1/v1-02-dispatch-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-02-dispatch-03: repository is found from a nested subdirectory",
+    "file": "tests/hidden/v1/v1-02-dispatch-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-02-dispatch-04: hash-object works outside a repository",
+    "file": "tests/hidden/v1/v1-02-dispatch-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-01: init with a directory argument",
+    "file": "tests/hidden/v1/v1-03-init-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-02: init -q prints nothing",
+    "file": "tests/hidden/v1/v1-03-init-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-03: init creates nested missing directories",
+    "file": "tests/hidden/v1/v1-03-init-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-04: init -b sets the initial branch",
+    "file": "tests/hidden/v1/v1-03-init-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-05: init --initial-branch= form",
+    "file": "tests/hidden/v1/v1-03-init-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-06: reinitializing an existing repository",
+    "file": "tests/hidden/v1/v1-03-init-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-07: real git can add and commit in a tgit-created repository",
+    "file": "tests/hidden/v1/v1-03-init-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-03-init-08: reinitializing with -b on a repository that has commits",
+    "file": "tests/hidden/v1/v1-03-init-08.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-01: hash-object of an empty file",
+    "file": "tests/hidden/v1/v1-04-objects-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-02: hash-object of binary content",
+    "file": "tests/hidden/v1/v1-04-objects-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-03: hash-object -w with several files",
+    "file": "tests/hidden/v1/v1-04-objects-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-04: cat-file -p of a commit",
+    "file": "tests/hidden/v1/v1-04-objects-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-05: cat-file -p of a tree with modes",
+    "file": "tests/hidden/v1/v1-04-objects-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-06: cat-file -s of a blob and a commit",
+    "file": "tests/hidden/v1/v1-04-objects-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-07: cat-file with revisions",
+    "file": "tests/hidden/v1/v1-04-objects-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-08: trees written by tgit use git's entry order",
+    "file": "tests/hidden/v1/v1-04-objects-08.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-09: trees written by tgit use git's modes",
+    "file": "tests/hidden/v1/v1-04-objects-09.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-10: cat-file with an abbreviated object ID",
+    "file": "tests/hidden/v1/v1-04-objects-10.json",
+    "ok": true
+  },
+  {
+    "name": "v1-04-objects-11: cat-file with an invalid object name fails",
+    "file": "tests/hidden/v1/v1-04-objects-11.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-01: add .",
+    "file": "tests/hidden/v1/v1-05-add-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-02: add a directory",
+    "file": "tests/hidden/v1/v1-05-add-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-03: add -A stages new, modified, and deleted files",
+    "file": "tests/hidden/v1/v1-05-add-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-04: adding an ignored path fails",
+    "file": "tests/hidden/v1/v1-05-add-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-05: adding a missing path fails",
+    "file": "tests/hidden/v1/v1-05-add-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-06: a file replaced by a directory",
+    "file": "tests/hidden/v1/v1-05-add-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-07: a directory replaced by a file",
+    "file": "tests/hidden/v1/v1-05-add-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-08: paths with spaces, non-ASCII characters, and a leading dash",
+    "file": "tests/hidden/v1/v1-05-add-08.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-09: add . from a subdirectory adds only that subdirectory",
+    "file": "tests/hidden/v1/v1-05-add-09.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-add-10: add an executable file and a symlink",
+    "file": "tests/hidden/v1/v1-05-add-10.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ignore-01: comments and blank lines",
+    "file": "tests/hidden/v1/v1-05-ignore-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ignore-02: a wildcard matches in subdirectories",
+    "file": "tests/hidden/v1/v1-05-ignore-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ignore-03: a directory pattern",
+    "file": "tests/hidden/v1/v1-05-ignore-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ignore-04: a directory pattern does not match a file",
+    "file": "tests/hidden/v1/v1-05-ignore-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ls-files-01: ls-files -s shows modes and stages",
+    "file": "tests/hidden/v1/v1-05-ls-files-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ls-files-02: ls-files from a subdirectory",
+    "file": "tests/hidden/v1/v1-05-ls-files-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-ls-files-03: ls-files quotes special paths",
+    "file": "tests/hidden/v1/v1-05-ls-files-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-01: untracked directories are shown as dir/",
+    "file": "tests/hidden/v1/v1-05-status-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-02: staged addition, modification, and deletion",
+    "file": "tests/hidden/v1/v1-05-status-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-03: unstaged modification and deletion",
+    "file": "tests/hidden/v1/v1-05-status-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-04: a file staged and then modified again",
+    "file": "tests/hidden/v1/v1-05-status-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-05: ignored files are not shown",
+    "file": "tests/hidden/v1/v1-05-status-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-06: a repository with no commits yet",
+    "file": "tests/hidden/v1/v1-05-status-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-07: status --porcelain from a subdirectory",
+    "file": "tests/hidden/v1/v1-05-status-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-08: status quotes special paths",
+    "file": "tests/hidden/v1/v1-05-status-08.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-09: a staged deletion with the file recreated",
+    "file": "tests/hidden/v1/v1-05-status-09.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-10: a mode change only",
+    "file": "tests/hidden/v1/v1-05-status-10.json",
+    "ok": true
+  },
+  {
+    "name": "v1-05-status-11: a clean working tree",
+    "file": "tests/hidden/v1/v1-05-status-11.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-01: branch -d of a merged branch",
+    "file": "tests/hidden/v1/v1-06-branch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-02: create a branch at a given commit",
+    "file": "tests/hidden/v1/v1-06-branch-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-03: -d of an unmerged branch fails",
+    "file": "tests/hidden/v1/v1-06-branch-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-04: creating an existing branch fails",
+    "file": "tests/hidden/v1/v1-06-branch-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-05: listing while on another branch",
+    "file": "tests/hidden/v1/v1-06-branch-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-branch-06: creating a branch on an unborn branch fails",
+    "file": "tests/hidden/v1/v1-06-branch-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-01: commit -a",
+    "file": "tests/hidden/v1/v1-06-commit-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-02: repeated -m become paragraphs",
+    "file": "tests/hidden/v1/v1-06-commit-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-03: commit -a stages deletions but not untracked files",
+    "file": "tests/hidden/v1/v1-06-commit-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-04: nothing to commit fails",
+    "file": "tests/hidden/v1/v1-06-commit-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-05: a root commit with nested directories",
+    "file": "tests/hidden/v1/v1-06-commit-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-06: commit from a subdirectory",
+    "file": "tests/hidden/v1/v1-06-commit-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-commit-07: a commit that removes every file",
+    "file": "tests/hidden/v1/v1-06-commit-07.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-01: -n limits the number of commits",
+    "file": "tests/hidden/v1/v1-06-log-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-02: log on an unborn branch",
+    "file": "tests/hidden/v1/v1-06-log-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-03: a multi-paragraph message",
+    "file": "tests/hidden/v1/v1-06-log-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-04: dates and names from different authors",
+    "file": "tests/hidden/v1/v1-06-log-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-05: log from a subdirectory",
+    "file": "tests/hidden/v1/v1-06-log-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-log-06: log on another branch shows only its history",
+    "file": "tests/hidden/v1/v1-06-log-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-01: ref names",
+    "file": "tests/hidden/v1/v1-06-rev-parse-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-02: abbreviated object IDs",
+    "file": "tests/hidden/v1/v1-06-rev-parse-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-03: ~n, ^, and combinations",
+    "file": "tests/hidden/v1/v1-06-rev-parse-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-04: invalid revisions",
+    "file": "tests/hidden/v1/v1-06-rev-parse-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-rev-parse-05: an unborn HEAD",
+    "file": "tests/hidden/v1/v1-06-rev-parse-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-01: switch -c, commit, and switch back",
+    "file": "tests/hidden/v1/v1-06-switch-01.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-02: non-conflicting local changes are carried over",
+    "file": "tests/hidden/v1/v1-06-switch-02.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-03: conflicting local changes make switching fail",
+    "file": "tests/hidden/v1/v1-06-switch-03.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-04: switching adds and removes files and directories",
+    "file": "tests/hidden/v1/v1-06-switch-04.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-05: switching changes modes and symlinks",
+    "file": "tests/hidden/v1/v1-06-switch-05.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-06: switching to a missing branch fails",
+    "file": "tests/hidden/v1/v1-06-switch-06.json",
+    "ok": true
+  },
+  {
+    "name": "v1-06-switch-07: switch from a subdirectory",
+    "file": "tests/hidden/v1/v1-06-switch-07.json",
+    "ok": true
+  }
+]

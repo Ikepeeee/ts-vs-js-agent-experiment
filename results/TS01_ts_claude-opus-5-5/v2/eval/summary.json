@@ -1,0 +1,39 @@
+{
+  "dir": "results/TS01_ts_claude-opus-5-5/v2",
+  "lang": "ts",
+  "version": "v2",
+  "hidden": {
+    "passed": 117,
+    "total": 117,
+    "retried": 0
+  },
+  "public": {
+    "passed": 24,
+    "total": 24,
+    "retried": 0
+  },
+  "random": {
+    "passed": 1999,
+    "total": 2000,
+    "retried": 0,
+    "failures_by_command": {
+      "switch": 1
+    }
+  },
+  "size": {
+    "implementation": {
+      "files": 60,
+      "lines": 4095
+    },
+    "tests": {
+      "files": 16,
+      "lines": 752
+    },
+    "scenarios_written": 29
+  },
+  "audit": {
+    "violations": 0,
+    "extra_dependencies": []
+  },
+  "checkjs_errors": null
+}

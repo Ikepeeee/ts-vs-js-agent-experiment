@@ -1,0 +1,20 @@
+{
+    "agent": "claude",
+    "agent_settings": {
+        "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
+        "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "1",
+        "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+        "DISABLE_AUTOUPDATER": "1"
+    },
+    "agents_md_sha256": "4d75925b48e9d328b6a597eb9347c3ef2c8b5f1762c18606b92c596ba23fc175",
+    "images": {
+        "copilot": "sha256:e638514a314add86239677d47c7e96cacc5dc711ede9f6bce22ef379fa5a0300",
+        "docker": "29.5.3 linux/arm64",
+        "trial": "sha256:41d2e26d153c709e142546234907dd7d7a76405b0c11d321d56b3c03d1f76e9a"
+    },
+    "lang": "ts",
+    "lask_version": "lask 0.13.0",
+    "model": "claude-opus-5-5",
+    "started": 1793372920,
+    "test_name": "TS01"
+}

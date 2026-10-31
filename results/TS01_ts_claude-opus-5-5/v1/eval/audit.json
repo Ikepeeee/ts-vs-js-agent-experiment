@@ -1,0 +1,24 @@
+{
+  "lang": "ts",
+  "bash_commands": 112,
+  "violations": [
+    {
+      "log": "logs-0/run-1.jsonl",
+      "line": 185,
+      "tool": "Bash",
+      "rule": "npm-fetch",
+      "command": "cd /home/node/tgit && cat .gitignore 2>/dev/null; ls -la; npm view typescript version 2>&1 | tail -2"
+    }
+  ],
+  "package_json": {
+    "dependencies": [],
+    "devDependencies": [
+      "@eslint/js",
+      "@types/node",
+      "eslint",
+      "typescript",
+      "typescript-eslint"
+    ],
+    "extra": []
+  }
+}
